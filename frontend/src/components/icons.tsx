@@ -43,6 +43,13 @@ export const CalendarIcon = (p: IconProps) => (
   </Icon>
 )
 
+export const NotebookIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="5" y="3" width="15" height="18" rx="2" />
+    <path d="M9 3v18M3 7.5h4M3 12h4M3 16.5h4M12.5 8h4.5M12.5 12h4.5" />
+  </Icon>
+)
+
 export const ChecklistIcon = (p: IconProps) => (
   <Icon {...p}>
     <path d="m3.5 6 1.5 1.5L8 4.5M3.5 12.5 5 14l3-3M3.5 19 5 20.5l3-3" />

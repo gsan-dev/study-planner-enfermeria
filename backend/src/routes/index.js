@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getHealth } from '../controllers/health.controller.js';
 import { apiLimiter } from '../middlewares/rateLimiter.js';
+import agendaRoutes from './agenda.routes.js';
 import asignaturasRoutes from './asignaturas.routes.js';
 import authRoutes from './auth.routes.js';
 import examenesRoutes from './examenes.routes.js';
@@ -21,5 +22,6 @@ router.use('/temas', temasRoutes);
 router.use('/horario', horarioRoutes);
 router.use('/examenes', examenesRoutes);
 router.use('/plan-estudio', planRoutes);
+router.use('/agenda', agendaRoutes);
 
 export default router;

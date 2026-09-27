@@ -1,4 +1,18 @@
-import type { Asignatura, DiaPlan, DiaSemana, Examen, Horario, ID, PlanEstudio, Tema, TipoExamen, TipoSesion, User } from './models'
+import type {
+  Asignatura,
+  DiaPlan,
+  DiaSemana,
+  EntradaDiario,
+  Examen,
+  Horario,
+  ID,
+  PlanEstudio,
+  Tarea,
+  Tema,
+  TipoExamen,
+  TipoSesion,
+  User,
+} from './models'
 
 export interface ApiErrorBody {
   error: {
@@ -112,3 +126,20 @@ export interface PlanResumenLista {
 }
 
 export type { Asignatura, Examen, PlanEstudio, Tema, User }
+
+/** Sesión de un plan de estudio vista desde la agenda. */
+export interface SesionAgenda extends DiaPlan {
+  planId: ID
+  examenId: ID
+  tema: string
+  asignatura: Pick<Asignatura, '_id' | 'nombre' | 'color'> | null
+}
+
+export interface AgendaResponse {
+  tareas: Tarea[]
+  diario: EntradaDiario[]
+  examenes: ExamenConResumen[]
+  sesiones: SesionAgenda[]
+  /** Tareas sin hacer de días anteriores a `hoy` (solo si se pide). */
+  pendientes: Tarea[]
+}

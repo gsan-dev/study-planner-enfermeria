@@ -178,6 +178,18 @@
 
 ---
 
+## **AGENDA / DIARIO (añadido antes de la fase 5)** ✅
+
+- [x] Página `/agenda`: un día cada vez (flechas, «Volver a hoy») y calendario mensual con marcas (exámenes, estudio, tareas, diario)
+- [x] Tareas y apuntes por día: añadir con hora opcional, marcar hechas, editar tocando el texto, borrar con «Deshacer»
+- [x] Pendientes de días anteriores en el día de hoy, con «Pasar a hoy» (una o todas)
+- [x] Diario del día con ánimo (5 caras), guardado automático al escribir y al cambiar de día
+- [x] Exámenes del día y sesiones del plan de estudio, que se pueden completar desde la agenda
+- [x] Endpoints `GET /agenda`, `/agenda/tareas` (POST/PATCH/DELETE) y `PUT /agenda/diario/:fecha`
+- [x] Agenda en la barra inferior del móvil (Progreso pasa al menú lateral)
+
+---
+
 ## **FASE 5: DASHBOARD & VISUALIZACIÓN**
 
 ### Dashboard Principal

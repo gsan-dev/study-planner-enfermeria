@@ -29,6 +29,8 @@ interface MonthCalendarProps {
   eventos: Map<string, CalendarEvent[]>
   /** Nombre de los eventos para los lectores de pantalla ("examen", "exámenes"). */
   nombreEvento: [singular: string, plural: string]
+  /** Siempre puntos, también en pantallas grandes (para columnas estrechas). */
+  compacto?: boolean
 }
 
 const DIAS_SEMANA = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
@@ -38,7 +40,7 @@ const MAX_CHIPS = 2
  * Calendario mensual (semana de lunes a domingo). En el móvil cada evento es
  * un punto de color; desde md se ve su nombre.
  */
-export function MonthCalendar({ mes, onMesChange, selected, onSelect, eventos, nombreEvento }: MonthCalendarProps) {
+export function MonthCalendar({ mes, onMesChange, selected, onSelect, eventos, nombreEvento, compacto = false }: MonthCalendarProps) {
   const hoy = hoyKey()
   const dias = eachDayOfInterval({
     start: startOfWeek(startOfMonth(mes), { weekStartsOn: 1 }),
@@ -112,7 +114,8 @@ export function MonthCalendar({ mes, onMesChange, selected, onSelect, eventos, n
               aria-label={etiqueta}
               aria-pressed={esSeleccionado}
               className={[
-                'relative flex min-h-12 cursor-pointer flex-col items-center gap-1 p-1 text-left focus-visible:z-10 sm:min-h-16 md:min-h-24 md:items-stretch',
+                'relative flex min-h-12 cursor-pointer flex-col items-center gap-1 p-1 text-left focus-visible:z-10 sm:min-h-16',
+                compacto ? '' : 'md:min-h-24 md:items-stretch',
                 fuera ? 'bg-slate-50 text-slate-400' : 'bg-white text-slate-800',
                 esSeleccionado ? 'outline-2 -outline-offset-2 outline-brand-600' : 'hover:bg-brand-50/50',
               ].join(' ')}
@@ -128,14 +131,14 @@ export function MonthCalendar({ mes, onMesChange, selected, onSelect, eventos, n
 
               {lista.length > 0 && (
                 <>
-                  {/* Móvil: puntos */}
-                  <span className="flex flex-wrap justify-center gap-0.5 md:hidden" aria-hidden="true">
-                    {lista.slice(0, 3).map((e) => (
+                  {/* Móvil (o compacto): puntos */}
+                  <span className={`flex flex-wrap justify-center gap-0.5 ${compacto ? '' : 'md:hidden'}`} aria-hidden="true">
+                    {lista.slice(0, 4).map((e) => (
                       <span key={e.id} className="size-1.5 rounded-full" style={{ backgroundColor: e.color }} />
                     ))}
                   </span>
                   {/* Desde md: nombres */}
-                  <span className="hidden flex-col gap-0.5 md:flex" aria-hidden="true">
+                  <span className={`hidden flex-col gap-0.5 ${compacto ? '' : 'md:flex'}`} aria-hidden="true">
                     {lista.slice(0, MAX_CHIPS).map((e) => (
                       <span
                         key={e.id}

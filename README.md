@@ -101,7 +101,7 @@ backend/src/
   config/        env, logger (pino), database (MongoDB con reintentos)
   controllers/   lógica de cada endpoint
   middlewares/   auth JWT, CORS, rate limiting, logging, errores
-  models/        User, Session, Asignatura, Tema, Examen, PlanEstudio, Progreso
+  models/        User, Session, Asignatura, Tema, Examen, PlanEstudio, Progreso, Tarea, EntradaDiario
   routes/        /api/*
   validators/    esquemas zod de cada petición
   utils/         AppError, jwt, findOwned
@@ -168,6 +168,11 @@ frontend/
 | GET    | `/api/plan-estudio/:examenId` 🔒     | Plan del examen (`{ plan: null }` si no tiene)  |
 | PUT    | `/api/plan-estudio/:id/dia` 🔒       | `{ diaId, completado?, temaId?, horas?, fecha?, tipo?, notas? }` → `{ plan, temaEstudiado }` |
 | DELETE | `/api/plan-estudio/:id` 🔒           | Eliminar plan                                      |
+| GET    | `/api/agenda?desde=&hasta=&hoy=` 🔒  | Rango de días (máx. 62): `{ tareas, diario, examenes, sesiones, pendientes }`; con `hoy`, `pendientes` = tareas sin hacer de días anteriores |
+| POST   | `/api/agenda/tareas` 🔒              | `{ fecha, texto, hora? }`                          |
+| PATCH  | `/api/agenda/tareas/:id` 🔒          | `{ fecha?, texto?, hora? ("" la quita), hecho? }`   |
+| DELETE | `/api/agenda/tareas/:id` 🔒          | Borrar tarea                                       |
+| PUT    | `/api/agenda/diario/:fecha` 🔒       | `{ texto, animo? (1-5) }` → entrada del día (una por día); sin texto ni ánimo se borra |
 
 Los errores siempre tienen la forma
 `{ "error": { "message": "...", "code": "...", "details": {...} } }`

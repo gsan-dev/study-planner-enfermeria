@@ -114,3 +114,24 @@ export interface Progreso extends Timestamps {
   planEstudioId?: ID
   notas?: string
 }
+
+export interface Tarea extends Timestamps {
+  _id: ID
+  userId: ID
+  fecha: ISODate
+  texto: string
+  hora?: string // HH:mm
+  hecho: boolean
+  hechoEn?: ISODate
+}
+
+/** 1 = muy mal … 5 = muy bien */
+export type Animo = 1 | 2 | 3 | 4 | 5
+
+export interface EntradaDiario extends Timestamps {
+  _id: ID
+  userId: ID
+  fecha: ISODate
+  texto: string
+  animo?: Animo
+}

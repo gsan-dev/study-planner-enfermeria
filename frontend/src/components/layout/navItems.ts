@@ -5,6 +5,7 @@ import {
   ChartIcon,
   ChecklistIcon,
   HomeIcon,
+  NotebookIcon,
   SettingsIcon,
   TableIcon,
 } from '../icons'
@@ -22,11 +23,13 @@ export interface NavItem {
 /** Secciones principales: aparecen en sidebar y (salvo excepciones) en la barra inferior del móvil. */
 export const primaryNav: NavItem[] = [
   { to: '/', label: 'Inicio', icon: HomeIcon },
+  { to: '/agenda', label: 'Agenda', icon: NotebookIcon },
   { to: '/asignaturas', label: 'Asignaturas', icon: BookIcon },
   { to: '/horario', label: 'Horario', icon: TableIcon, hideInBottomNav: true },
   { to: '/examenes', label: 'Exámenes', icon: CalendarIcon },
   { to: '/plan', label: 'Plan de estudio', shortLabel: 'Plan', icon: ChecklistIcon },
-  { to: '/progreso', label: 'Progreso', icon: ChartIcon },
+  // En la barra inferior solo caben 5: Progreso queda en el menú lateral.
+  { to: '/progreso', label: 'Progreso', icon: ChartIcon, hideInBottomNav: true },
 ]
 
 /** Secciones secundarias: solo en sidebar y en el menú lateral del móvil. */

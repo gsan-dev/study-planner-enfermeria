@@ -5,6 +5,7 @@ import { RedirectIfAuthenticated, RequireAuth } from './auth/RequireAuth'
 import { AppLayout } from './components/layout/AppLayout'
 import { ServiceWorkerContext } from './hooks/serviceWorkerContext'
 import { useServiceWorker } from './hooks/useServiceWorker'
+import { AgendaPage } from './pages/AgendaPage'
 import { AjustesPage } from './pages/AjustesPage'
 import { AsignaturasPage } from './pages/AsignaturasPage'
 import { DashboardPage } from './pages/DashboardPage'
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <DashboardPage /> },
+      { path: 'agenda', element: <AgendaPage /> },
       { path: 'asignaturas', element: <AsignaturasPage /> },
       { path: 'horario', element: <HorarioPage /> },
       { path: 'examenes', element: <ExamenesPage /> },

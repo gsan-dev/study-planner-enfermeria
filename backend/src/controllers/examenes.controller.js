@@ -46,7 +46,7 @@ async function todosLosTemas(asignaturaId, userId) {
  * Añade a cada examen su asignatura (nombre y color) y cuántos de sus temas
  * están estudiados, para pintar la lista sin más peticiones.
  */
-async function conResumen(userId, examenes) {
+export async function conResumen(userId, examenes) {
   const asignaturaIds = [...new Set(examenes.map((e) => String(e.asignaturaId)))];
   const temaIds = [...new Set(examenes.flatMap((e) => e.temas.map(String)))];
   const [asignaturas, estudiados] = await Promise.all([
