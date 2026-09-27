@@ -1,4 +1,4 @@
-import type { Asignatura, Examen, Horario, ID, Tema, TipoExamen, User } from './models'
+import type { Asignatura, DiaPlan, DiaSemana, Examen, Horario, ID, PlanEstudio, Tema, TipoExamen, TipoSesion, User } from './models'
 
 export interface ApiErrorBody {
   error: {
@@ -63,4 +63,52 @@ export interface ExamenDetalles {
   temario: Tema[]
 }
 
-export type { Asignatura, Examen, Tema, User }
+export interface ParametrosPlan {
+  horasPorDia?: number
+  fechaInicio?: string // YYYY-MM-DD
+  diasDescanso?: DiaSemana[]
+  repaso?: boolean
+  incluirEstudiados?: boolean
+}
+
+export interface ResumenPlan {
+  dias: number
+  diasConEstudio: number
+  horasNecesarias: number
+  horasDisponibles: number
+  horasPlanificadas: number
+  temasEstudio: number
+  temasRepaso: number
+  avisos: string[]
+}
+
+/** Vista previa del generador: aún sin guardar (las sesiones nuevas no tienen _id). */
+export type SesionPreview = Omit<DiaPlan, '_id'> & { _id?: ID }
+export type PlanPreview = Omit<PlanEstudio, '_id' | 'userId' | 'diasPlan' | 'porcentajeCompletado' | 'createdAt' | 'updatedAt'> & {
+  diasPlan: SesionPreview[]
+}
+
+export interface SesionInput {
+  fecha: string // YYYY-MM-DD
+  temaId: ID
+  horas: number
+  tipo: TipoSesion
+  completado?: boolean
+  notas?: string
+}
+
+export interface PlanResumenLista {
+  _id: ID
+  examenId: ID
+  tipo: PlanEstudio['tipo']
+  horasPorDia?: number
+  sesiones: number
+  porcentajeCompletado: number
+  horasTotales: number
+  horasCompletadas: number
+  proximaSesion: string | null
+  sesionesAtrasadas: number
+  updatedAt: string
+}
+
+export type { Asignatura, Examen, PlanEstudio, Tema, User }

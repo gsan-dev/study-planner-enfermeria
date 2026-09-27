@@ -4,6 +4,8 @@ const diaPlanSchema = new mongoose.Schema({
   fecha: { type: Date, required: true },
   temaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Tema', required: true },
   horas: { type: Number, required: true, min: [0.25, 'Mínimo 15 minutos'], max: 16 },
+  // Primera vuelta al tema o repaso final.
+  tipo: { type: String, enum: ['estudio', 'repaso'], default: 'estudio' },
   completado: { type: Boolean, default: false },
   completadoEn: { type: Date },
   notas: { type: String, trim: true, maxlength: 500 },
@@ -21,6 +23,10 @@ const planEstudioSchema = new mongoose.Schema(
     // Parámetros con los que se generó (para poder regenerar).
     horasPorDia: { type: Number, min: 0.5, max: 16 },
     fechaInicio: { type: Date },
+    // 0 = domingo ... 6 = sábado.
+    diasDescanso: { type: [Number], default: [] },
+    repaso: { type: Boolean, default: true },
+    incluirEstudiados: { type: Boolean, default: false },
     diasPlan: { type: [diaPlanSchema], default: [] },
   },
   { timestamps: true },

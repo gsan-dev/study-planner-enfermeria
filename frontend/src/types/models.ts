@@ -75,11 +75,15 @@ export interface Examen extends Timestamps {
   notas?: string
 }
 
+export type TipoSesion = 'estudio' | 'repaso'
+
 export interface DiaPlan {
   _id: ID
   fecha: ISODate
   temaId: ID
   horas: number
+  /** Primera vuelta al tema o repaso final. */
+  tipo: TipoSesion
   completado: boolean
   completadoEn?: ISODate
   notas?: string
@@ -92,6 +96,10 @@ export interface PlanEstudio extends Timestamps {
   tipo: 'automatico' | 'manual'
   horasPorDia?: number
   fechaInicio?: ISODate
+  /** 0 = domingo ... 6 = sábado */
+  diasDescanso: DiaSemana[]
+  repaso: boolean
+  incluirEstudiados: boolean
   diasPlan: DiaPlan[]
   porcentajeCompletado: number
 }

@@ -50,6 +50,7 @@ export const DIFICULTADES: { value: Dificultad; label: string }[] = [
 export const emptyTema = (): TemaFormValues => ({ nombre: '', dificultad: '3', horasEstimadas: '2' })
 
 export function formatHoras(horas: number): string {
-  const texto = Number.isInteger(horas) ? String(horas) : horas.toFixed(1).replace('.', ',')
+  // Hasta 2 decimales: los planes van de 15 en 15 minutos (1,25 h).
+  const texto = String(Math.round(horas * 100) / 100).replace('.', ',')
   return `${texto} h`
 }

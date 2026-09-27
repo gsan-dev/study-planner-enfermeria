@@ -29,6 +29,14 @@ async function temasDeAsignatura(ids, asignaturaId, userId) {
   return temas.map((t) => t._id);
 }
 
+/** Quita del plan de estudio las sesiones de temas que ya no entran en el examen. */
+async function podarPlan(examen) {
+  await PlanEstudio.updateOne(
+    { userId: examen.userId, examenId: examen._id },
+    { $pull: { diasPlan: { temaId: { $nin: examen.temas } } } },
+  );
+}
+
 async function todosLosTemas(asignaturaId, userId) {
   const temas = await Tema.find({ userId, asignaturaId }).sort({ orden: 1, createdAt: 1 }).select('_id');
   return temas.map((t) => t._id);
@@ -143,6 +151,7 @@ export async function updateExamen(req, res) {
   for (const campo of OPCIONALES) examen.set(campo, req.body[campo]);
   examen.set({ asignaturaId: asignatura._id, tipo: req.body.tipo, fecha: req.body.fecha, temas });
   await examen.save();
+  await podarPlan(examen);
 
   const [conDatos] = await conResumen(userId, [examen]);
   res.json({ examen: conDatos });
@@ -154,6 +163,7 @@ export async function setTemasExamen(req, res) {
   const examen = await findOwned(Examen, req.params.id, userId, NOT_FOUND);
   examen.temas = await temasDeAsignatura(req.body.temas, examen.asignaturaId, userId);
   await examen.save();
+  await podarPlan(examen);
 
   const [conDatos] = await conResumen(userId, [examen]);
   res.json({ examen: conDatos });

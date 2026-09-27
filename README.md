@@ -162,6 +162,12 @@ frontend/
 | DELETE | `/api/examenes/:id` 🔒               | Eliminar (con su plan de estudio)                  |
 | GET    | `/api/examenes/:id/detalles` 🔒      | Examen + asignatura + temas que entran + temario completo |
 | POST   | `/api/examenes/:id/temas` 🔒         | `{ temas: [ids] }` → fija qué temas entran     |
+| GET    | `/api/plan-estudio` 🔒                | Resumen de todos los planes (progreso, próxima sesión, atrasadas) |
+| POST   | `/api/plan-estudio/generar-automatico` 🔒 | `{ examenId, horasPorDia?, fechaInicio?, diasDescanso?, repaso?, incluirEstudiados?, guardar? }` → `{ plan, resumen }`; sin `guardar` es solo vista previa |
+| POST   | `/api/plan-estudio/crear-manual` 🔒  | `{ examenId, tipo?, horasPorDia?, fechaInicio?, diasPlan: [{ fecha, temaId, horas, tipo?, completado? }] }`; sustituye el plan del examen |
+| GET    | `/api/plan-estudio/:examenId` 🔒     | Plan del examen (`{ plan: null }` si no tiene)  |
+| PUT    | `/api/plan-estudio/:id/dia` 🔒       | `{ diaId, completado?, temaId?, horas?, fecha?, tipo?, notas? }` → `{ plan, temaEstudiado }` |
+| DELETE | `/api/plan-estudio/:id` 🔒           | Eliminar plan                                      |
 
 Los errores siempre tienen la forma
 `{ "error": { "message": "...", "code": "...", "details": {...} } }`
@@ -199,6 +205,25 @@ en la tabla.
 Son días de calendario: el API recibe `AAAA-MM-DD` y lo guarda a medianoche
 UTC, y el frontend lo trata como texto (`fecha.slice(0, 10)`). Así el día
 no se desplaza por la zona horaria del servidor ni del navegador.
+
+### Generador de planes
+
+`backend/src/services/planGenerator.js` (función pura, sin base de datos):
+
+1. **Días:** desde `fechaInicio` hasta la víspera del examen, sin los días de
+   descanso. La capacidad de cada día es `horasPorDia` menos lo que ya ocupan
+   los planes de otros exámenes.
+2. **Tiempo por tema:** `horasEstimadas × factor de dificultad` (1 → ×0,7,
+   2 → ×0,85, 3 → ×1, 4 → ×1,25, 5 → ×1,5). Con repaso, un 25 % extra que se
+   coloca al final. Los temas estudiados se saltan (o solo se repasan).
+3. **Si no da tiempo** se recorta proporcionalmente (mínimo 15 min por tema)
+   usando toda la capacidad, y se avisa. **Si sobra**, la carga se reparte de
+   forma uniforme en vez de concentrarla al principio.
+4. Se rellenan los días en el orden del temario, en cuartos de hora.
+
+Al regenerar se conservan las sesiones completadas y se descuentan de lo que
+falta. Completar la última sesión de estudio de un tema lo marca como
+estudiado. Quitar un tema del examen lo quita también de su plan.
 
 ### Sesiones
 

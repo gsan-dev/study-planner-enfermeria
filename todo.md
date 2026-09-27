@@ -150,30 +150,31 @@
 
 ---
 
-## **FASE 4: GENERADOR DE PLAN DE ESTUDIO**
+## **FASE 4: GENERADOR DE PLAN DE ESTUDIO** ✅
 
 ### Motor de Recomendaciones
-- [ ] Crear algoritmo que calcule: días hasta examen, horas disponibles, dificultad de temas
-- [ ] Endpoint POST `/plan-estudio/generar-automatico` - genera plan según:
+- [x] Crear algoritmo que calcule: días hasta examen, horas disponibles, dificultad de temas
+- [x] Endpoint POST `/plan-estudio/generar-automatico` - genera plan según:
   - Temas a estudiar
   - Dificultad de cada tema
   - Horas disponibles por día
   - Días hasta examen
-- [ ] Algoritmo: distribuye horas de forma inteligente (temas difíciles más tiempo)
-- [ ] Endpoint GET `/plan-estudio/:examenId` - obtener plan generado
-- [ ] Endpoint PUT `/plan-estudio/:id/dia` - actualizar un día del plan (marcar completado, cambiar tema)
+- [x] Algoritmo: distribuye horas de forma inteligente (temas difíciles más tiempo, repaso final, reparto uniforme, respeta otros planes y días de descanso)
+- [x] Endpoint GET `/plan-estudio/:examenId` - obtener plan generado
+- [x] Endpoint PUT `/plan-estudio/:id/dia` - actualizar un día del plan (marcar completado, cambiar tema)
 
 ### Plan Manual
-- [ ] Endpoint POST `/plan-estudio/crear-manual` - usuario crea su propio plan
-- [ ] Frontend: interfaz tipo "calendario" donde ella puede arrastrar temas a días
-- [ ] Frontend: validar que no hay overlap y que cubra todos los temas
+- [x] Endpoint POST `/plan-estudio/crear-manual` - usuario crea su propio plan
+- [x] Frontend: interfaz tipo "calendario" donde ella puede arrastrar temas a días (en el móvil: tocar tema → tocar día)
+- [x] Frontend: validar que no hay overlap y que cubra todos los temas
 
 ### Frontend - Generador
-- [ ] Página "Crear Plan": elegir examen
-- [ ] Opción A: "Generar automático" (un clic)
-- [ ] Opción B: "Crear manual" (interfaz drag-drop)
-- [ ] Preview del plan generado antes de guardar
-- [ ] Poder regenerar con diferentes parámetros
+- [x] Página "Crear Plan": elegir examen
+- [x] Opción A: "Generar automático" (un clic)
+- [x] Opción B: "Crear manual" (interfaz drag-drop)
+- [x] Preview del plan generado antes de guardar
+- [x] Poder regenerar con diferentes parámetros (conserva lo ya completado)
+- [x] Extra: página Plan con todos los exámenes y su estado; completar sesiones marca el tema como estudiado
 
 ---
 

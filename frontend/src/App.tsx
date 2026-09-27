@@ -13,7 +13,9 @@ import { HorarioPage } from './pages/HorarioPage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { RegisterPage } from './pages/RegisterPage'
-import { PlanPage, ProgresoPage } from './pages/sections'
+import { PlanExamenPage } from './pages/PlanExamenPage'
+import { PlanPage } from './pages/PlanPage'
+import { ProgresoPage } from './pages/sections'
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,7 @@ const router = createBrowserRouter([
       { path: 'horario', element: <HorarioPage /> },
       { path: 'examenes', element: <ExamenesPage /> },
       { path: 'plan', element: <PlanPage /> },
+      { path: 'plan/:examenId', element: <PlanExamenPage /> },
       { path: 'progreso', element: <ProgresoPage /> },
       { path: 'ajustes', element: <AjustesPage /> },
       { path: '*', element: <NotFoundPage /> },

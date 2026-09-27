@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 import { toast } from 'sonner'
 import { cuentaAtras, diaLocal, diasHasta } from '../../lib/fechas'
 import { getErrorMessage } from '../../services/api'
@@ -8,7 +9,7 @@ import { marcarTemaEstudiado } from '../../services/asignaturasService'
 import { getExamenDetalles, setTemasExamen } from '../../services/examenesService'
 import type { ExamenConResumen, ExamenDetalles } from '../../types/api'
 import type { Tema } from '../../types/models'
-import { CheckIcon, PencilIcon, TrashIcon } from '../icons'
+import { CheckIcon, ChecklistIcon, PencilIcon, TrashIcon } from '../icons'
 import { Button } from '../ui/Button'
 import { FormError } from '../ui/FormError'
 import { Modal } from '../ui/Modal'
@@ -219,10 +220,19 @@ function Detalle({ examen, onEdit, onDelete, onChange }: ExamenDetalleModalProps
           <TrashIcon className="size-5" />
           Eliminar
         </Button>
-        <Button variant="secondary" onClick={() => onEdit(examen)}>
-          <PencilIcon className="size-5" />
-          Editar examen
-        </Button>
+        <div className="flex flex-col-reverse gap-2 sm:flex-row">
+          <Button variant="secondary" onClick={() => onEdit(examen)}>
+            <PencilIcon className="size-5" />
+            Editar examen
+          </Button>
+          <Link
+            to={`/plan/${examen._id}`}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+          >
+            <ChecklistIcon className="size-5" />
+            Plan de estudio
+          </Link>
+        </div>
       </div>
     </div>
   )
