@@ -1,0 +1,41 @@
+# SITE_ADDRESS (en el .env de la raíz):
+#   :80                    → solo HTTP (local, o detrás de otro proxy/túnel con HTTPS)
+#   estudio.midominio.com  → HTTPS automático con Let's Encrypt (puertos 80 y 443 abiertos)
+{$SITE_ADDRESS::80} {
+	encode zstd gzip
+
+	log {
+		output stdout
+		format console
+	}
+
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+
+	# API → contenedor backend
+	handle /api/* {
+		reverse_proxy backend:4000
+	}
+
+	# Frontend (SPA): cualquier ruta desconocida devuelve index.html
+	handle {
+		root * /srv
+
+		# Los assets de Vite llevan hash en el nombre: se pueden cachear para siempre.
+		@immutable path /assets/*
+		header @immutable Cache-Control "public, max-age=31536000, immutable"
+
+		# El resto (index.html, service-worker.js, manifest) siempre se revalida
+		# para que las nuevas versiones lleguen enseguida.
+		@mutable not path /assets/*
+		header @mutable Cache-Control "no-cache"
+
+		try_files {path} /index.html
+		file_server
+	}
+}

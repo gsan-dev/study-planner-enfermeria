@@ -1,0 +1,25 @@
+# Dependencias y builds
+node_modules/
+dist/
+dist-ssr/
+coverage/
+
+# Variables de entorno (secretos)
+.env
+.env.*
+!.env.example
+*.local
+
+# Copias de seguridad de la base de datos
+backups/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / SO
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
