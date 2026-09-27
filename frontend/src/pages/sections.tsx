@@ -1,16 +1,7 @@
 import { PlaceholderPage } from '../components/PlaceholderPage'
-import { CalendarIcon, ChartIcon, ChecklistIcon } from '../components/icons'
+import { ChartIcon, ChecklistIcon } from '../components/icons'
 
 // Páginas provisionales; cada una se sustituye por la real en su fase.
-
-export const ExamenesPage = () => (
-  <PlaceholderPage
-    icon={CalendarIcon}
-    title="Tus exámenes"
-    description="Calendario y lista de exámenes, con los temas que entran en cada uno."
-    fase={3}
-  />
-)
 
 export const PlanPage = () => (
   <PlaceholderPage

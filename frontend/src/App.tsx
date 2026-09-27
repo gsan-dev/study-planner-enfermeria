@@ -8,11 +8,12 @@ import { useServiceWorker } from './hooks/useServiceWorker'
 import { AjustesPage } from './pages/AjustesPage'
 import { AsignaturasPage } from './pages/AsignaturasPage'
 import { DashboardPage } from './pages/DashboardPage'
+import { ExamenesPage } from './pages/ExamenesPage'
 import { HorarioPage } from './pages/HorarioPage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { RegisterPage } from './pages/RegisterPage'
-import { ExamenesPage, PlanPage, ProgresoPage } from './pages/sections'
+import { PlanPage, ProgresoPage } from './pages/sections'
 
 const router = createBrowserRouter([
   {

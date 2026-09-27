@@ -4,6 +4,8 @@ import { findOwned } from '../utils/ownership.js';
 
 const NOT_FOUND = 'Asignatura no encontrada';
 
+const OPCIONALES = ['profesor', 'creditos'];
+
 /** Cuenta temas totales/estudiados y horas estimadas por asignatura. */
 async function resumenTemas(userId, asignaturaIds) {
   const rows = await Tema.aggregate([
@@ -62,6 +64,8 @@ export async function createAsignatura(req, res) {
 /** PUT /api/asignaturas/:id */
 export async function updateAsignatura(req, res) {
   const asignatura = await findOwned(Asignatura, req.params.id, req.user.id, NOT_FOUND);
+  // El PUT reemplaza: un opcional que no llega (el formulario lo dejó vacío) se borra.
+  for (const campo of OPCIONALES) asignatura.set(campo, req.body[campo]);
   asignatura.set(req.body);
   await asignatura.save();
   const [conResumen] = await withResumen(req.user.id, [asignatura]);

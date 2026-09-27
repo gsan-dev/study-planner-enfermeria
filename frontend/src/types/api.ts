@@ -1,4 +1,4 @@
-import type { Asignatura, Horario, Tema, User } from './models'
+import type { Asignatura, Examen, Horario, ID, Tema, TipoExamen, User } from './models'
 
 export interface ApiErrorBody {
   error: {
@@ -36,4 +36,31 @@ export interface TemaInput {
   horasEstimadas: number
 }
 
-export type { Asignatura, Tema, User }
+export interface ExamenInput {
+  asignaturaId: ID
+  tipo: TipoExamen
+  titulo?: string
+  fecha: string // YYYY-MM-DD
+  hora?: string
+  peso?: number | null
+  temas?: ID[]
+  aula?: string
+  notas?: string
+}
+
+/** Examen tal como lo devuelve el API: con su asignatura y cuántos temas están estudiados. */
+export interface ExamenConResumen extends Examen {
+  asignatura: Pick<Asignatura, '_id' | 'nombre' | 'color' | 'archivada'> | null
+  resumenTemas: { total: number; estudiados: number }
+}
+
+export interface ExamenDetalles {
+  examen: ExamenConResumen
+  asignatura: Asignatura
+  /** Temas que entran, en el orden del temario. */
+  temas: Tema[]
+  /** Temario completo de la asignatura. */
+  temario: Tema[]
+}
+
+export type { Asignatura, Examen, Tema, User }

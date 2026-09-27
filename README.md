@@ -155,6 +155,13 @@ frontend/
 | PUT    | `/api/horario` 🔒                     | Guarda el horario de la tabla: `{ asignaturas: [{ _id, horarios } \| { nombre, color, horarios }] }` |
 | GET    | `/api/horario/escanear` 🔒            | `{ disponible }`: si el escaneo está configurado   |
 | POST   | `/api/horario/escanear` 🔒            | `{ archivo: { mediaType, data (base64) } }` → clases detectadas (no guarda nada) |
+| GET    | `/api/examenes?estado=&desde=&asignaturaId=` 🔒 | `proximos` (defecto), `pasados` o `todos`; `desde` = hoy del usuario (AAAA-MM-DD). Incluye asignatura y `resumenTemas` |
+| POST   | `/api/examenes` 🔒                   | `{ asignaturaId, fecha (AAAA-MM-DD), tipo?, titulo?, hora?, peso?, aula?, notas?, temas? }`; sin `temas` entran todos los de la asignatura |
+| GET    | `/api/examenes/:id` 🔒               | Obtener uno                                        |
+| PUT    | `/api/examenes/:id` 🔒               | Editar (reemplaza; sin `temas` se conservan, salvo si cambia la asignatura) |
+| DELETE | `/api/examenes/:id` 🔒               | Eliminar (con su plan de estudio)                  |
+| GET    | `/api/examenes/:id/detalles` 🔒      | Examen + asignatura + temas que entran + temario completo |
+| POST   | `/api/examenes/:id/temas` 🔒         | `{ temas: [ids] }` → fija qué temas entran     |
 
 Los errores siempre tienen la forma
 `{ "error": { "message": "...", "code": "...", "details": {...} } }`
@@ -186,6 +193,12 @@ Precisión medida con un horario de prueba de 12 clases (siglas con leyenda,
 celdas de varias horas): imagen nítida 12/12, PDF 11/12, foto inclinada y
 borrosa 10/12. Los fallos son bloques desplazados una fila, fáciles de corregir
 en la tabla.
+
+### Fechas de examen
+
+Son días de calendario: el API recibe `AAAA-MM-DD` y lo guarda a medianoche
+UTC, y el frontend lo trata como texto (`fecha.slice(0, 10)`). Así el día
+no se desplaza por la zona horaria del servidor ni del navegador.
 
 ### Sesiones
 

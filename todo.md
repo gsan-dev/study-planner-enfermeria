@@ -129,22 +129,24 @@
 
 ---
 
-## **FASE 3: GESTIÓN DE EXÁMENES**
+## **FASE 3: GESTIÓN DE EXÁMENES** ✅
 
 ### CRUD Exámenes
-- [ ] Endpoint GET `/examenes` - listar exámenes próximos (ordenados por fecha)
-- [ ] Endpoint POST `/examenes` - crear examen
-- [ ] Endpoint PUT `/examenes/:id` - editar
-- [ ] Endpoint DELETE `/examenes/:id` - eliminar
-- [ ] Endpoint GET `/examenes/:id/detalles` - obtener examen con asignatura y temas asociados
-- [ ] Frontend: página de exámenes (calendario + lista)
-- [ ] Frontend: modal para crear/editar examen
-- [ ] Frontend: mostrar examen con asignatura color-coded
+- [x] Endpoint GET `/examenes` - listar exámenes próximos (ordenados por fecha)
+- [x] Endpoint POST `/examenes` - crear examen
+- [x] Endpoint PUT `/examenes/:id` - editar
+- [x] Endpoint DELETE `/examenes/:id` - eliminar
+- [x] Endpoint GET `/examenes/:id/detalles` - obtener examen con asignatura y temas asociados
+- [x] Frontend: página de exámenes (calendario mensual + lista próximos/pasados, filtro por asignatura; recuerda la vista)
+- [x] Frontend: modal para crear/editar examen
+- [x] Frontend: mostrar examen con asignatura color-coded
 
 ### Lógica de Relaciones
-- [ ] Al crear examen, asociar con asignatura automáticamente
-- [ ] Al crear examen, sugerir temas de esa asignatura
-- [ ] Endpoint POST `/examenes/:id/temas` - asignar temas al examen (cuáles entra)
+- [x] Al crear examen, asociar con asignatura automáticamente
+- [x] Al crear examen, sugerir temas de esa asignatura (todos marcados; se pueden quitar o añadir temas nuevos al temario desde el propio examen)
+- [x] Endpoint POST `/examenes/:id/temas` - asignar temas al examen (cuáles entra)
+- [x] Extra: detalle del examen con cuenta atrás y temas para marcar como estudiados
+- [x] Arreglado (Fase 2): al editar una asignatura, vaciar profesor o créditos no los borraba
 
 ---
 

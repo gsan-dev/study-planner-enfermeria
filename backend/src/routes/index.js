@@ -3,6 +3,7 @@ import { getHealth } from '../controllers/health.controller.js';
 import { apiLimiter } from '../middlewares/rateLimiter.js';
 import asignaturasRoutes from './asignaturas.routes.js';
 import authRoutes from './auth.routes.js';
+import examenesRoutes from './examenes.routes.js';
 import horarioRoutes from './horario.routes.js';
 import temasRoutes from './temas.routes.js';
 
@@ -17,5 +18,6 @@ router.use('/auth', authRoutes);
 router.use('/asignaturas', asignaturasRoutes);
 router.use('/temas', temasRoutes);
 router.use('/horario', horarioRoutes);
+router.use('/examenes', examenesRoutes);
 
 export default router;
