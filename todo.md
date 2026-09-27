@@ -122,7 +122,9 @@
 - [x] Escanear foto/PDF de un horario con Claude → revisar asignaturas detectadas → retocar en la tabla → guardar
 - [x] Endpoint PUT `/horario` (guardado conjunto) y POST `/horario/escanear` (con rate limit propio)
 - [x] Inicio: horario abajo a la izquierda (debajo de "Para empezar"); a la derecha, hueco reservado
-- [ ] Probar el escaneo con horarios reales (requiere `ANTHROPIC_API_KEY`)
+- [x] Escaneo con Gemini (`GEMINI_API_KEY`), con reintentos y modelos alternativos; Claude queda como opción
+- [x] Probado con horario de prueba: imagen 12/12, PDF 11/12, foto inclinada 10/12
+- [ ] Probar el escaneo con el horario real de la universidad
 - [ ] Decidir qué va en el hueco reservado de Inicio
 
 ---

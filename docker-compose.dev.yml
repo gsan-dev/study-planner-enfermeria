@@ -33,6 +33,7 @@ services:
       CORS_ORIGINS: "*"
       LOG_LEVEL: debug
       # Opcional: escaneo de horarios. Se lee del .env de la raíz o del entorno.
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     ports:
       - "4000:4000"

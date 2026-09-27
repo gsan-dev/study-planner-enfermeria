@@ -40,7 +40,16 @@ export const env = Object.freeze({
   // Número de proxies inversos delante de la API (Caddy en Docker = 1).
   trustProxy: toInt(process.env.TRUST_PROXY, 0),
   logLevel: process.env.LOG_LEVEL || (nodeEnv === 'production' ? 'info' : 'debug'),
-  // Escaneo de horarios con Claude (opcional: sin clave, la función se desactiva).
+  // Escaneo de horarios con IA (opcional: sin ninguna clave, la función se desactiva).
+  // SCAN_PROVIDER fuerza "gemini" o "anthropic"; vacío = el primero con clave.
+  scanProvider: (process.env.SCAN_PROVIDER || '').trim().toLowerCase(),
+  geminiApiKey: process.env.GEMINI_API_KEY || '',
+  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.8-flash',
+  // Alternativos si el principal está saturado (lista separada por comas).
+  geminiFallbackModels: (process.env.GEMINI_FALLBACK_MODELS ?? 'gemini-3.6-flash,gemini-flash-latest')
+    .split(',')
+    .map((m) => m.trim())
+    .filter(Boolean),
   anthropicApiKey: process.env.ANTHROPIC_API_KEY || '',
   anthropicModel: process.env.ANTHROPIC_MODEL || 'claude-opus-5',
   scanRateLimitMax: toInt(process.env.SCAN_RATE_LIMIT_MAX, 15),

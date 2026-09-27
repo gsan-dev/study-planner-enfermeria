@@ -166,16 +166,26 @@ renueva solo con el refresh token.
 
 El horario se edita como una tabla semanal (página **Horario**, el formulario de
 cada asignatura y el widget de Inicio). Para rellenarlo de golpe se puede
-**escanear** una foto o PDF del horario: el backend lo envía a la API de Claude
-(`claude-opus-5` por defecto, configurable con `ANTHROPIC_MODEL`) con salida
-estructurada, limpia el resultado (une bloques contiguos, descarta horas
-inválidas) y el usuario lo revisa antes de guardar.
+**escanear** una foto o PDF del horario: el backend lo envía a una IA con visión
+y salida JSON estructurada, limpia el resultado (une bloques contiguos, descarta
+horas inválidas) y el usuario lo revisa en la tabla antes de guardar.
 
-Para activarlo, pon una clave de https://console.anthropic.com en
-`ANTHROPIC_API_KEY` (en `.env`) y vuelve a desplegar. Sin clave, el botón
-aparece desactivado y todo lo demás funciona. Cada escaneo consume créditos de
-la API; `SCAN_RATE_LIMIT_MAX` limita los escaneos por hora (15 por defecto).
-Las fotos se reducen a 2000 px en el navegador antes de enviarse.
+Proveedores (basta con una clave en `.env`; sin ninguna, el botón aparece
+desactivado y todo lo demás funciona):
+
+| Proveedor | Variables | Notas |
+| --------- | --------- | ----- |
+| **Gemini** (el que se usa) | `GEMINI_API_KEY`, `GEMINI_MODEL` (`gemini-3.8-flash`), `GEMINI_FALLBACK_MODELS` | Si un modelo está saturado (503), el SDK reintenta con espera; si sigue saturado o sin cuota (429), pasa al siguiente de la lista. Plan gratuito: **20 escaneos/día por modelo**. |
+| Claude | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` (`claude-opus-5`) | Alternativa de pago. |
+
+Si hay varias claves se usa Gemini; `SCAN_PROVIDER=gemini|anthropic` lo fuerza.
+`SCAN_RATE_LIMIT_MAX` limita los escaneos por hora e IP (15 por defecto). Las
+fotos se reducen a 2000 px en el navegador antes de enviarse.
+
+Precisión medida con un horario de prueba de 12 clases (siglas con leyenda,
+celdas de varias horas): imagen nítida 12/12, PDF 11/12, foto inclinada y
+borrosa 10/12. Los fallos son bloques desplazados una fila, fáciles de corregir
+en la tabla.
 
 ### Sesiones
 
