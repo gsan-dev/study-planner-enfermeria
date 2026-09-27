@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import { getHealth } from '../controllers/health.controller.js';
-import { requireAuth } from '../middlewares/auth.js';
 import { apiLimiter } from '../middlewares/rateLimiter.js';
+import asignaturasRoutes from './asignaturas.routes.js';
+import authRoutes from './auth.routes.js';
+import horarioRoutes from './horario.routes.js';
+import temasRoutes from './temas.routes.js';
 
 const router = Router();
 
@@ -10,11 +13,9 @@ router.get('/health', getHealth);
 
 router.use(apiLimiter);
 
-// Ruta protegida mínima para comprobar el middleware JWT.
-router.get('/me', requireAuth, (req, res) => {
-  res.json({ user: req.user });
-});
-
-// Fase 2+: router.use('/auth', authRoutes); router.use('/asignaturas', ...), etc.
+router.use('/auth', authRoutes);
+router.use('/asignaturas', asignaturasRoutes);
+router.use('/temas', temasRoutes);
+router.use('/horario', horarioRoutes);
 
 export default router;

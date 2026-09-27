@@ -27,15 +27,12 @@ const userSchema = new mongoose.Schema(
     },
     // Horas de estudio disponibles por defecto al generar planes.
     horasEstudioDiarias: { type: Number, min: 0, max: 16, default: 3 },
-    // Se incrementa para invalidar todos los refresh tokens (logout).
-    tokenVersion: { type: Number, default: 0, select: false },
   },
   {
     timestamps: true,
     toJSON: {
       transform: (_doc, ret) => {
         delete ret.password;
-        delete ret.tokenVersion;
         delete ret.__v;
         return ret;
       },

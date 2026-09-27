@@ -16,6 +16,8 @@ export function createApp() {
   app.use(requestLogger);
   app.use(helmet());
   app.use(corsMiddleware);
+  // El escaneo de horarios recibe la imagen/PDF en base64: necesita un límite mayor.
+  app.use('/api/horario/escanear', express.json({ limit: '15mb' }));
   app.use(express.json({ limit: '1mb' }));
 
   app.use('/api', apiRoutes);

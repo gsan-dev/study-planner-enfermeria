@@ -40,4 +40,8 @@ export const env = Object.freeze({
   // Número de proxies inversos delante de la API (Caddy en Docker = 1).
   trustProxy: toInt(process.env.TRUST_PROXY, 0),
   logLevel: process.env.LOG_LEVEL || (nodeEnv === 'production' ? 'info' : 'debug'),
+  // Escaneo de horarios con Claude (opcional: sin clave, la función se desactiva).
+  anthropicApiKey: process.env.ANTHROPIC_API_KEY || '',
+  anthropicModel: process.env.ANTHROPIC_MODEL || 'claude-opus-5',
+  scanRateLimitMax: toInt(process.env.SCAN_RATE_LIMIT_MAX, 15),
 });

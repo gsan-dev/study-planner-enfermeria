@@ -26,6 +26,12 @@ export interface Horario {
   aula?: string
 }
 
+export interface ResumenTemas {
+  total: number
+  estudiados: number
+  horasEstimadas: number
+}
+
 export interface Asignatura extends Timestamps {
   _id: ID
   userId: ID
@@ -35,6 +41,8 @@ export interface Asignatura extends Timestamps {
   horarios: Horario[]
   color: string // #rrggbb
   archivada: boolean
+  /** Calculado por el API al listar/obtener. */
+  resumenTemas: ResumenTemas
 }
 
 export type Dificultad = 1 | 2 | 3 | 4 | 5

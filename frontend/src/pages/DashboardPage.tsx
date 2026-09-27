@@ -1,6 +1,8 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Link } from 'react-router'
+import { useCurrentUser } from '../auth/authContext'
+import { HorarioWidget } from '../components/horario/HorarioWidget'
 import { BookIcon, CalendarIcon, ChecklistIcon } from '../components/icons'
 import { useApiHealth } from '../hooks/useApiHealth'
 
@@ -45,12 +47,13 @@ function ApiStatus() {
 
 export function DashboardPage() {
   const today = format(new Date(), "EEEE, d 'de' MMMM", { locale: es })
+  const nombre = useCurrentUser().nombre.trim().split(/\s+/)[0]
 
   return (
     <div className="flex flex-col gap-6">
       <section className="rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-5 text-white shadow-sm md:p-8">
         <p className="text-sm font-medium capitalize text-brand-100">{today}</p>
-        <h2 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">¡Hola María! ¿Qué toca estudiar hoy?</h2>
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">¡Hola, {nombre}! ¿Qué toca estudiar hoy?</h2>
         <p className="mt-2 max-w-xl text-brand-100">
           Organiza tus asignaturas y exámenes y deja que la app reparta las horas de estudio por ti.
         </p>
@@ -79,6 +82,24 @@ export function DashboardPage() {
           ))}
         </div>
       </section>
+
+      {/* Horario a la izquierda; a la derecha, hueco reservado para una sección futura. */}
+      <div className="grid items-start gap-6 lg:grid-cols-2">
+        <HorarioWidget />
+        <section aria-labelledby="proximamente" className="flex flex-col gap-3">
+          <h3 id="proximamente" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
+            Próximamente
+          </h3>
+          <div className="grid min-h-48 place-items-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center lg:min-h-80">
+            <div>
+              <p className="font-semibold text-slate-700">Espacio reservado</p>
+              <p className="mt-1 max-w-xs text-sm text-slate-500">
+                Aquí irá una nueva sección de la página de inicio (por definir).
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
 
       <ApiStatus />
     </div>

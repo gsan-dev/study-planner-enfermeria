@@ -1,4 +1,5 @@
 import { MenuIcon } from '../icons'
+import { UserMenu } from './UserMenu'
 
 interface HeaderProps {
   title: string
@@ -17,8 +18,9 @@ export function Header({ title, onOpenMenu }: HeaderProps) {
         >
           <MenuIcon className="size-6" />
         </button>
-        <h1 className="truncate text-lg font-semibold tracking-tight text-slate-900 md:text-xl">{title}</h1>
-        {/* Fase 7: campana de notificaciones · Fase 2: menú de usuario */}
+        <h1 className="min-w-0 flex-1 truncate text-lg font-semibold tracking-tight text-slate-900 md:text-xl">{title}</h1>
+        {/* Fase 7: campana de notificaciones */}
+        <UserMenu />
       </div>
     </header>
   )

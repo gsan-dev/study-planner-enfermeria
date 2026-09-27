@@ -13,8 +13,11 @@ export function useServiceWorker() {
 
     let updateInterval: number | undefined
     let refreshing = false
+    // En la primera visita el SW toma el control (clients.claim) y también dispara
+    // controllerchange: ahí no hay que recargar (se perdería lo que se esté escribiendo).
+    const hadController = Boolean(navigator.serviceWorker.controller)
     const onControllerChange = () => {
-      if (refreshing) return
+      if (refreshing || !hadController) return
       refreshing = true
       window.location.reload()
     }

@@ -41,6 +41,9 @@ services:
       AUTH_RATE_LIMIT_MAX: ${AUTH_RATE_LIMIT_MAX:-20}
       TRUST_PROXY: 1
       LOG_LEVEL: ${LOG_LEVEL:-info}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5}
+      SCAN_RATE_LIMIT_MAX: ${SCAN_RATE_LIMIT_MAX:-15}
     networks: [internal]
 
   web:

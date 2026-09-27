@@ -32,6 +32,8 @@ services:
       JWT_SECRET: dev-secret-no-usar-en-produccion-0123456789
       CORS_ORIGINS: "*"
       LOG_LEVEL: debug
+      # Opcional: escaneo de horarios. Se lee del .env de la raíz o del entorno.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
     ports:
       - "4000:4000"
     volumes:

@@ -64,7 +64,7 @@ export function AppLayout() {
         <StatusBanners />
 
         {/* pb-24 deja hueco para la barra inferior del móvil. */}
-        <main className="flex-1 px-4 pt-4 pb-24 pr-safe md:px-6 md:pt-6 md:pb-8 xl:px-8 2xl:px-12">
+        <main className="flex-1 pt-4 pr-[max(1rem,env(safe-area-inset-right))] pb-24 pl-[max(1rem,env(safe-area-inset-left))] md:px-6 md:pt-6 md:pb-8 xl:px-8 2xl:px-12">
           <div className="mx-auto w-full max-w-7xl 2xl:max-w-[1600px]">
             <Outlet />
           </div>

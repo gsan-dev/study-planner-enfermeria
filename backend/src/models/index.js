@@ -4,3 +4,4 @@ export { Tema } from './Tema.js';
 export { Examen, TIPOS_EXAMEN } from './Examen.js';
 export { PlanEstudio } from './PlanEstudio.js';
 export { Progreso } from './Progreso.js';
+export { Session } from './Session.js';

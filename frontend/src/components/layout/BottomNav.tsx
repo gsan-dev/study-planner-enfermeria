@@ -9,7 +9,7 @@ export function BottomNav() {
       className="fixed inset-x-0 bottom-0 z-30 border-t border-slate-200 bg-white/95 pb-safe backdrop-blur md:hidden"
     >
       <ul className="mx-auto flex max-w-lg items-stretch justify-around px-1">
-        {primaryNav.map((item) => {
+        {primaryNav.filter((item) => !item.hideInBottomNav).map((item) => {
           const Icon = item.icon
           return (
             <li key={item.to} className="flex-1">

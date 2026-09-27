@@ -14,6 +14,15 @@ export const apiLimiter = rateLimit({
   message: rateLimitResponse('Demasiadas peticiones, inténtalo de nuevo en unos minutos'),
 });
 
+/** Escaneo de horarios: cada llamada cuesta dinero en la API de Anthropic. */
+export const scanLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  limit: env.scanRateLimitMax,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  message: rateLimitResponse('Has escaneado muchos horarios seguidos, espera un rato antes de volver a intentarlo'),
+});
+
 /** Límite estricto para login/registro (fuerza bruta). */
 export const authLimiter = rateLimit({
   windowMs: env.rateLimitWindowMs,

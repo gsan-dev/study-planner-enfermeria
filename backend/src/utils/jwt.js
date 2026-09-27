@@ -7,12 +7,10 @@ export function signAccessToken(user) {
   });
 }
 
-export function signRefreshToken(user) {
-  return jwt.sign(
-    { sub: String(user._id), type: 'refresh', v: user.tokenVersion ?? 0 },
-    env.jwtSecret,
-    { expiresIn: env.jwtRefreshExpiresIn },
-  );
+export function signRefreshToken(userId, jti) {
+  return jwt.sign({ sub: String(userId), type: 'refresh', jti }, env.jwtSecret, {
+    expiresIn: env.jwtRefreshExpiresIn,
+  });
 }
 
 export function verifyToken(token) {

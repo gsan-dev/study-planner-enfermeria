@@ -85,34 +85,45 @@
 
 ---
 
-## **FASE 2: AUTENTICACIÓN & CRUD ASIGNATURAS**
+## **FASE 2: AUTENTICACIÓN & CRUD ASIGNATURAS** ✅
 
 ### Authentication
-- [ ] Endpoint POST `/auth/register` - registro con validación
-- [ ] Endpoint POST `/auth/login` - login con JWT
-- [ ] Endpoint POST `/auth/refresh-token` - renovar token
-- [ ] Endpoint POST `/auth/logout` - logout
-- [ ] Frontend: crear página de login/register
-- [ ] Frontend: guardar token en localStorage seguro
-- [ ] Frontend: interceptor Axios para agregar token a requests
+- [x] Endpoint POST `/auth/register` - registro con validación (zod)
+- [x] Endpoint POST `/auth/login` - login con JWT
+- [x] Endpoint POST `/auth/refresh-token` - renovar token (rotación: cada refresh token vale una vez)
+- [x] Endpoint POST `/auth/logout` - logout (cierra solo la sesión de ese dispositivo)
+- [x] Extra: GET/PATCH `/auth/me` - perfil (nombre, horas de estudio diarias)
+- [x] Frontend: crear página de login/register
+- [x] Frontend: guardar token en localStorage seguro (+ CSP en Caddy contra XSS)
+- [x] Frontend: interceptor Axios para agregar token a requests (+ renovación automática al caducar)
+- [x] Extra: página de Ajustes y menú de usuario con cerrar sesión
 
 ### Gestión de Asignaturas
-- [ ] Endpoint GET `/asignaturas` - listar todas (usuario logueado)
-- [ ] Endpoint POST `/asignaturas` - crear nueva
-- [ ] Endpoint PUT `/asignaturas/:id` - editar
-- [ ] Endpoint DELETE `/asignaturas/:id` - eliminar
-- [ ] Endpoint PATCH `/asignaturas/:id/archivar` - archivar (no eliminar)
-- [ ] Frontend: página de asignaturas (CRUD completo)
-- [ ] Frontend: modal para crear/editar asignaturas
-- [ ] Frontend: validar datos (profesor, horarios formato)
+- [x] Endpoint GET `/asignaturas` - listar todas (usuario logueado), con resumen de temas
+- [x] Endpoint POST `/asignaturas` - crear nueva
+- [x] Endpoint PUT `/asignaturas/:id` - editar
+- [x] Endpoint DELETE `/asignaturas/:id` - eliminar (en cascada: temas, exámenes y planes)
+- [x] Endpoint PATCH `/asignaturas/:id/archivar` - archivar (no eliminar), con deshacer
+- [x] Frontend: página de asignaturas (CRUD completo)
+- [x] Frontend: modal para crear/editar asignaturas
+- [x] Frontend: validar datos (profesor, horarios formato, franjas solapadas)
 
 ### Gestión de Temario
-- [ ] Endpoint POST `/asignaturas/:id/temas` - agregar tema
-- [ ] Endpoint GET `/asignaturas/:id/temas` - listar temas de asignatura
-- [ ] Endpoint PUT `/temas/:id` - editar tema
-- [ ] Endpoint DELETE `/temas/:id` - eliminar tema
-- [ ] Endpoint PATCH `/temas/:id/marcar-estudiado` - marcar como estudiado
-- [ ] Frontend: dentro de asignatura, expandir y ver/crear temas
+- [x] Endpoint POST `/asignaturas/:id/temas` - agregar tema
+- [x] Endpoint GET `/asignaturas/:id/temas` - listar temas de asignatura
+- [x] Endpoint PUT `/temas/:id` - editar tema
+- [x] Endpoint DELETE `/temas/:id` - eliminar tema (lo quita también de exámenes y planes)
+- [x] Endpoint PATCH `/temas/:id/marcar-estudiado` - marcar como estudiado
+- [x] Frontend: dentro de asignatura, expandir y ver/crear temas
+
+### Horario semanal (añadido)
+- [x] Horario como tabla semanal tipo calendario (días × horas): tocar un hueco añade una clase, tocar una clase la edita
+- [x] Página `/horario` con todas las asignaturas; el formulario de asignatura usa la misma tabla (las demás en gris)
+- [x] Escanear foto/PDF de un horario con Claude → revisar asignaturas detectadas → retocar en la tabla → guardar
+- [x] Endpoint PUT `/horario` (guardado conjunto) y POST `/horario/escanear` (con rate limit propio)
+- [x] Inicio: horario abajo a la izquierda (debajo de "Para empezar"); a la derecha, hueco reservado
+- [ ] Probar el escaneo con horarios reales (requiere `ANTHROPIC_API_KEY`)
+- [ ] Decidir qué va en el hueco reservado de Inicio
 
 ---
 
