@@ -190,25 +190,26 @@
 
 ---
 
-## **FASE 5: DASHBOARD & VISUALIZACIÓN**
+## **FASE 5: DASHBOARD & VISUALIZACIÓN** ✅
 
 ### Dashboard Principal
-- [ ] Mostrar próximos 3 exámenes (tarjetas grandes)
-- [ ] Widget "¿Qué estudiar hoy?" (basado en plan)
-- [ ] Resumen semanal de horas estudiadas
-- [ ] Indicador de cumplimiento de plan
+- [x] Mostrar próximos 3 exámenes (tarjetas grandes)
+- [x] Widget "¿Qué estudiar hoy?" (basado en plan) — ocupa el hueco reservado junto al horario; incluye las tareas de la agenda
+- [x] Resumen semanal de horas estudiadas
+- [x] Indicador de cumplimiento de plan (sesiones que ya tocaban y están hechas, con estado "Vas al día / Algo atrasada / Muy atrasada")
+- [x] Extra: "Para empezar" como pasos que se marcan y desaparece cuando todo está configurado; endpoint `GET /dashboard`
 
 ### Calendario Visual
-- [ ] Endpoint GET `/calendario/mes` - obtener info por día del mes
-- [ ] Frontend: calendario tipo Google Calendar
-- [ ] Color por asignatura
-- [ ] Mostrar exámenes en fechas
-- [ ] Mostrar días del plan de estudio
+- [x] Endpoint GET `/calendario/mes` - obtener info por día del mes
+- [x] Frontend: calendario tipo Google Calendar (página `/calendario`, detalle del día, filtro por asignatura, enlace a la agenda)
+- [x] Color por asignatura
+- [x] Mostrar exámenes en fechas
+- [x] Mostrar días del plan de estudio
 
 ### Vista de Asignatura
-- [ ] Página asignatura: mostrar todos sus temas, exámenes, progreso
-- [ ] Barra de progreso: % temario estudiado
-- [ ] Próximo examen de esa asignatura
+- [x] Página asignatura (`/asignaturas/:id`): mostrar todos sus temas, exámenes, progreso
+- [x] Barra de progreso: % temario estudiado
+- [x] Próximo examen de esa asignatura
 
 ---
 

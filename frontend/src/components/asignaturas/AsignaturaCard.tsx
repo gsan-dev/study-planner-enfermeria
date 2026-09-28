@@ -1,4 +1,5 @@
 import { useId, useState } from 'react'
+import { Link } from 'react-router'
 import type { Asignatura, ResumenTemas } from '../../types/models'
 import { ArchiveIcon, ChevronDownIcon, ClockIcon, PencilIcon, TrashIcon, UnarchiveIcon, UserIcon } from '../icons'
 import { IconButton } from '../ui/Button'
@@ -28,7 +29,11 @@ export function AsignaturaCard({ asignatura, onEdit, onToggleArchivada, onDelete
       <div className="p-4 md:p-5">
         <div className="flex items-start gap-2">
           <div className="min-w-0 flex-1">
-            <h3 className="text-lg leading-snug font-semibold text-slate-900">{asignatura.nombre}</h3>
+            <h3 className="text-lg leading-snug font-semibold text-slate-900">
+              <Link to={`/asignaturas/${asignatura._id}`} className="hover:underline">
+                {asignatura.nombre}
+              </Link>
+            </h3>
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
               {asignatura.profesor && (
                 <span className="inline-flex items-center gap-1.5">

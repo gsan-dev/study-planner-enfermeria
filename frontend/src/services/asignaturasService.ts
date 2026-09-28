@@ -11,6 +11,11 @@ export async function listAsignaturas(archivadas: FiltroArchivadas = 'false', si
   return data.asignaturas
 }
 
+export async function getAsignatura(id: string, signal?: AbortSignal) {
+  const { data } = await api.get<{ asignatura: Asignatura }>(`/asignaturas/${id}`, { signal })
+  return data.asignatura
+}
+
 export async function createAsignatura(input: AsignaturaInput) {
   const { data } = await api.post<{ asignatura: Asignatura }>('/asignaturas', input)
   return data.asignatura

@@ -143,3 +143,56 @@ export interface AgendaResponse {
   /** Tareas sin hacer de días anteriores a `hoy` (solo si se pide). */
   pendientes: Tarea[]
 }
+
+export interface ResumenPlanExamen {
+  _id: ID
+  porcentaje: number
+  horasTotales: number
+  horasCompletadas: number
+}
+
+export interface DiaSemanaResumen {
+  fecha: string
+  horasPlanificadas: number
+  horasCompletadas: number
+}
+
+export interface DashboardResponse {
+  resumen: { asignaturas: number; temas: number; examenesProximos: number; planes: number }
+  proximosExamenes: (ExamenConResumen & { plan: ResumenPlanExamen | null })[]
+  hoy: { fecha: string; sesiones: SesionAgenda[]; tareas: Tarea[]; tareasAtrasadas: number }
+  semana: {
+    desde: string
+    hasta: string
+    dias: DiaSemanaResumen[]
+    horasPlanificadas: number
+    horasCompletadas: number
+    /** % de sesiones de la semana que ya tocaban y están hechas (null si aún no tocaba ninguna). */
+    cumplimiento: number | null
+  }
+  /** Cumplimiento de todos los planes de exámenes pendientes. */
+  cumplimiento: { porcentaje: number | null; atrasadas: number }
+}
+
+export interface BloqueEstudio {
+  asignatura: Pick<Asignatura, '_id' | 'nombre' | 'color'> | null
+  horas: number
+  horasCompletadas: number
+  sesiones: { _id: ID; planId: ID; examenId: ID; tema: string; horas: number; tipo: TipoSesion; completado: boolean }[]
+}
+
+export interface DiaCalendario {
+  fecha: string // YYYY-MM-DD
+  examenes: ExamenConResumen[]
+  estudio: BloqueEstudio[]
+  tareas: { total: number; hechas: number }
+  diario: { animo: number | null } | null
+}
+
+export interface CalendarioMes {
+  mes: string // YYYY-MM
+  desde: string
+  hasta: string
+  dias: DiaCalendario[]
+  asignaturas: Pick<Asignatura, '_id' | 'nombre' | 'color'>[]
+}

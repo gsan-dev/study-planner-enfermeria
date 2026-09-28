@@ -2,30 +2,16 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Link } from 'react-router'
 import { useCurrentUser } from '../auth/authContext'
+import { HoyWidget } from '../components/dashboard/HoyWidget'
+import { ProximosExamenes } from '../components/dashboard/ProximosExamenes'
+import { SemanaWidget } from '../components/dashboard/SemanaWidget'
 import { HorarioWidget } from '../components/horario/HorarioWidget'
-import { BookIcon, CalendarIcon, ChecklistIcon } from '../components/icons'
+import { BookIcon, CalendarIcon, CheckIcon, ChecklistIcon } from '../components/icons'
+import { Button } from '../components/ui/Button'
+import { Spinner } from '../components/ui/Spinner'
 import { useApiHealth } from '../hooks/useApiHealth'
-
-const quickLinks = [
-  {
-    to: '/asignaturas',
-    icon: BookIcon,
-    title: 'Asignaturas',
-    text: 'Añade tus asignaturas, profesores, horarios y temario.',
-  },
-  {
-    to: '/examenes',
-    icon: CalendarIcon,
-    title: 'Exámenes',
-    text: 'Apunta las fechas y qué temas entran en cada examen.',
-  },
-  {
-    to: '/plan',
-    icon: ChecklistIcon,
-    title: 'Plan de estudio',
-    text: 'Genera un plan día a día hasta el examen.',
-  },
-]
+import { useDashboard } from '../hooks/useDashboard'
+import type { DashboardResponse } from '../types/api'
 
 function ApiStatus() {
   const health = useApiHealth()
@@ -45,9 +31,76 @@ function ApiStatus() {
   )
 }
 
+/** Primeros pasos: se ve mientras falte alguno; cada paso se marca al completarlo. */
+function ParaEmpezar({ resumen }: { resumen: DashboardResponse['resumen'] }) {
+  const pasos = [
+    {
+      to: '/asignaturas',
+      icon: BookIcon,
+      title: 'Asignaturas',
+      text: 'Añade tus asignaturas, profesores, horarios y temario.',
+      hecho: resumen.asignaturas > 0 && resumen.temas > 0,
+    },
+    {
+      to: '/examenes',
+      icon: CalendarIcon,
+      title: 'Exámenes',
+      text: 'Apunta las fechas y qué temas entran en cada examen.',
+      hecho: resumen.examenesProximos > 0,
+    },
+    {
+      to: '/plan',
+      icon: ChecklistIcon,
+      title: 'Plan de estudio',
+      text: 'Genera un plan día a día hasta el examen.',
+      hecho: resumen.planes > 0,
+    },
+  ]
+  if (pasos.every((p) => p.hecho)) return null
+
+  return (
+    <section aria-labelledby="empezar" className="flex flex-col gap-3">
+      <h3 id="empezar" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
+        Para empezar
+      </h3>
+      {/* 1 columna en móvil, 2 en tablet, 3 en escritorio */}
+      <ol className="grid gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+        {pasos.map(({ to, icon: Icon, title, text, hecho }, i) => (
+          <li key={to}>
+            <Link
+              to={to}
+              className={[
+                'group flex h-full gap-4 rounded-2xl border p-4 transition md:p-5',
+                hecho ? 'border-emerald-200 bg-emerald-50/50' : 'border-slate-200 bg-white hover:border-brand-200 hover:shadow-sm',
+              ].join(' ')}
+            >
+              <div
+                className={[
+                  'grid size-11 shrink-0 place-items-center rounded-xl transition-colors',
+                  hecho ? 'bg-emerald-600 text-white' : 'bg-brand-50 text-brand-700 group-hover:bg-brand-100',
+                ].join(' ')}
+              >
+                {hecho ? <CheckIcon className="size-6" strokeWidth={2.5} /> : <Icon className="size-6" />}
+              </div>
+              <div>
+                <p className="font-semibold text-slate-900">
+                  {i + 1}. {title}
+                  {hecho && <span className="ml-1.5 text-sm font-medium text-emerald-700">Hecho</span>}
+                </p>
+                <p className="mt-0.5 text-sm text-slate-600">{text}</p>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
 export function DashboardPage() {
   const today = format(new Date(), "EEEE, d 'de' MMMM", { locale: es })
   const nombre = useCurrentUser().nombre.trim().split(/\s+/)[0]
+  const { data, setData, error, refresh } = useDashboard()
 
   return (
     <div className="flex flex-col gap-6">
@@ -59,47 +112,38 @@ export function DashboardPage() {
         </p>
       </section>
 
-      <section aria-labelledby="empezar" className="flex flex-col gap-3">
-        <h3 id="empezar" className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-          Para empezar
-        </h3>
-        {/* 1 columna en móvil, 2 en tablet, 3 en escritorio */}
-        <div className="grid gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
-          {quickLinks.map(({ to, icon: Icon, title, text }) => (
-            <Link
-              key={to}
-              to={to}
-              className="group flex gap-4 rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-brand-200 hover:shadow-sm md:p-5"
-            >
-              <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700 transition-colors group-hover:bg-brand-100">
-                <Icon className="size-6" />
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">{title}</p>
-                <p className="mt-0.5 text-sm text-slate-600">{text}</p>
-              </div>
-            </Link>
-          ))}
+      {error && !data && (
+        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-5 text-center">
+          <p className="text-rose-700">{error}</p>
+          <Button variant="secondary" onClick={refresh} className="mt-3">
+            Reintentar
+          </Button>
         </div>
-      </section>
+      )}
+      {!error && !data && (
+        <div className="grid min-h-40 place-items-center text-slate-400">
+          <Spinner />
+        </div>
+      )}
 
-      {/* Horario a la izquierda; a la derecha, hueco reservado para una sección futura. */}
+      {data && (
+        <>
+          <ParaEmpezar resumen={data.resumen} />
+          <ProximosExamenes examenes={data.proximosExamenes} total={data.resumen.examenesProximos} />
+        </>
+      )}
+
+      {/* Horario a la izquierda; a la derecha, qué toca hoy (en el móvil, esto primero). */}
       <div className="grid items-start gap-6 lg:grid-cols-2">
         <HorarioWidget />
-        <section aria-labelledby="proximamente" className="flex flex-col gap-3">
-          <h3 id="proximamente" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
-            Próximamente
-          </h3>
-          <div className="grid min-h-48 place-items-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center lg:min-h-80">
-            <div>
-              <p className="font-semibold text-slate-700">Espacio reservado</p>
-              <p className="mt-1 max-w-xs text-sm text-slate-500">
-                Aquí irá una nueva sección de la página de inicio (por definir).
-              </p>
-            </div>
+        {data && (
+          <div className="-order-1 min-w-0 lg:order-none">
+            <HoyWidget hoy={data.hoy} onLocalChange={(hoy) => setData({ ...data, hoy })} onSaved={refresh} />
           </div>
-        </section>
+        )}
       </div>
+
+      {data && <SemanaWidget semana={data.semana} cumplimiento={data.cumplimiento} />}
 
       <ApiStatus />
     </div>

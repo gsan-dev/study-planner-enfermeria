@@ -10,6 +10,15 @@ export async function listExamenes(signal?: AbortSignal) {
   return data.examenes
 }
 
+/** Todos los exámenes (próximos y pasados) de una asignatura. */
+export async function listExamenesDeAsignatura(asignaturaId: string, signal?: AbortSignal) {
+  const { data } = await api.get<{ examenes: ExamenConResumen[] }>('/examenes', {
+    params: { estado: 'todos', asignaturaId },
+    signal,
+  })
+  return data.examenes
+}
+
 export async function getExamenDetalles(id: string, signal?: AbortSignal) {
   const { data } = await api.get<ExamenDetalles>(`/examenes/${id}/detalles`, { signal })
   return data

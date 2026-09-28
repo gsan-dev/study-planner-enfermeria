@@ -1,6 +1,7 @@
 import type { ComponentType, SVGProps } from 'react'
 import {
   BookIcon,
+  CalendarMonthIcon,
   CalendarIcon,
   ChartIcon,
   ChecklistIcon,
@@ -24,6 +25,7 @@ export interface NavItem {
 export const primaryNav: NavItem[] = [
   { to: '/', label: 'Inicio', icon: HomeIcon },
   { to: '/agenda', label: 'Agenda', icon: NotebookIcon },
+  { to: '/calendario', label: 'Calendario', icon: CalendarMonthIcon, hideInBottomNav: true },
   { to: '/asignaturas', label: 'Asignaturas', icon: BookIcon },
   { to: '/horario', label: 'Horario', icon: TableIcon, hideInBottomNav: true },
   { to: '/examenes', label: 'Exámenes', icon: CalendarIcon },

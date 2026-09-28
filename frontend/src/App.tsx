@@ -7,7 +7,9 @@ import { ServiceWorkerContext } from './hooks/serviceWorkerContext'
 import { useServiceWorker } from './hooks/useServiceWorker'
 import { AgendaPage } from './pages/AgendaPage'
 import { AjustesPage } from './pages/AjustesPage'
+import { AsignaturaPage } from './pages/AsignaturaPage'
 import { AsignaturasPage } from './pages/AsignaturasPage'
+import { CalendarioPage } from './pages/CalendarioPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { ExamenesPage } from './pages/ExamenesPage'
 import { HorarioPage } from './pages/HorarioPage'
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
       { index: true, element: <DashboardPage /> },
       { path: 'agenda', element: <AgendaPage /> },
       { path: 'asignaturas', element: <AsignaturasPage /> },
+      { path: 'asignaturas/:id', element: <AsignaturaPage /> },
+      { path: 'calendario', element: <CalendarioPage /> },
       { path: 'horario', element: <HorarioPage /> },
       { path: 'examenes', element: <ExamenesPage /> },
       { path: 'plan', element: <PlanPage /> },

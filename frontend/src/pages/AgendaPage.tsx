@@ -1,6 +1,7 @@
 import { addDays, endOfMonth, endOfWeek, format, startOfMonth, startOfWeek } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router'
 import { DelPlanSection } from '../components/agenda/DelPlanSection'
 import { DiarioSection } from '../components/agenda/DiarioSection'
 import { TareasSection } from '../components/agenda/TareasSection'
@@ -16,8 +17,11 @@ const COLOR_DIARIO = '#0f766e'
 
 export function AgendaPage() {
   const hoy = hoyKey()
-  const [dia, setDia] = useState(hoy)
-  const [mes, setMes] = useState(() => diaLocal(hoy))
+  // ?dia=YYYY-MM-DD abre ese día (p. ej. desde el calendario).
+  const [params] = useSearchParams()
+  const inicial = /^\d{4}-\d{2}-\d{2}$/.test(params.get('dia') ?? '') ? (params.get('dia') as string) : hoy
+  const [dia, setDia] = useState(inicial)
+  const [mes, setMes] = useState(() => diaLocal(inicial))
   const [verCalendario, setVerCalendario] = useState(false)
 
   // Se pide la cuadrícula completa del mes que se ve (con los días de los meses vecinos).

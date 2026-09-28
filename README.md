@@ -173,6 +173,8 @@ frontend/
 | PATCH  | `/api/agenda/tareas/:id` 🔒          | `{ fecha?, texto?, hora? ("" la quita), hecho? }`   |
 | DELETE | `/api/agenda/tareas/:id` 🔒          | Borrar tarea                                       |
 | PUT    | `/api/agenda/diario/:fecha` 🔒       | `{ texto, animo? (1-5) }` → entrada del día (una por día); sin texto ni ánimo se borra |
+| GET    | `/api/dashboard?hoy=` 🔒             | Inicio en una petición: resumen, 3 próximos exámenes (con progreso del plan), lo de hoy, la semana y el cumplimiento |
+| GET    | `/api/calendario/mes?mes=AAAA-MM` 🔒 | Info por día de la cuadrícula del mes: exámenes, estudio por asignatura, tareas y diario; y la leyenda |
 
 Los errores siempre tienen la forma
 `{ "error": { "message": "...", "code": "...", "details": {...} } }`
