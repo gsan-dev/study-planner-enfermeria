@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="495" viewBox="0 0 1060 495" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <title>Arquitectura de Study Planner</title>
+  <defs>
+    <marker id="flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="flecha-push" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0f766e"/>
+    </marker>
+    <style>
+      .grupo { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .titulo { font-size: 14px; font-weight: 700; fill: #334155; }
+      .nodo { fill: #ffffff; stroke: #0f766e; stroke-width: 1.5; }
+      .externo { fill: #ffffff; stroke: #64748b; stroke-width: 1.5; }
+      .nombre { font-size: 14px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+      .detalle { font-size: 12px; fill: #475569; text-anchor: middle; }
+      .linea { stroke: #475569; stroke-width: 1.5; fill: none; }
+      .push { stroke: #0f766e; stroke-width: 1.8; fill: none; stroke-dasharray: 6 5; }
+      .etiqueta { font-size: 11.5px; fill: #334155; paint-order: stroke; stroke: #ffffff; stroke-width: 4px; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Fondo (legible también con GitHub en modo oscuro) -->
+  <rect width="1060" height="495" rx="16" fill="#ffffff"/>
+
+  <!-- Dispositivo -->
+  <rect class="grupo" x="20" y="30" width="250" height="400" rx="14"/>
+  <text class="titulo" x="38" y="56">📱 iPhone · 💻 Chromebook</text>
+  <rect class="nodo" x="40" y="80" width="210" height="64" rx="10"/>
+  <text class="nombre" x="145" y="107">PWA · React 19</text>
+  <text class="detalle" x="145" y="127">TypeScript · Tailwind CSS 4</text>
+  <rect class="nodo" x="40" y="330" width="210" height="64" rx="10"/>
+  <text class="nombre" x="145" y="357">Service worker</text>
+  <text class="detalle" x="145" y="377">caché offline · notificaciones</text>
+
+  <!-- Cloudflare -->
+  <rect class="externo" x="305" y="80" width="130" height="64" rx="10"/>
+  <text class="nombre" x="370" y="107">Cloudflare</text>
+  <text class="detalle" x="370" y="127">HTTPS</text>
+
+  <!-- Servidor -->
+  <rect class="grupo" x="470" y="30" width="330" height="400" rx="14"/>
+  <text class="titulo" x="488" y="56">🖥️ Servidor propio · Docker Compose</text>
+  <rect class="nodo" x="490" y="80" width="180" height="64" rx="10"/>
+  <text class="nombre" x="580" y="107">Caddy</text>
+  <text class="detalle" x="580" y="127">estáticos · proxy /api · CSP</text>
+  <rect class="nodo" x="490" y="190" width="180" height="64" rx="10"/>
+  <text class="nombre" x="580" y="217">API · Express 5</text>
+  <text class="detalle" x="580" y="237">JWT · zod · rate limit</text>
+  <rect class="nodo" x="490" y="300" width="180" height="64" rx="10"/>
+  <text class="nombre" x="580" y="327">Programador de avisos</text>
+  <text class="detalle" x="580" y="347">cada 5 min · zona horaria</text>
+  <!-- MongoDB (cilindro) -->
+  <path class="nodo" d="M700 372 v38 a40 10 0 0 0 80 0 v-38"/>
+  <ellipse class="nodo" cx="740" cy="372" rx="40" ry="10"/>
+  <text class="nombre" x="740" y="402">MongoDB</text>
+
+  <!-- Externos -->
+  <rect class="grupo" x="835" y="30" width="205" height="400" rx="14"/>
+  <text class="titulo" x="853" y="56">☁️ Servicios externos</text>
+  <rect class="externo" x="855" y="190" width="165" height="64" rx="10"/>
+  <text class="nombre" x="937.5" y="217">Gemini</text>
+  <text class="detalle" x="937.5" y="237">visión → JSON</text>
+  <rect class="externo" x="855" y="300" width="165" height="64" rx="10"/>
+  <text class="nombre" x="937.5" y="327">Servicios de push</text>
+  <text class="detalle" x="937.5" y="347">Apple · Google · Microsoft</text>
+
+  <!-- Flechas -->
+  <path class="linea" d="M250 112 H303" marker-end="url(#flecha)"/>
+  <path class="linea" d="M435 112 H488" marker-end="url(#flecha)"/>
+  <path class="linea" d="M580 144 V188" marker-end="url(#flecha)"/>
+  <text class="etiqueta" x="588" y="171">/api/*</text>
+
+  <path class="linea" d="M670 222 H853" marker-end="url(#flecha)"/>
+  <text class="etiqueta" x="700" y="214">foto del horario</text>
+
+  <path class="linea" d="M670 245 C 760 260, 780 300, 853 320" marker-end="url(#flecha)"/>
+  <text class="etiqueta" x="728" y="283">Web Push (VAPID)</text>
+
+  <path class="linea" d="M670 342 H853" marker-end="url(#flecha)"/>
+  <text class="etiqueta" x="700" y="336">avisos programados</text>
+
+  <path class="linea" d="M655 254 C 690 300, 720 330, 732 360" marker-end="url(#flecha)"/>
+  <path class="linea" d="M670 358 C 690 366, 694 372, 698 380" marker-end="url(#flecha)"/>
+
+  <!-- El push llega al móvil aunque la app esté cerrada -->
+  <path class="push" d="M937 364 V470 H145 V397" marker-end="url(#flecha-push)"/>
+  <text class="etiqueta" x="400" y="464" style="fill:#0f766e;font-weight:600">llega al móvil aunque la app esté cerrada</text>
+</svg>
