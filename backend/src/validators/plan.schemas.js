@@ -35,6 +35,8 @@ export const generarSchema = z.object({
 });
 
 const sesionSchema = z.object({
+  // Id de una sesión ya existente: se conserva para no perder su registro de horas.
+  _id: objectId.optional(),
   fecha: fechaDia,
   temaId: objectId,
   horas,

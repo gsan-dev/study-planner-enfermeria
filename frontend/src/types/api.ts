@@ -196,3 +196,82 @@ export interface CalendarioMes {
   dias: DiaCalendario[]
   asignaturas: Pick<Asignatura, '_id' | 'nombre' | 'color'>[]
 }
+
+type AsignaturaMini = Pick<Asignatura, '_id' | 'nombre' | 'color'>
+
+/** Horas estudiadas: a mano o al completar una sesión del plan. */
+export interface RegistroProgreso {
+  _id: ID
+  fecha: string
+  horasEstudiadas: number
+  asignatura: AsignaturaMini | null
+  temas: { _id: ID; nombre: string }[]
+  notas?: string
+  origen: 'manual' | 'plan'
+  createdAt: string
+}
+
+export interface RegistrarHorasInput {
+  fecha: string // YYYY-MM-DD
+  horas: number
+  asignaturaId?: ID
+  temaId?: ID
+  notas?: string
+}
+
+export interface ResumenProgreso {
+  horasTotales: number
+  horasHoy: number
+  horasSemana: number
+  horasMes: number
+  mediaDiaria: number
+  diasEstudiados: number
+  racha: number
+  mejorRacha: number
+  temas: { total: number; estudiados: number }
+}
+
+export type PeriodoProgreso = 'semana' | 'mes' | 'todo'
+
+export interface ProgresoAsignatura {
+  asignatura: AsignaturaMini & { archivada: boolean }
+  horasEstudiadas: number
+  horasPlanificadas: number
+  horasRecomendadas: number
+  temas: { total: number; estudiados: number }
+  porcentajeTemario: number
+}
+
+export interface SemanaEstadisticas {
+  desde: string
+  hasta: string
+  dias: { fecha: string; horasEstudiadas: number; horasPlanificadas: number; porAsignatura: { asignaturaId: ID; horas: number }[] }[]
+  horasEstudiadas: number
+  horasPlanificadas: number
+  asignaturas: AsignaturaMini[]
+}
+
+export interface EstadisticasTema {
+  tema: Pick<Tema, '_id' | 'nombre' | 'dificultad' | 'estudiado'>
+  horasInvertidas: number
+  horasPlanificadas: number
+  horasRecomendadas: number
+}
+
+export interface EvolucionDia {
+  fecha: string
+  horas: number
+  acumulado: number
+}
+
+export interface PrediccionExamen {
+  examen: ExamenConResumen
+  temas: { total: number; estudiados: number }
+  horasRecomendadas: number
+  horasEstudiadas: number
+  horasPlanPendientes: number
+  tienePlan: boolean
+  /** Preparación estimada 0-10 (null si el examen no tiene temas). */
+  notaActual: number | null
+  notaConPlan: number | null
+}

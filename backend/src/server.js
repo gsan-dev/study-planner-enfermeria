@@ -2,9 +2,11 @@ import { createApp } from './app.js';
 import { connectDatabase, disconnectDatabase } from './config/database.js';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
+import { migrarProgresoPlanes } from './services/progreso.js';
 
 async function start() {
   await connectDatabase();
+  await migrarProgresoPlanes();
 
   const app = createApp();
   const server = app.listen(env.port, () => {

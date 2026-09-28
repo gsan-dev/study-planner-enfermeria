@@ -1,5 +1,6 @@
 import { Examen, PlanEstudio, Tema, User } from '../models/index.js';
 import { diaKey, generarPlan } from '../services/planGenerator.js';
+import { sincronizarProgresoPlan } from '../services/progreso.js';
 import { AppError } from '../utils/AppError.js';
 import { findOwned } from '../utils/ownership.js';
 
@@ -41,11 +42,16 @@ function comprobarFechas(examen, fechas) {
 /** Crea o sustituye el plan del examen (hay uno por examen). */
 async function guardarPlan(userId, examenId, datos) {
   const existente = await PlanEstudio.findOne({ userId, examenId });
+  let plan;
   if (existente) {
     existente.set(datos);
-    return existente.save();
+    plan = await existente.save();
+  } else {
+    plan = await PlanEstudio.create({ ...datos, userId, examenId });
   }
-  return PlanEstudio.create({ ...datos, userId, examenId });
+  // Las horas de las sesiones completadas cuentan como estudiadas.
+  await sincronizarProgresoPlan(plan);
+  return plan;
 }
 
 /**
@@ -135,12 +141,15 @@ export async function crearManual(req, res) {
       .filter((s) => s.completado)
       .map((s) => [`${diaKey(s.fecha)}:${s.temaId}:${s.tipo}`, s.completadoEn]),
   );
+  const idsAnteriores = new Set((anterior?.diasPlan ?? []).map((s) => String(s._id)));
 
   const plan = await guardarPlan(userId, examen._id, {
     ...params,
     horasPorDia: params.horasPorDia ?? anterior?.horasPorDia,
     fechaInicio: params.fechaInicio ?? diasPlan.map((s) => s.fecha).sort((a, b) => a - b)[0],
     diasPlan: diasPlan
+      // Solo se respeta el id de sesiones que ya eran de este plan.
+      .map(({ _id, ...s }) => (_id && idsAnteriores.has(_id) ? { _id, ...s } : s))
       .map((s) => ({
         ...s,
         completadoEn: s.completado
@@ -222,6 +231,7 @@ export async function actualizarDia(req, res) {
   }
   plan.diasPlan.sort(porFecha);
   await plan.save();
+  await sincronizarProgresoPlan(plan);
 
   let temaEstudiado = null;
   if (cambios.completado && sesion.tipo === 'estudio') {

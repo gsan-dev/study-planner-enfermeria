@@ -18,11 +18,16 @@ const progresoSchema = new mongoose.Schema(
     asignaturaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Asignatura' },
     planEstudioId: { type: mongoose.Schema.Types.ObjectId, ref: 'PlanEstudio' },
     notas: { type: String, trim: true, maxlength: 500 },
+    // 'manual': registrado a mano. 'plan': creado al completar una sesión del plan
+    // (se borra si la sesión se desmarca).
+    origen: { type: String, enum: ['manual', 'plan'], default: 'manual' },
+    sesionId: { type: mongoose.Schema.Types.ObjectId },
   },
   { timestamps: true },
 );
 
 progresoSchema.index({ userId: 1, fecha: -1 });
 progresoSchema.index({ userId: 1, asignaturaId: 1 });
+progresoSchema.index({ userId: 1, sesionId: 1 }, { sparse: true });
 
 export const Progreso = mongoose.model('Progreso', progresoSchema, 'progresos');

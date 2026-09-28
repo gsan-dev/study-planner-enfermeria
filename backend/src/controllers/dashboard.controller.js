@@ -1,5 +1,6 @@
 import { Asignatura, Examen, PlanEstudio, Tarea, Tema } from '../models/index.js';
 import { diaKey } from '../services/planGenerator.js';
+import { horasPorDia } from '../services/progreso.js';
 import { sesionesEnRango } from '../services/sesionesPlan.js';
 import { conResumen } from './examenes.controller.js';
 
@@ -45,7 +46,7 @@ export async function getDashboard(req, res) {
   const lunes = new Date(hoy.getTime() - ((hoy.getUTCDay() + 6) % 7) * DIA_MS);
   const domingo = new Date(lunes.getTime() + 6 * DIA_MS);
 
-  const [asignaturas, temas, examenesActivos, planesTotales, sesionesSemana, tareasHoy, tareasAtrasadas] =
+  const [asignaturas, temas, examenesActivos, planesTotales, sesionesSemana, tareasHoy, tareasAtrasadas, estudiadas] =
     await Promise.all([
       Asignatura.countDocuments({ userId, archivada: false }),
       Tema.countDocuments({ userId }),
@@ -54,6 +55,8 @@ export async function getDashboard(req, res) {
       sesionesEnRango(userId, lunes, domingo),
       Tarea.find({ userId, fecha: hoy }).sort({ hora: 1, createdAt: 1 }),
       Tarea.countDocuments({ userId, hecho: false, fecha: { $lt: hoy } }),
+      // Horas estudiadas: las de sesiones completadas y las registradas a mano.
+      horasPorDia(userId, { fecha: { $gte: lunes, $lte: domingo } }),
     ]);
 
   // Planes de los exámenes que aún no han pasado: con ellos se mide el cumplimiento.
@@ -67,7 +70,7 @@ export async function getDashboard(req, res) {
     return {
       fecha,
       horasPlanificadas: sumaHoras(delDia),
-      horasCompletadas: sumaHoras(delDia.filter((s) => s.completado)),
+      horasCompletadas: estudiadas.get(diaKey(fecha)) ?? 0,
     };
   });
 
@@ -88,7 +91,7 @@ export async function getDashboard(req, res) {
       hasta: domingo,
       dias,
       horasPlanificadas: sumaHoras(sesionesSemana),
-      horasCompletadas: sumaHoras(sesionesSemana.filter((s) => s.completado)),
+      horasCompletadas: dias.reduce((a, d) => a + d.horasCompletadas, 0),
       cumplimiento: cumplimiento(sesionesSemana, hoy).porcentaje,
     },
     cumplimiento: cumplimiento(

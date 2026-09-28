@@ -6,9 +6,11 @@ import asignaturasRoutes from './asignaturas.routes.js';
 import authRoutes from './auth.routes.js';
 import calendarioRoutes from './calendario.routes.js';
 import dashboardRoutes from './dashboard.routes.js';
+import estadisticasRoutes from './estadisticas.routes.js';
 import examenesRoutes from './examenes.routes.js';
 import horarioRoutes from './horario.routes.js';
 import planRoutes from './plan.routes.js';
+import progresoRoutes from './progreso.routes.js';
 import temasRoutes from './temas.routes.js';
 
 const router = Router();
@@ -27,5 +29,7 @@ router.use('/plan-estudio', planRoutes);
 router.use('/agenda', agendaRoutes);
 router.use('/dashboard', dashboardRoutes);
 router.use('/calendario', calendarioRoutes);
+router.use('/progreso', progresoRoutes);
+router.use('/estadisticas', estadisticasRoutes);
 
 export default router;

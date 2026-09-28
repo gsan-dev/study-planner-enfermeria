@@ -18,7 +18,7 @@ import { NotFoundPage } from './pages/NotFoundPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { PlanExamenPage } from './pages/PlanExamenPage'
 import { PlanPage } from './pages/PlanPage'
-import { ProgresoPage } from './pages/sections'
+import { ProgresoPage } from './pages/ProgresoPage'
 
 const router = createBrowserRouter([
   {

@@ -213,20 +213,22 @@
 
 ---
 
-## **FASE 6: ESTADÍSTICAS & PROGRESO**
+## **FASE 6: ESTADÍSTICAS & PROGRESO** ✅
 
 ### Tracking de Progreso
-- [ ] Endpoint POST `/progreso/registrar-horas` - registrar X horas estudiadas en Y tema
-- [ ] Endpoint GET `/progreso/resumen` - obtener datos de progreso del usuario
-- [ ] Endpoint GET `/progreso/por-asignatura` - desglose de progreso por asignatura
+- [x] Endpoint POST `/progreso/registrar-horas` - registrar X horas estudiadas en Y tema
+- [x] Endpoint GET `/progreso/resumen` - obtener datos de progreso del usuario (incluye racha y media diaria)
+- [x] Endpoint GET `/progreso/por-asignatura` - desglose de progreso por asignatura
 
 ### Gráficos & Estadísticas
-- [ ] Endpoint GET `/estadisticas/semana-actual` - horas por día
-- [ ] Endpoint GET `/estadisticas/por-tema` - horas inversión vs horas planificadas
-- [ ] Frontend: gráfico barras (horas/día)
-- [ ] Frontend: gráfico pastel (horas por asignatura)
-- [ ] Frontend: gráfico línea (progreso acumulado en tiempo)
-- [ ] Mostrar predicción de nota (horas estudiadas vs requeridas)
+- [x] Endpoint GET `/estadisticas/semana-actual` - horas por día
+- [x] Endpoint GET `/estadisticas/por-tema` - horas inversión vs horas planificadas
+- [x] Frontend: gráfico barras (horas/día)
+- [x] Frontend: gráfico pastel (horas por asignatura)
+- [x] Frontend: gráfico línea (progreso acumulado en tiempo)
+- [x] Mostrar predicción de nota (horas estudiadas vs requeridas) — orientativa, ahora y «si cumples el plan»
+- [x] Extra: completar sesiones del plan registra las horas solas (y desmarcar las quita); migración al arrancar
+- [x] Extra: historial de registros con borrado; el resumen semanal de Inicio incluye las horas registradas a mano
 
 ---
 

@@ -175,6 +175,15 @@ frontend/
 | PUT    | `/api/agenda/diario/:fecha` 🔒       | `{ texto, animo? (1-5) }` → entrada del día (una por día); sin texto ni ánimo se borra |
 | GET    | `/api/dashboard?hoy=` 🔒             | Inicio en una petición: resumen, 3 próximos exámenes (con progreso del plan), lo de hoy, la semana y el cumplimiento |
 | GET    | `/api/calendario/mes?mes=AAAA-MM` 🔒 | Info por día de la cuadrícula del mes: exámenes, estudio por asignatura, tareas y diario; y la leyenda |
+| POST   | `/api/progreso/registrar-horas` 🔒   | `{ fecha, horas (de 15 en 15 min), temaId? , asignaturaId?, notas? }` (tema o asignatura) |
+| GET    | `/api/progreso?limite=` 🔒            | Últimos registros de horas (a mano y del plan)     |
+| DELETE | `/api/progreso/:id` 🔒                | Borrar un registro a mano (los del plan se quitan desmarcando la sesión) |
+| GET    | `/api/progreso/resumen?hoy=` 🔒       | Horas totales, de hoy, semana y mes, media diaria (30 días), racha y mejor racha, temas estudiados |
+| GET    | `/api/progreso/por-asignatura?periodo=` 🔒 | `semana`, `mes` o `todo` (defecto).  Horas estudiadas, planificadas y recomendadas y temario estudiado por asignatura |
+| GET    | `/api/estadisticas/semana-actual?hoy=` 🔒 | Horas estudiadas y planificadas por día (lunes a domingo) |
+| GET    | `/api/estadisticas/por-tema?asignaturaId=` 🔒 | Horas invertidas vs planificadas vs recomendadas por tema |
+| GET    | `/api/estadisticas/evolucion?desde=&hasta=` 🔒 | Horas por día y acumuladas (máx. un año; por defecto 30 días) |
+| GET    | `/api/estadisticas/prediccion?hoy=` 🔒 | Preparación estimada (0-10) de cada examen próximo, ahora y si se cumple el plan |
 
 Los errores siempre tienen la forma
 `{ "error": { "message": "...", "code": "...", "details": {...} } }`
@@ -231,6 +240,20 @@ no se desplaza por la zona horaria del servidor ni del navegador.
 Al regenerar se conservan las sesiones completadas y se descuentan de lo que
 falta. Completar la última sesión de estudio de un tema lo marca como
 estudiado. Quitar un tema del examen lo quita también de su plan.
+
+### Progreso y estadísticas
+
+Las horas estudiadas son los registros de la colección `progresos`: los que
+se apuntan a mano («Registrar horas») y los que se crean solos al completar
+una sesión del plan (se borran al desmarcarla y se actualizan si cambian sus
+horas o su día). Al arrancar, la API crea los registros de las sesiones que ya
+estuvieran completadas (es idempotente).
+
+La **preparación estimada** de un examen (0-10) es orientativa: la mitad por
+las horas estudiadas de sus temas frente a las recomendadas (horas estimadas ×
+dificultad, hasta el 100 %) y la mitad por la proporción de temas estudiados.
+«Si cumples el plan» suma las horas pendientes del plan y da por estudiados los
+temas con sesiones de estudio pendientes.
 
 ### Sesiones
 

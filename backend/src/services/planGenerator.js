@@ -14,6 +14,10 @@ const MINIMO_TEMA = 0.5;
 
 const DIA_MS = 24 * 60 * 60 * 1000;
 
+/** Horas de estudio recomendadas para un tema (horas estimadas × dificultad), a cuartos de hora. */
+export const horasRecomendadas = (tema) =>
+  Math.round(Math.max(MINIMO_TEMA, tema.horasEstimadas) * (FACTOR_DIFICULTAD[tema.dificultad] ?? 1) * CUARTOS) / CUARTOS;
+
 /** "YYYY-MM-DD" → Date a medianoche UTC. */
 export const diaDate = (key) => new Date(`${key}T00:00:00.000Z`);
 export const diaKey = (date) => date.toISOString().slice(0, 10);
