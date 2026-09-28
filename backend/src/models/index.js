@@ -7,3 +7,6 @@ export { Progreso } from './Progreso.js';
 export { Session } from './Session.js';
 export { Tarea } from './Tarea.js';
 export { EntradaDiario } from './EntradaDiario.js';
+export { Notificacion, TIPOS_NOTIFICACION } from './Notificacion.js';
+export { PushSuscripcion } from './PushSuscripcion.js';
+export { Config } from './Config.js';

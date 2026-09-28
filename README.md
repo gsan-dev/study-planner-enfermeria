@@ -184,6 +184,16 @@ frontend/
 | GET    | `/api/estadisticas/por-tema?asignaturaId=` 🔒 | Horas invertidas vs planificadas vs recomendadas por tema |
 | GET    | `/api/estadisticas/evolucion?desde=&hasta=` 🔒 | Horas por día y acumuladas (máx. un año; por defecto 30 días) |
 | GET    | `/api/estadisticas/prediccion?hoy=` 🔒 | Preparación estimada (0-10) de cada examen próximo, ahora y si se cumple el plan |
+| GET    | `/api/notificaciones?limite=&soloNoLeidas=` 🔒 | Recientes primero, con el total `noLeidas` |
+| POST   | `/api/notificaciones` 🔒             | `{ titulo, mensaje, url? }` → recordatorio propio (también por push) |
+| PATCH  | `/api/notificaciones/:id/leer` 🔒    | `{ leida? }` (por defecto `true`)            |
+| PATCH  | `/api/notificaciones/leer-todas` 🔒  | Marca todas como leídas                            |
+| DELETE | `/api/notificaciones/:id` 🔒         | Borrar                                             |
+| POST   | `/api/notificaciones/prueba` 🔒      | Notificación de prueba a todos los dispositivos    |
+| POST   | `/api/notificaciones/comprobar` 🔒   | Revisa ya los avisos programados de la usuaria     |
+| GET/PUT | `/api/notificaciones/preferencias` 🔒 | `{ examenes, planDiario, retraso, logros, horaDiaria, zonaHoraria }` |
+| GET    | `/api/notificaciones/push/clave` 🔒  | Clave pública VAPID                                |
+| GET/POST/DELETE | `/api/notificaciones/push/suscripciones` 🔒 | Dispositivos suscritos; alta `{ endpoint, keys, dispositivo?, zonaHoraria? }` y baja `{ endpoint }` |
 
 Los errores siempre tienen la forma
 `{ "error": { "message": "...", "code": "...", "details": {...} } }`
@@ -254,6 +264,30 @@ las horas estudiadas de sus temas frente a las recomendadas (horas estimadas ×
 dificultad, hasta el 100 %) y la mitad por la proporción de temas estudiados.
 «Si cumples el plan» suma las horas pendientes del plan y da por estudiados los
 temas con sesiones de estudio pendientes.
+
+### Notificaciones (Web Push)
+
+Llegan aunque la app esté cerrada: la API las envía con **Web Push** (VAPID)
+al servicio de notificaciones del navegador (Apple, Google, Mozilla o
+Microsoft) y el service worker las muestra; al tocarlas se abre la pantalla
+correspondiente. Con la app abierta, además, la campana se actualiza al
+momento y sale un aviso.
+
+- **Claves VAPID**: sin `VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY` en `.env`, la API
+  las genera en el primer arranque y las guarda en MongoDB (colección
+  `config`). No cambies las claves: las suscripciones existentes dejarían de
+  valer.
+- **Avisos programados**: cada `NOTIFICACIONES_INTERVALO_MIN` minutos (5 por
+  defecto) se revisan, en la zona horaria de cada usuaria y a partir de su
+  hora de aviso: exámenes a 7, 3 y 1 día, el plan del día y los retrasos. Cada
+  aviso lleva una clave (tipo + examen o día) para no repetirse. La
+  felicitación al completar un plan se envía al momento.
+- **Seguridad**: solo se aceptan suscripciones hacia los servicios de push
+  conocidos (así la API no puede usarse para hacer peticiones a otras webs).
+  Las suscripciones caducadas (404/410) se borran solas.
+- **Requisitos**: HTTPS (o `localhost`). En **iPhone/iPad** solo funciona con la
+  app **añadida a la pantalla de inicio** (iOS 16.4+); la app lo detecta y
+  explica los pasos.
 
 ### Sesiones
 

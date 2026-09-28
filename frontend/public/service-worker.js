@@ -100,3 +100,58 @@ async function staleWhileRevalidate(request, cacheName) {
     .catch(() => cached)
   return cached || network
 }
+
+// --- Notificaciones push -----------------------------------------------------
+// Llegan aunque la app esté cerrada: el servicio de push del navegador despierta
+// este service worker, que muestra la notificación del sistema.
+
+self.addEventListener('push', (event) => {
+  let datos = {}
+  try {
+    datos = event.data ? event.data.json() : {}
+  } catch {
+    datos = { mensaje: event.data ? event.data.text() : '' }
+  }
+  const titulo = datos.titulo || 'Study Planner'
+  event.waitUntil(
+    Promise.all([
+      self.registration.showNotification(titulo, {
+        body: datos.mensaje || '',
+        icon: '/icons/icon-192.png',
+        badge: '/icons/icon-192.png',
+        lang: 'es',
+        // Mismo tag = sustituye a la anterior del mismo tipo en vez de acumularse.
+        tag: datos.tag || undefined,
+        data: { url: datos.url || '/', id: datos.id },
+      }),
+      // Si la app está abierta, que actualice la campana al momento.
+      avisarVentanas({ type: 'NOTIFICACION_NUEVA', id: datos.id }),
+    ]),
+  )
+})
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+  const { url = '/', id } = event.notification.data || {}
+  event.waitUntil(abrirApp(url, id))
+})
+
+async function avisarVentanas(mensaje) {
+  const ventanas = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+  for (const ventana of ventanas) ventana.postMessage(mensaje)
+}
+
+/** Enfoca la app si ya está abierta (y la lleva a la pantalla) o la abre. */
+async function abrirApp(url, id) {
+  const ventanas = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
+  const abierta = ventanas.find((v) => new URL(v.url).origin === self.location.origin)
+  if (abierta) {
+    await abierta.focus()
+    abierta.postMessage({ type: 'NAVEGAR', url, id })
+    return
+  }
+  // Al abrirla desde cero, la app marca la notificación como leída al cargar.
+  const destino = new URL(url, self.location.origin)
+  if (id) destino.searchParams.set('notificacion', id)
+  await self.clients.openWindow(destino.pathname + destino.search)
+}

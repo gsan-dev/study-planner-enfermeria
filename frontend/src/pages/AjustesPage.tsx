@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router'
 import { toast } from 'sonner'
 import { useAuth, useCurrentUser } from '../auth/authContext'
-import { LogoutIcon } from '../components/icons'
+import { BellIcon, ChevronDownIcon, LogoutIcon } from '../components/icons'
 import { Button } from '../components/ui/Button'
 import { TextField } from '../components/ui/Field'
 import { perfilSchema } from '../schemas/auth'
@@ -65,6 +66,20 @@ export function AjustesPage() {
           </div>
         </form>
       </section>
+
+      <Link
+        to="/notificaciones"
+        className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 hover:border-slate-300 md:p-6"
+      >
+        <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700">
+          <BellIcon className="size-6" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-slate-900">Notificaciones</span>
+          <span className="block text-sm text-slate-600">Actívalas en este dispositivo y elige qué avisos recibir.</span>
+        </span>
+        <ChevronDownIcon className="size-5 -rotate-90 text-slate-400" />
+      </Link>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
         <h2 className="text-lg font-semibold text-slate-900">Sesión</h2>

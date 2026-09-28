@@ -1,5 +1,6 @@
 import type { ComponentType, SVGProps } from 'react'
 import {
+  BellIcon,
   BookIcon,
   CalendarMonthIcon,
   CalendarIcon,
@@ -35,4 +36,7 @@ export const primaryNav: NavItem[] = [
 ]
 
 /** Secciones secundarias: solo en sidebar y en el menú lateral del móvil. */
-export const secondaryNav: NavItem[] = [{ to: '/ajustes', label: 'Ajustes', icon: SettingsIcon }]
+export const secondaryNav: NavItem[] = [
+  { to: '/notificaciones', label: 'Notificaciones', icon: BellIcon },
+  { to: '/ajustes', label: 'Ajustes', icon: SettingsIcon },
+]

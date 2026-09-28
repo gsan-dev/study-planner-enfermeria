@@ -135,3 +135,34 @@ export interface EntradaDiario extends Timestamps {
   texto: string
   animo?: Animo
 }
+
+export type TipoNotificacion =
+  | 'examen_7d'
+  | 'examen_3d'
+  | 'examen_1d'
+  | 'plan_diario'
+  | 'plan_retraso'
+  | 'plan_completado'
+  | 'prueba'
+  | 'general'
+
+export interface Notificacion extends Timestamps {
+  _id: ID
+  userId: ID
+  tipo: TipoNotificacion
+  titulo: string
+  mensaje: string
+  /** Ruta de la app que se abre al tocarla. */
+  url: string
+  leida: boolean
+  leidaEn?: ISODate
+}
+
+export interface PreferenciasNotificaciones {
+  examenes: boolean
+  planDiario: boolean
+  retraso: boolean
+  logros: boolean
+  horaDiaria: string // HH:mm
+  zonaHoraria: string // IANA, p. ej. Europe/Madrid
+}

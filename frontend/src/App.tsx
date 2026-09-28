@@ -15,6 +15,7 @@ import { ExamenesPage } from './pages/ExamenesPage'
 import { HorarioPage } from './pages/HorarioPage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { NotificacionesPage } from './pages/NotificacionesPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { PlanExamenPage } from './pages/PlanExamenPage'
 import { PlanPage } from './pages/PlanPage'
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
       { path: 'plan', element: <PlanPage /> },
       { path: 'plan/:examenId', element: <PlanExamenPage /> },
       { path: 'progreso', element: <ProgresoPage /> },
+      { path: 'notificaciones', element: <NotificacionesPage /> },
       { path: 'ajustes', element: <AjustesPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
@@ -69,8 +71,8 @@ export default function App() {
     <ServiceWorkerContext value={serviceWorker}>
       <AuthProvider>
         <RouterProvider router={router} />
-        {/* Arriba en móvil para no tapar la barra de navegación inferior. */}
-        <Toaster position="top-center" richColors closeButton offset={16} mobileOffset={{ top: 'calc(env(safe-area-inset-top) + 12px)' }} />
+        {/* Móvil: arriba (la barra de navegación está abajo) pero bajo la cabecera, para no tapar la campana. */}
+        <Toaster position="top-center" richColors closeButton offset={16} mobileOffset={{ top: 'calc(env(safe-area-inset-top) + 4rem)' }} />
       </AuthProvider>
     </ServiceWorkerContext>
   )

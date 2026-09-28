@@ -1,4 +1,6 @@
+import { logger } from '../config/logger.js';
 import { Examen, PlanEstudio, Tema, User } from '../models/index.js';
+import { avisoPlanCompletado } from '../services/notificaciones.js';
 import { diaKey, generarPlan } from '../services/planGenerator.js';
 import { sincronizarProgresoPlan } from '../services/progreso.js';
 import { AppError } from '../utils/AppError.js';
@@ -245,6 +247,11 @@ export async function actualizarDia(req, res) {
       );
       if (modifiedCount > 0) temaEstudiado = sesion.temaId;
     }
+  }
+
+  if (cambios.completado) {
+    // Si era la última sesión pendiente: felicitación (no bloquea la respuesta).
+    avisoPlanCompletado(userId, plan).catch((err) => logger.warn({ err: err.message }, 'Aviso de plan completado'));
   }
 
   res.json({ plan, temaEstudiado });

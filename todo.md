@@ -232,26 +232,29 @@
 
 ---
 
-## **FASE 7: NOTIFICACIONES & AVISOS**
+## **FASE 7: NOTIFICACIONES & AVISOS** ✅
 
 ### Sistema de Notificaciones
-- [ ] Crear modelo `Notificacion` en BD
-- [ ] Endpoint POST `/notificaciones` - crear notificación
-- [ ] Endpoint GET `/notificaciones` - listar notificaciones no leídas
-- [ ] Endpoint PATCH `/notificaciones/:id/leer` - marcar como leída
+- [x] Crear modelo `Notificacion` en BD
+- [x] Endpoint POST `/notificaciones` - crear notificación
+- [x] Endpoint GET `/notificaciones` - listar notificaciones no leídas
+- [x] Endpoint PATCH `/notificaciones/:id/leer` - marcar como leída
+- [x] Extra: **Web Push** (llegan con la app cerrada), claves VAPID automáticas, suscripciones por dispositivo, preferencias y hora de aviso por zona horaria
 
 ### Reglas de Notificación
-- [ ] 7 días antes del examen: "Tu examen de [Asignatura] es en 7 días"
-- [ ] 3 días antes: "Deberías empezar a estudiar si no lo has hecho"
-- [ ] Diario: "Estudia [Tema] hoy según tu plan"
-- [ ] Si se atrasa: "Vas retrasado 1 día en tu plan. Aumenta horas"
-- [ ] Si completa todo: "¡Felicidades! Completaste el plan de [Examen]"
+- [x] 7 días antes del examen: "Tu examen de [Asignatura] es en 7 días"
+- [x] 3 días antes: "Deberías empezar a estudiar si no lo has hecho"
+- [x] Diario: "Estudia [Tema] hoy según tu plan"
+- [x] Si se atrasa: "Vas retrasado 1 día en tu plan. Aumenta horas"
+- [x] Si completa todo: "¡Felicidades! Completaste el plan de [Examen]"
+- [x] Extra: el día antes del examen
 
 ### Frontend - Notificaciones
-- [ ] Bell icon en header
-- [ ] Dropdown con notificaciones recientes
-- [ ] Toast notifications para eventos en tiempo real
-- [ ] Página de historial de notificaciones
+- [x] Bell icon en header
+- [x] Dropdown con notificaciones recientes
+- [x] Toast notifications para eventos en tiempo real
+- [x] Página de historial de notificaciones (con ajustes: activar en el dispositivo, prueba, qué avisos y a qué hora)
+- [x] Extra: número en el icono de la app instalada; en iPhone, instrucciones para instalarla
 
 ---
 

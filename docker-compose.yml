@@ -48,6 +48,12 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5}
       SCAN_RATE_LIMIT_MAX: ${SCAN_RATE_LIMIT_MAX:-15}
+      # Notificaciones push (sin claves se generan solas y se guardan en MongoDB).
+      VAPID_PUBLIC_KEY: ${VAPID_PUBLIC_KEY:-}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY:-}
+      VAPID_SUBJECT: ${VAPID_SUBJECT:-}
+      NOTIFICACIONES_INTERVALO_MIN: ${NOTIFICACIONES_INTERVALO_MIN:-5}
+      PUSH_ENDPOINTS_EXTRA: ${PUSH_ENDPOINTS_EXTRA:-}
     networks: [internal]
 
   web:

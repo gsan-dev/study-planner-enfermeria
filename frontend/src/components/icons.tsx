@@ -57,6 +57,13 @@ export const CalendarMonthIcon = (p: IconProps) => (
   </Icon>
 )
 
+export const BellIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+  </Icon>
+)
+
 export const ChecklistIcon = (p: IconProps) => (
   <Icon {...p}>
     <path d="m3.5 6 1.5 1.5L8 4.5M3.5 12.5 5 14l3-3M3.5 19 5 20.5l3-3" />

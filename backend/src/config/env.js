@@ -53,4 +53,13 @@ export const env = Object.freeze({
   anthropicApiKey: process.env.ANTHROPIC_API_KEY || '',
   anthropicModel: process.env.ANTHROPIC_MODEL || 'claude-opus-5',
   scanRateLimitMax: toInt(process.env.SCAN_RATE_LIMIT_MAX, 15),
+  // Web Push: sin claves, se generan y se guardan en la base de datos.
+  vapidPublicKey: process.env.VAPID_PUBLIC_KEY || '',
+  vapidPrivateKey: process.env.VAPID_PRIVATE_KEY || '',
+  // Contacto para los servicios de push (Apple lo exige): mailto: o https://.
+  vapidSubject: process.env.VAPID_SUBJECT || 'mailto:avisos@study-planner.app',
+  // Cada cuántos minutos se revisan los avisos programados.
+  // Solo para pruebas: orígenes extra aceptados como endpoint de push (separados por comas).
+  pushEndpointsExtra: (process.env.PUSH_ENDPOINTS_EXTRA || '').split(',').map((o) => o.trim()).filter(Boolean),
+  notificacionesIntervaloMin: Math.max(1, toInt(process.env.NOTIFICACIONES_INTERVALO_MIN, 5)),
 });

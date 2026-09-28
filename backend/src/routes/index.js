@@ -9,6 +9,7 @@ import dashboardRoutes from './dashboard.routes.js';
 import estadisticasRoutes from './estadisticas.routes.js';
 import examenesRoutes from './examenes.routes.js';
 import horarioRoutes from './horario.routes.js';
+import notificacionesRoutes from './notificaciones.routes.js';
 import planRoutes from './plan.routes.js';
 import progresoRoutes from './progreso.routes.js';
 import temasRoutes from './temas.routes.js';
@@ -31,5 +32,6 @@ router.use('/dashboard', dashboardRoutes);
 router.use('/calendario', calendarioRoutes);
 router.use('/progreso', progresoRoutes);
 router.use('/estadisticas', estadisticasRoutes);
+router.use('/notificaciones', notificacionesRoutes);
 
 export default router;

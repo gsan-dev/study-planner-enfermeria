@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router'
+import { NotificacionesProvider } from '../notificaciones/NotificacionesProvider'
 import { BottomNav } from './BottomNav'
 import { Header } from './Header'
 import { MobileDrawer } from './MobileDrawer'
@@ -55,23 +56,25 @@ export function AppLayout() {
   }, [title])
 
   return (
-    <div className="flex min-h-dvh">
-      <Sidebar collapsed={collapsed} onToggleCollapsed={toggleCollapsed} />
-      <MobileDrawer open={drawerOpen} onClose={closeDrawer} />
+    <NotificacionesProvider>
+      <div className="flex min-h-dvh">
+        <Sidebar collapsed={collapsed} onToggleCollapsed={toggleCollapsed} />
+        <MobileDrawer open={drawerOpen} onClose={closeDrawer} />
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <Header title={title} onOpenMenu={() => setDrawerOpen(true)} />
-        <StatusBanners />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <Header title={title} onOpenMenu={() => setDrawerOpen(true)} />
+          <StatusBanners />
 
-        {/* pb-24 deja hueco para la barra inferior del móvil. */}
-        <main className="flex-1 pt-4 pr-[max(1rem,env(safe-area-inset-right))] pb-24 pl-[max(1rem,env(safe-area-inset-left))] md:px-6 md:pt-6 md:pb-8 xl:px-8 2xl:px-12">
-          <div className="mx-auto w-full max-w-7xl 2xl:max-w-[1600px]">
-            <Outlet />
-          </div>
-        </main>
+          {/* pb-24 deja hueco para la barra inferior del móvil. */}
+          <main className="flex-1 pt-4 pr-[max(1rem,env(safe-area-inset-right))] pb-24 pl-[max(1rem,env(safe-area-inset-left))] md:px-6 md:pt-6 md:pb-8 xl:px-8 2xl:px-12">
+            <div className="mx-auto w-full max-w-7xl 2xl:max-w-[1600px]">
+              <Outlet />
+            </div>
+          </main>
+        </div>
+
+        <BottomNav />
       </div>
-
-      <BottomNav />
-    </div>
+    </NotificacionesProvider>
   )
 }

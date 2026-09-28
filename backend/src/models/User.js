@@ -27,6 +27,15 @@ const userSchema = new mongoose.Schema(
     },
     // Horas de estudio disponibles por defecto al generar planes.
     horasEstudioDiarias: { type: Number, min: 0, max: 16, default: 3 },
+    // Qué avisos recibe y cuándo (la hora es la de su zona horaria).
+    notificaciones: {
+      examenes: { type: Boolean, default: true },
+      planDiario: { type: Boolean, default: true },
+      retraso: { type: Boolean, default: true },
+      logros: { type: Boolean, default: true },
+      horaDiaria: { type: String, default: '08:00', match: /^([01]\d|2[0-3]):[0-5]\d$/ },
+      zonaHoraria: { type: String, default: 'Europe/Madrid', maxlength: 60 },
+    },
   },
   {
     timestamps: true,
