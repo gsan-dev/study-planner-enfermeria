@@ -39,6 +39,11 @@ Caddy obtiene y renueva el certificado HTTPS solo (lo exige la PWA para
 instalarse en el iPhone). Para actualizar la app, vuelve a ejecutar
 `./scripts/deploy.sh`: hace `git pull`, reconstruye y reinicia.
 
+**Con Cloudflare delante:** crea una regla de caché que **no guarde**
+`/service-worker.js` (Caching › Cache Rules › «URI Path equals
+/service-worker.js» → *Bypass cache*). Si no, Cloudflare lo sirve cacheado
+horas y los móviles tardan en recibir la versión nueva de la app.
+
 **Sin dominio propio:** deja `SITE_ADDRESS=:80` y pon delante un túnel con
 HTTPS (Cloudflare Tunnel, Tailscale Funnel…).
 
@@ -285,6 +290,11 @@ momento y sale un aviso.
 - **Seguridad**: solo se aceptan suscripciones hacia los servicios de push
   conocidos (así la API no puede usarse para hacer peticiones a otras webs).
   Las suscripciones caducadas (404/410) se borran solas.
+- **Etiqueta y prioridad**: cada notificación lleva su propia etiqueta (`tag`).
+  Si dos compartieran etiqueta, el sistema sustituiría la anterior en silencio
+  (sin sonido ni aviso emergente); por si acaso, el service worker usa
+  `renotify`. Las que provoca la usuaria (prueba, recordatorio propio,
+  felicitación) van con prioridad alta (`Urgency: high`).
 - **Requisitos**: HTTPS (o `localhost`). En **iPhone/iPad** solo funciona con la
   app **añadida a la pantalla de inicio** (iOS 16.4+); la app lo detecta y
   explica los pasos.

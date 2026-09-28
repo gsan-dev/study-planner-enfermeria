@@ -120,8 +120,11 @@ self.addEventListener('push', (event) => {
         icon: '/icons/icon-192.png',
         badge: '/icons/icon-192.png',
         lang: 'es',
-        // Mismo tag = sustituye a la anterior del mismo tipo en vez de acumularse.
-        tag: datos.tag || undefined,
+        // El servidor manda una etiqueta por aviso. Si alguna se repite, la nueva
+        // sustituye a la anterior, y `renotify` hace que vuelva a sonar y a
+        // mostrarse (sin él, el sistema la reemplazaría en silencio).
+        tag: datos.tag || datos.id || undefined,
+        renotify: Boolean(datos.tag || datos.id),
         data: { url: datos.url || '/', id: datos.id },
       }),
       // Si la app está abierta, que actualice la campana al momento.

@@ -5,6 +5,10 @@ import { Config, PushSuscripcion } from '../models/index.js';
 
 let clavePublica = null;
 
+// Avisos que la usuaria espera al momento (los ha provocado ella): prioridad alta,
+// para que el servicio de push no los retrase aunque el móvil esté en ahorro de energía.
+const INMEDIATOS = new Set(['prueba', 'general', 'plan_completado']);
+
 /**
  * Prepara Web Push. Las claves VAPID salen de VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY
  * si están definidas; si no, se generan una vez y se guardan en la base de
@@ -48,7 +52,9 @@ export async function enviarPush(userId, notificacion) {
     titulo: notificacion.titulo,
     mensaje: notificacion.mensaje,
     url: notificacion.url,
-    tag: notificacion.clave ?? notificacion.tipo,
+    // Una etiqueta por aviso: si se repitiera, el sistema sustituiría la notificación
+    // anterior en silencio (sin sonido ni aviso emergente).
+    tag: notificacion.clave ?? String(notificacion._id),
   });
 
   const resultados = await Promise.allSettled(
@@ -56,7 +62,7 @@ export async function enviarPush(userId, notificacion) {
       webpush.sendNotification({ endpoint: s.endpoint, keys: s.keys }, payload, {
         // Si el dispositivo está apagado, el aviso espera hasta 12 h.
         TTL: 12 * 60 * 60,
-        urgency: 'normal',
+        urgency: INMEDIATOS.has(notificacion.tipo) ? 'high' : 'normal',
         timeout: 10_000,
       }),
     ),
