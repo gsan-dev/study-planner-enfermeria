@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useAuth, useCurrentUser } from '../../auth/authContext'
 import { LogoutIcon, SettingsIcon } from '../icons'
+import { Avatar } from '../ui/Avatar'
 
-/** Avatar con la inicial y menú desplegable (ajustes y cerrar sesión). */
+/** Avatar (foto o inicial) y menú desplegable (ajustes y cerrar sesión). */
 export function UserMenu() {
   const user = useCurrentUser()
   const { logout } = useAuth()
@@ -26,8 +27,6 @@ export function UserMenu() {
     }
   }, [open])
 
-  const inicial = user.nombre.trim().charAt(0).toUpperCase() || '?'
-
   return (
     <div ref={ref} className="relative">
       <button
@@ -38,9 +37,7 @@ export function UserMenu() {
         aria-label="Menú de usuario"
         className="grid size-11 cursor-pointer place-items-center rounded-full"
       >
-        <span className="grid size-9 place-items-center rounded-full bg-brand-100 text-sm font-semibold text-brand-800">
-          {inicial}
-        </span>
+        <Avatar user={user} />
       </button>
       {open && (
         <div

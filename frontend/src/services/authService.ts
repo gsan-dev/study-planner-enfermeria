@@ -28,7 +28,30 @@ export async function getMe() {
   return data.user
 }
 
-export async function updateMe(input: Partial<Pick<User, 'nombre' | 'horasEstudioDiarias'>>) {
+export async function updateMe(input: Pick<User, 'horasEstudioDiarias'>) {
   const { data } = await api.patch<{ user: User }>('/auth/me', input)
+  return data.user
+}
+
+/** Cambia el nombre; pide la contraseña de la cuenta. */
+export async function cambiarNombre(nombre: string, password: string) {
+  const { data } = await api.patch<{ user: User }>('/auth/me/nombre', { nombre, password })
+  return data.user
+}
+
+/** Cambia el email de acceso; pide la contraseña de la cuenta. */
+export async function cambiarEmail(email: string, password: string) {
+  const { data } = await api.patch<{ user: User }>('/auth/me/email', { email, password })
+  return data.user
+}
+
+/** Foto de perfil como data URL (ver lib/imagen). */
+export async function cambiarFoto(foto: string) {
+  const { data } = await api.put<{ user: User }>('/auth/me/foto', { foto })
+  return data.user
+}
+
+export async function quitarFoto() {
+  const { data } = await api.delete<{ user: User }>('/auth/me/foto')
   return data.user
 }

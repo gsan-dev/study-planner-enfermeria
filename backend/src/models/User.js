@@ -25,6 +25,9 @@ const userSchema = new mongoose.Schema(
       trim: true,
       maxlength: [80, 'El nombre no puede superar 80 caracteres'],
     },
+    // Foto de perfil: imagen pequeña (256 px) como data URL. Se guarda con el usuario
+    // para que entre en las copias de seguridad y se vea sin conexión.
+    foto: { type: String, maxlength: 200_000 },
     // Horas de estudio disponibles por defecto al generar planes.
     horasEstudioDiarias: { type: Number, min: 0, max: 16, default: 3 },
     // Qué avisos recibe y cuándo (la hora es la de su zona horaria).

@@ -13,6 +13,8 @@ export interface User extends Timestamps {
   _id: ID
   email: string
   nombre: string
+  /** Foto de perfil como data URL (JPEG de 256 px). */
+  foto?: string
   horasEstudioDiarias: number
 }
 

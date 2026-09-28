@@ -145,7 +145,11 @@ frontend/
 | POST   | `/api/auth/refresh-token`             | `{ refreshToken }` → tokens nuevos (rota el refresh) |
 | POST   | `/api/auth/logout`                    | `{ refreshToken }` → cierra la sesión del dispositivo |
 | GET    | `/api/auth/me` 🔒                     | Usuario actual                                     |
-| PATCH  | `/api/auth/me` 🔒                     | `{ nombre?, horasEstudioDiarias? }`                |
+| PATCH  | `/api/auth/me` 🔒                     | `{ horasEstudioDiarias }`                          |
+| PATCH  | `/api/auth/me/nombre` 🔒              | `{ nombre, password }` (con la contraseña; límite de intentos como el login) |
+| PATCH  | `/api/auth/me/email` 🔒               | `{ email, password }` (con la contraseña; 409 si ya lo usa otra cuenta) |
+| PUT    | `/api/auth/me/foto` 🔒                | `{ foto }`: data URL JPEG/PNG/WebP (se comprueba que sea de verdad una imagen) |
+| DELETE | `/api/auth/me/foto` 🔒                | Quitar la foto de perfil                           |
 | GET    | `/api/asignaturas?archivadas=` 🔒     | `false` (defecto), `true` o `todas`; incluye `resumenTemas` |
 | POST   | `/api/asignaturas` 🔒                 | Crear                                              |
 | GET    | `/api/asignaturas/:id` 🔒             | Obtener una                                        |

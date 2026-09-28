@@ -1,24 +1,27 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Link } from 'react-router'
 import { toast } from 'sonner'
 import { useAuth, useCurrentUser } from '../auth/authContext'
-import { BellIcon, ChevronDownIcon, LogoutIcon } from '../components/icons'
+import { CambiarDatoModal, type DatoPerfil } from '../components/ajustes/CambiarDatoModal'
+import { BellIcon, CameraIcon, ChevronDownIcon, LogoutIcon, TrashIcon } from '../components/icons'
+import { Avatar } from '../components/ui/Avatar'
 import { Button } from '../components/ui/Button'
 import { TextField } from '../components/ui/Field'
+import { prepararFotoPerfil } from '../lib/imagen'
 import { perfilSchema } from '../schemas/auth'
 import { validateForm, type FieldErrors } from '../schemas/validation'
 import { getErrorMessage, getFieldErrors } from '../services/api'
-import { updateMe } from '../services/authService'
+import { cambiarFoto, quitarFoto, updateMe } from '../services/authService'
 
 export function AjustesPage() {
   const { setUser, logout } = useAuth()
   const user = useCurrentUser()
-  const [values, setValues] = useState({
-    nombre: user.nombre,
-    horasEstudioDiarias: String(user.horasEstudioDiarias),
-  })
+  const [values, setValues] = useState({ horasEstudioDiarias: String(user.horasEstudioDiarias) })
   const [errors, setErrors] = useState<FieldErrors>({})
   const [saving, setSaving] = useState(false)
+  const [cambiando, setCambiando] = useState<DatoPerfil | null>(null)
+  const [subiendoFoto, setSubiendoFoto] = useState(false)
+  const inputFoto = useRef<HTMLInputElement>(null)
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -37,24 +40,93 @@ export function AjustesPage() {
     }
   }
 
+  const elegirFoto = async (event: ChangeEvent<HTMLInputElement>) => {
+    const archivo = event.target.files?.[0]
+    // Permite volver a elegir la misma imagen más adelante.
+    event.target.value = ''
+    if (!archivo) return
+    setSubiendoFoto(true)
+    try {
+      setUser(await cambiarFoto(await prepararFotoPerfil(archivo)))
+      toast.success('Foto actualizada')
+    } catch (error) {
+      toast.error(error instanceof Error && !('isAxiosError' in error) ? 'No se pudo leer la imagen. Prueba con otra.' : getErrorMessage(error))
+    } finally {
+      setSubiendoFoto(false)
+    }
+  }
+
+  const borrarFoto = async () => {
+    setSubiendoFoto(true)
+    try {
+      setUser(await quitarFoto())
+      toast.success('Foto quitada')
+    } catch (error) {
+      toast.error(getErrorMessage(error))
+    } finally {
+      setSubiendoFoto(false)
+    }
+  }
+
+  const filas: { dato: DatoPerfil; etiqueta: string; valor: string }[] = [
+    { dato: 'nombre', etiqueta: 'Nombre', valor: user.nombre },
+    { dato: 'email', etiqueta: 'Email', valor: user.email },
+  ]
+
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
-        <h2 className="text-lg font-semibold text-slate-900">Tu perfil</h2>
+      <section aria-labelledby="tu-perfil" className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
+        <h2 id="tu-perfil" className="text-lg font-semibold text-slate-900">
+          Tu perfil
+        </h2>
+
+        {/* Foto: se cambia sin contraseña */}
+        <div className="mt-4 flex flex-col items-center gap-4 sm:flex-row">
+          <div className={subiendoFoto ? 'opacity-50' : ''}>
+            <Avatar user={user} size="lg" />
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 sm:justify-start">
+            <input ref={inputFoto} type="file" accept="image/*" className="sr-only" tabIndex={-1} aria-hidden="true" onChange={elegirFoto} />
+            <Button variant="secondary" onClick={() => inputFoto.current?.click()} loading={subiendoFoto}>
+              <CameraIcon className="size-5" />
+              {user.foto ? 'Cambiar foto' : 'Añadir foto'}
+            </Button>
+            {user.foto && (
+              <Button variant="ghost" onClick={borrarFoto} disabled={subiendoFoto} className="text-rose-600 hover:bg-rose-50 hover:text-rose-700">
+                <TrashIcon className="size-5" />
+                Quitar
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {/* Nombre y email: con la contraseña */}
+        <dl className="mt-5 flex flex-col divide-y divide-slate-100 border-t border-slate-100">
+          {filas.map(({ dato, etiqueta, valor }) => (
+            <div key={dato} className="flex items-center gap-3 py-3">
+              <div className="min-w-0 flex-1">
+                <dt className="text-sm text-slate-500">{etiqueta}</dt>
+                <dd className="truncate font-medium text-slate-900">{valor}</dd>
+              </div>
+              <Button variant="secondary" onClick={() => setCambiando(dato)} aria-label={`Cambiar ${etiqueta.toLowerCase()}`}>
+                Cambiar
+              </Button>
+            </div>
+          ))}
+        </dl>
+        <p className="text-xs text-slate-500">Para cambiar el nombre o el email te pediremos la contraseña.</p>
+      </section>
+
+      <section aria-labelledby="estudio" className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
+        <h2 id="estudio" className="text-lg font-semibold text-slate-900">
+          Estudio
+        </h2>
         <form onSubmit={onSubmit} noValidate className="mt-4 flex flex-col gap-4">
-          <TextField label="Email" value={user.email} disabled readOnly />
-          <TextField
-            label="Nombre"
-            autoComplete="given-name"
-            value={values.nombre}
-            onChange={(e) => setValues({ ...values, nombre: e.target.value })}
-            error={errors.nombre}
-          />
           <TextField
             label="Horas de estudio al día"
             inputMode="decimal"
             value={values.horasEstudioDiarias}
-            onChange={(e) => setValues({ ...values, horasEstudioDiarias: e.target.value })}
+            onChange={(e) => setValues({ horasEstudioDiarias: e.target.value })}
             error={errors.horasEstudioDiarias}
             hint="Se usa por defecto al generar tus planes de estudio."
             wrapperClassName="sm:max-w-xs"
@@ -89,6 +161,16 @@ export function AjustesPage() {
           Cerrar sesión
         </Button>
       </section>
+
+      <CambiarDatoModal
+        dato={cambiando}
+        user={user}
+        onClose={() => setCambiando(null)}
+        onSaved={(guardado) => {
+          setUser(guardado)
+          setCambiando(null)
+        }}
+      />
     </div>
   )
 }

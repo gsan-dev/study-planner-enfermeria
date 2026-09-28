@@ -27,7 +27,6 @@ export const registerSchema = z
   })
 
 export const perfilSchema = z.object({
-  nombre,
   horasEstudioDiarias: numberFromInput('Introduce un número de horas').pipe(
     z
       .number({ error: 'Indica cuántas horas puedes estudiar al día' })
@@ -35,3 +34,9 @@ export const perfilSchema = z.object({
       .max(16, 'Máximo 16 horas'),
   ),
 })
+
+const passwordActual = z.string().min(1, 'Escribe tu contraseña')
+
+export const cambiarNombreSchema = z.object({ valor: nombre, password: passwordActual })
+
+export const cambiarEmailSchema = z.object({ valor: email, password: passwordActual })
