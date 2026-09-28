@@ -178,7 +178,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
   return (
     <div className="flex flex-col gap-4">
       <div className="grid items-start gap-4 lg:grid-cols-[18rem_minmax(0,1fr)]">
-        <aside className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 lg:sticky lg:top-4">
+        <aside className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 lg:sticky lg:top-4">
           <div className="grid grid-cols-2 gap-3">
             <TextField
               label="Horas al día"
@@ -216,7 +216,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                       aria-pressed={activo}
                       className={[
                         'flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-xl border px-3 py-1.5 text-left text-sm transition-colors',
-                        activo ? 'border-transparent text-white' : 'border-slate-200 bg-white text-slate-800 hover:border-slate-300',
+                        activo ? 'border-transparent text-white' : 'border-slate-200 bg-superficie text-slate-800 hover:border-slate-300',
                       ].join(' ')}
                       style={activo ? { backgroundColor: color } : undefined}
                     >
@@ -242,7 +242,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
 
         <div className="flex min-w-0 flex-col gap-3">
           {seleccion && (
-            <div className="sticky top-2 z-10 flex items-center gap-2 rounded-xl bg-slate-900 py-1 pr-1 pl-4 text-sm text-white shadow-lg">
+            <div className="sticky top-2 z-10 flex items-center gap-2 rounded-xl bg-slate-900 py-1 pr-1 pl-4 text-sm text-slate-50 shadow-lg">
               <span className="flex-1">
                 {seleccion.tipo === 'tema' ? 'Toca un día para colocar' : 'Toca otro día para mover'}{' '}
                 <strong>«{nombreSeleccion}»</strong>
@@ -276,7 +276,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                     onDrop={(e) => onDrop(e, dia)}
                     aria-label={etiqueta}
                     className={[
-                      'flex flex-col gap-1 rounded-2xl border bg-white p-3',
+                      'flex flex-col gap-1 rounded-2xl border bg-superficie p-3',
                       excede ? 'border-rose-300' : 'border-slate-200',
                     ].join(' ')}
                   >
@@ -292,7 +292,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                       const moviendo = seleccion?.tipo === 'sesion' && seleccion.key === s.key
                       if (s.completado) {
                         return (
-                          <div key={s.key} className="flex min-h-10 items-center gap-2 px-1 text-sm text-slate-400">
+                          <div key={s.key} className="flex min-h-10 items-center gap-2 px-1 text-sm text-slate-500">
                             <CheckIcon className="size-4 shrink-0" strokeWidth={3} style={{ color }} />
                             <span className="flex-1 line-through">{nombre}</span>
                             <span className="tabular-nums">{formatHoras(s.horas)}</span>
@@ -324,8 +324,8 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                             onClick={() => cambiar(s.key, { tipo: s.tipo === 'estudio' ? 'repaso' : 'estudio' })}
                             aria-label={`${nombre}: ${TIPO_SESION[s.tipo].toLowerCase()}. Cambiar a ${s.tipo === 'estudio' ? 'repaso' : 'estudio'}`}
                             className={[
-                              'min-h-8 shrink-0 cursor-pointer rounded-full px-2 text-xs font-semibold',
-                              s.tipo === 'repaso' ? 'bg-amber-100 text-amber-800' : 'bg-white text-slate-600 ring-1 ring-slate-200',
+                              'min-h-11 shrink-0 cursor-pointer rounded-full px-2 text-xs font-semibold',
+                              s.tipo === 'repaso' ? 'bg-amber-100 text-amber-800' : 'bg-superficie text-slate-600 ring-1 ring-slate-200',
                             ].join(' ')}
                           >
                             {TIPO_SESION[s.tipo]}
@@ -336,7 +336,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                               onClick={() => cambiar(s.key, { horas: Math.max(0.25, s.horas - (s.horas > PASO ? PASO : 0.25)) })}
                               disabled={s.horas <= 0.25}
                               aria-label={`Menos tiempo para ${nombre}`}
-                              className="grid size-9 cursor-pointer place-items-center rounded-lg text-lg text-slate-600 hover:bg-white disabled:opacity-30"
+                              className="grid size-11 cursor-pointer place-items-center rounded-lg text-lg text-slate-600 hover:bg-superficie disabled:opacity-30"
                             >
                               −
                             </button>
@@ -345,7 +345,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                               type="button"
                               onClick={() => cambiar(s.key, { horas: Math.min(MAX_DIA, s.horas + PASO) })}
                               aria-label={`Más tiempo para ${nombre}`}
-                              className="grid size-9 cursor-pointer place-items-center rounded-lg text-lg text-slate-600 hover:bg-white"
+                              className="grid size-11 cursor-pointer place-items-center rounded-lg text-lg text-slate-600 hover:bg-superficie"
                             >
                               +
                             </button>
@@ -354,7 +354,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                             type="button"
                             onClick={() => quitar(s.key)}
                             aria-label={`Quitar ${nombre} de este día`}
-                            className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-lg text-slate-400 hover:bg-rose-50 hover:text-rose-600"
+                            className="grid size-11 shrink-0 cursor-pointer place-items-center rounded-lg text-slate-500 hover:bg-rose-50 hover:text-rose-600"
                           >
                             <CloseIcon className="size-4" />
                           </button>
@@ -371,7 +371,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
                         {seleccion.tipo === 'tema' ? 'Colocar aquí' : 'Mover aquí'}
                       </button>
                     ) : (
-                      delDia.length === 0 && <p className="py-2 text-sm text-slate-400">Día libre</p>
+                      delDia.length === 0 && <p className="py-2 text-sm text-slate-500">Día libre</p>
                     )}
                   </li>
                 )
@@ -381,7 +381,7 @@ export function PlanEditor({ temas, color, fechaExamen, inicial, onCancel, onSav
         </div>
       </div>
 
-      <div className="sticky bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-10 flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur md:bottom-4">
+      <div className="sticky bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-10 flex flex-col gap-2 rounded-2xl border border-slate-200 bg-superficie/95 p-3 shadow-lg backdrop-blur md:bottom-4">
         {errores.length > 0 && (
           <ul role="alert" className="flex flex-col gap-1 rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700">
             {errores.map((e) => (

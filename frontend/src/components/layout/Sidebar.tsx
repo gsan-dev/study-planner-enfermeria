@@ -44,7 +44,7 @@ export function Sidebar({ collapsed, onToggleCollapsed }: SidebarProps) {
   return (
     <aside
       className={[
-        'sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-slate-200 bg-white pl-safe transition-[width] duration-200 md:flex',
+        'sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-slate-200 bg-superficie pl-safe transition-[width] duration-200 md:flex',
         collapsed ? 'w-20' : 'w-20 lg:w-64',
       ].join(' ')}
     >

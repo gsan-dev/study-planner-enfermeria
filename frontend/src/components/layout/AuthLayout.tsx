@@ -18,7 +18,7 @@ export function AuthLayout({ title, subtitle, children, footer }: AuthLayoutProp
           <h1 className="mt-5 text-2xl font-semibold tracking-tight text-slate-900">{title}</h1>
           <p className="mt-1.5 text-slate-600">{subtitle}</p>
         </div>
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">{children}</div>
+        <div className="rounded-2xl border border-slate-200 bg-superficie p-5 shadow-sm sm:p-6">{children}</div>
         <p className="mt-6 text-center text-sm text-slate-600">{footer}</p>
       </main>
     </div>

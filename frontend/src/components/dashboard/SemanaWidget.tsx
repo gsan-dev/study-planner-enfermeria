@@ -23,7 +23,7 @@ export function SemanaWidget({ semana, cumplimiento }: SemanaWidgetProps) {
       <h3 id="tu-semana" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
         Tu semana
       </h3>
-      <div className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 md:p-5 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-8">
+      <div className="grid gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 md:p-5 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-8">
         {/* Cifras */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-1 lg:content-start">
           <div>

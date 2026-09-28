@@ -89,7 +89,7 @@ export function ParametrosForm({ initial, maxInicio, hayEstudiados, loading, sub
                 className={[
                   'min-h-11 min-w-11 cursor-pointer rounded-xl border px-2 text-sm font-semibold transition-colors',
                   descansa
-                    ? 'border-slate-300 bg-slate-100 text-slate-400 line-through'
+                    ? 'border-slate-300 bg-slate-100 text-slate-500 line-through'
                     : 'border-brand-600 bg-brand-50 text-brand-800',
                 ].join(' ')}
               >
@@ -108,7 +108,7 @@ export function ParametrosForm({ initial, maxInicio, hayEstudiados, loading, sub
             type="checkbox"
             checked={values.repaso}
             onChange={(e) => setValues({ ...values, repaso: e.target.checked })}
-            className="size-5 accent-brand-700"
+            className="size-5 accent-primario"
           />
           <span className="text-sm text-slate-800">
             Repaso final <span className="text-slate-500">(un 25 % más de tiempo para repasar cada tema antes del examen)</span>
@@ -120,7 +120,7 @@ export function ParametrosForm({ initial, maxInicio, hayEstudiados, loading, sub
               type="checkbox"
               checked={values.incluirEstudiados}
               onChange={(e) => setValues({ ...values, incluirEstudiados: e.target.checked })}
-              className="size-5 accent-brand-700"
+              className="size-5 accent-primario"
             />
             <span className="text-sm text-slate-800">
               Repasar también los temas que ya he estudiado

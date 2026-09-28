@@ -18,7 +18,7 @@ export function TemaFields({ values, errors, onChange, autoFocus, layout = 'stac
     <div
       className={
         layout === 'inline'
-          ? 'grid grid-cols-2 gap-2 sm:grid-cols-[1fr_10rem_6.5rem]'
+          ? 'grid grid-cols-2 gap-2 @lg:grid-cols-[1fr_10rem_6.5rem]'
           : 'grid grid-cols-2 gap-4'
       }
     >
@@ -30,7 +30,7 @@ export function TemaFields({ values, errors, onChange, autoFocus, layout = 'stac
         value={values.nombre}
         onChange={(e) => onChange({ ...values, nombre: e.target.value })}
         error={errors.nombre}
-        wrapperClassName="col-span-2 sm:col-span-1"
+        wrapperClassName={layout === 'inline' ? 'col-span-2 @lg:col-span-1' : 'col-span-2 sm:col-span-1'}
       />
       <SelectField
         label="Dificultad"

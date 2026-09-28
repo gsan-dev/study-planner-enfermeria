@@ -49,11 +49,11 @@ export function MonthCalendar({ mes, onMesChange, selected, onSelect, eventos, n
   const esMesActual = isSameMonth(mes, new Date())
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-2 sm:p-4">
+    <div className="rounded-2xl border border-slate-200 bg-superficie p-2 sm:p-4">
       <div className="mb-2 flex items-center gap-1 px-1">
-        <h3 className="flex-1 text-lg font-semibold text-slate-900 first-letter:uppercase" aria-live="polite">
+        <h2 className="flex-1 text-lg font-semibold text-slate-900 first-letter:uppercase" aria-live="polite">
           {format(mes, 'MMMM yyyy', { locale: es })}
-        </h3>
+        </h2>
         {!esMesActual && (
           <button
             type="button"
@@ -116,14 +116,14 @@ export function MonthCalendar({ mes, onMesChange, selected, onSelect, eventos, n
               className={[
                 'relative flex min-h-12 cursor-pointer flex-col items-center gap-1 p-1 text-left focus-visible:z-10 sm:min-h-16',
                 compacto ? '' : 'md:min-h-24 md:items-stretch',
-                fuera ? 'bg-slate-50 text-slate-400' : 'bg-white text-slate-800',
+                fuera ? 'bg-slate-50 text-slate-500' : 'bg-superficie text-slate-800',
                 esSeleccionado ? 'outline-2 -outline-offset-2 outline-brand-600' : 'hover:bg-brand-50/50',
               ].join(' ')}
             >
               <span
                 className={[
                   'grid size-7 shrink-0 place-items-center rounded-full text-sm',
-                  esHoy ? 'bg-brand-700 font-semibold text-white' : '',
+                  esHoy ? 'bg-primario font-semibold text-white' : '',
                 ].join(' ')}
               >
                 {format(dia, 'd')}

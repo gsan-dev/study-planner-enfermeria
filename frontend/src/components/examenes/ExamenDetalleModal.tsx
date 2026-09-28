@@ -139,7 +139,7 @@ function Detalle({ examen, onEdit, onDelete, onChange }: ExamenDetalleModalProps
             <button
               type="button"
               onClick={() => setEligiendo(detalles.temas.map((t) => t._id))}
-              className="min-h-9 shrink-0 cursor-pointer rounded-lg px-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+              className="min-h-11 shrink-0 cursor-pointer rounded-lg px-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
             >
               Cambiar temas
             </button>
@@ -148,7 +148,7 @@ function Detalle({ examen, onEdit, onDelete, onChange }: ExamenDetalleModalProps
 
         {loadError && <p className="text-sm text-rose-600">{loadError}</p>}
         {!detalles && !loadError && (
-          <div className="flex justify-center py-6 text-slate-400">
+          <div className="flex justify-center py-6 text-slate-500">
             <Spinner />
           </div>
         )}
@@ -201,13 +201,13 @@ function Detalle({ examen, onEdit, onDelete, onChange }: ExamenDetalleModalProps
                   <span
                     className={[
                       'grid size-6 shrink-0 place-items-center rounded-lg border-2 text-white transition-colors',
-                      tema.estudiado ? 'border-transparent' : 'border-slate-300 bg-white',
+                      tema.estudiado ? 'border-transparent' : 'border-slate-300 bg-superficie',
                     ].join(' ')}
                     style={tema.estudiado ? { backgroundColor: color } : undefined}
                   >
                     {tema.estudiado && <CheckIcon className="size-4" strokeWidth={3} />}
                   </span>
-                  <span className={tema.estudiado ? 'text-slate-400 line-through' : 'text-slate-800'}>{tema.nombre}</span>
+                  <span className={tema.estudiado ? 'text-slate-500 line-through' : 'text-slate-800'}>{tema.nombre}</span>
                 </button>
               </li>
             ))}
@@ -227,7 +227,7 @@ function Detalle({ examen, onEdit, onDelete, onChange }: ExamenDetalleModalProps
           </Button>
           <Link
             to={`/plan/${examen._id}`}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primario px-4 text-sm font-semibold text-white hover:bg-primario-hover"
           >
             <ChecklistIcon className="size-5" />
             Plan de estudio

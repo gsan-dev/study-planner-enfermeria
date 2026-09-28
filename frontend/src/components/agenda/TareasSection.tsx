@@ -34,7 +34,7 @@ function Casilla({ hecho, label, onClick, disabled }: { hecho: boolean; label: s
       <span
         className={[
           'grid size-6 place-items-center rounded-full border-2 text-white transition-colors',
-          hecho ? 'border-brand-700 bg-brand-700' : 'border-slate-300 bg-white',
+          hecho ? 'border-primario bg-primario' : 'border-slate-300 bg-superficie',
         ].join(' ')}
       >
         {hecho && <CheckIcon className="size-4" strokeWidth={3} />}
@@ -148,7 +148,7 @@ function TareaItem({ tarea, onChange, onRemove }: { tarea: Tarea; onChange: (t: 
           aria-label={`Editar: ${tarea.texto}`}
           className="flex min-h-11 min-w-0 flex-1 cursor-text items-center gap-2 text-left"
         >
-          <span className={`min-w-0 flex-1 break-words ${tarea.hecho ? 'text-slate-400 line-through' : 'text-slate-800'}`}>
+          <span className={`min-w-0 flex-1 break-words ${tarea.hecho ? 'text-slate-500 line-through' : 'text-slate-800'}`}>
             {tarea.texto}
           </span>
           {tarea.hora && (
@@ -206,10 +206,10 @@ export function TareasSection({ dia, esHoy, tareas, pendientes, onChange, onRemo
   const ordenadas = [...tareas.filter((t) => !t.hecho), ...tareas.filter((t) => t.hecho)]
 
   return (
-    <section aria-labelledby="tareas" className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4">
-      <h3 id="tareas" className="font-semibold text-slate-900">
+    <section aria-labelledby="tareas" className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-superficie p-4">
+      <h2 id="tareas" className="font-semibold text-slate-900">
         Tareas y apuntes
-      </h3>
+      </h2>
 
       {esHoy && pendientes.length > 0 && (
         <div className="rounded-xl bg-amber-50 p-3">
@@ -220,7 +220,7 @@ export function TareasSection({ dia, esHoy, tareas, pendientes, onChange, onRemo
                 type="button"
                 onClick={() => pasarAHoy(pendientes)}
                 disabled={moviendo}
-                className="min-h-9 shrink-0 cursor-pointer rounded-lg px-2 text-sm font-semibold text-amber-900 hover:bg-amber-100 disabled:opacity-50"
+                className="min-h-11 shrink-0 cursor-pointer rounded-lg px-2 text-sm font-semibold text-amber-900 hover:bg-amber-100 disabled:opacity-50"
               >
                 Pasar todas a hoy
               </button>
@@ -253,7 +253,7 @@ export function TareasSection({ dia, esHoy, tareas, pendientes, onChange, onRemo
                   type="button"
                   onClick={() => pasarAHoy([t])}
                   disabled={moviendo}
-                  className="min-h-9 shrink-0 cursor-pointer rounded-lg px-2 text-sm font-semibold text-amber-900 hover:bg-amber-100 disabled:opacity-50"
+                  className="min-h-11 shrink-0 cursor-pointer rounded-lg px-2 text-sm font-semibold text-amber-900 hover:bg-amber-100 disabled:opacity-50"
                 >
                   A hoy
                 </button>

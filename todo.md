@@ -278,22 +278,23 @@
 
 ## **FASE 9: REFINAMIENTO & UX**
 
-### Mejoras de UX
-- [ ] **Responsive Design Multi-Dispositivo:**
+### Mejoras de UX ✅
+- [x] **Responsive Design Multi-Dispositivo:**
   - iPhone XR: bottom navigation, single column, toque optimizado
   - Tablet (iPad): 2-column layout, sidebar, toque optimizado
   - Chromebook/Desktop: 3-column layout, sidebar collapsible, mouse/keyboard friendly
-- [ ] Dark mode toggle (nice to have)
-- [ ] Animaciones suaves (transiciones, skeleton loaders)
-- [ ] Validaciones de formularios claras
-- [ ] Mensajes de error/éxito informativos
-- [ ] Loading states en todas las acciones
-- [ ] Bottom navigation en mobile (vs top bar)
-- [ ] **Touch-friendly UI en mobile:** botones 44x44px mínimo
-- [ ] **Mouse-friendly en desktop:** hover effects, cursors adecuados
-- [ ] **Keyboard navigation:** Tab order lógico, accesibilidad
-- [ ] Zoom/scale soportado en todos los navegadores
-- [ ] Testing en DevTools con múltiples resoluciones
+  - Listas de tarjetas: 1 columna (móvil) → 2 (iPad, md) → 3 (Chromebook, xl). Campos del temario con container queries
+- [x] Dark mode toggle (nice to have) — Claro / Oscuro / Automático en Ajustes y atajo en el menú de usuario; sin destello al cargar
+- [x] Animaciones suaves (transiciones, skeleton loaders) — entrada de páginas, modales y menús; esqueletos de carga; respetan «reducir movimiento»
+- [x] Validaciones de formularios claras
+- [x] Mensajes de error/éxito informativos
+- [x] Loading states en todas las acciones
+- [x] Bottom navigation en mobile (vs top bar)
+- [x] **Touch-friendly UI en mobile:** botones 44x44px mínimo (auditado: 0 dianas menores en móvil y tablet)
+- [x] **Mouse-friendly en desktop:** hover effects, cursors adecuados (cursor de mano en todo lo clicable)
+- [x] **Keyboard navigation:** Tab order lógico, accesibilidad («Saltar al contenido», foco visible, Escape cierra y devuelve el foco; axe-core: 0 problemas en claro y oscuro)
+- [x] Zoom/scale soportado en todos los navegadores (zoom sin bloquear; sin scroll horizontal al 200 %)
+- [x] Testing en DevTools con múltiples resoluciones (auditoría automática: 12 pantallas × 5 resoluciones × 2 temas)
 
 ### Offline & PWA
 - [ ] Service Worker cacheando assets estáticos

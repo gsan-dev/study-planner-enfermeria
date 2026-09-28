@@ -50,7 +50,7 @@ export function PlanAgenda({ sesiones, temas, color, onToggle, pendientes }: Pla
 
       {visibles.length === 0 && <p className="text-sm text-slate-500">No quedan sesiones pendientes en el plan.</p>}
 
-      <ol className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3">
+      <ol className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {visibles.map(({ dia, sesiones: delDia }) => {
           const esHoy = dia === hoy
           const hecho = delDia.every((s) => s.completado)
@@ -58,7 +58,7 @@ export function PlanAgenda({ sesiones, temas, color, onToggle, pendientes }: Pla
             <li
               key={dia}
               className={[
-                'rounded-2xl border bg-white p-3 md:p-4',
+                'rounded-2xl border bg-superficie p-3 md:p-4',
                 esHoy ? 'border-brand-600 ring-1 ring-brand-600' : 'border-slate-200',
                 dia < hoy && hecho ? 'opacity-70' : '',
               ].join(' ')}
@@ -80,7 +80,7 @@ export function PlanAgenda({ sesiones, temas, color, onToggle, pendientes }: Pla
                         <span
                           className={[
                             'grid size-6 shrink-0 place-items-center rounded-lg border-2 text-white transition-colors',
-                            sesion.completado ? 'border-transparent' : 'border-slate-300 bg-white',
+                            sesion.completado ? 'border-transparent' : 'border-slate-300 bg-superficie',
                           ].join(' ')}
                           style={sesion.completado ? { backgroundColor: color } : undefined}
                         >
@@ -88,7 +88,7 @@ export function PlanAgenda({ sesiones, temas, color, onToggle, pendientes }: Pla
                         </span>
                       )}
                       <span className="min-w-0 flex-1">
-                        <span className={`block ${sesion.completado ? 'text-slate-400 line-through' : 'text-slate-800'}`}>
+                        <span className={`block ${sesion.completado ? 'text-slate-500 line-through' : 'text-slate-800'}`}>
                           {nombre}
                         </span>
                         {sesion.notas && <span className="block text-xs text-slate-500">{sesion.notas}</span>}

@@ -42,7 +42,7 @@ export function Campana() {
         <BellIcon className="size-6" />
         {noLeidas > 0 && (
           <span
-            className="absolute top-1.5 right-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-rose-600 px-1 text-[11px] leading-none font-bold text-white ring-2 ring-white"
+            className="absolute top-1.5 right-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-peligro px-1 text-[11px] leading-none font-bold text-white ring-2 ring-superficie"
             aria-hidden="true"
           >
             {noLeidas > 99 ? '99+' : noLeidas}
@@ -54,7 +54,7 @@ export function Campana() {
         <div
           role="dialog"
           aria-label="Notificaciones recientes"
-          className="fixed inset-x-2 top-[calc(3.75rem+env(safe-area-inset-top))] z-40 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl sm:absolute sm:inset-x-auto sm:top-auto sm:right-0 sm:mt-1 sm:w-96"
+          className="animate-menu fixed inset-x-2 top-[calc(3.75rem+env(safe-area-inset-top))] z-40 overflow-hidden rounded-2xl border border-slate-200 bg-superficie shadow-xl sm:absolute sm:inset-x-auto sm:top-auto sm:right-0 sm:mt-1 sm:w-96"
         >
           <div className="flex items-center justify-between gap-2 border-b border-slate-100 py-2 pr-2 pl-4">
             <p className="font-semibold text-slate-900">Notificaciones</p>
@@ -62,7 +62,7 @@ export function Campana() {
               <button
                 type="button"
                 onClick={() => marcarTodas()}
-                className="min-h-9 cursor-pointer rounded-lg px-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+                className="min-h-11 cursor-pointer rounded-lg px-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
               >
                 Marcar todas como leídas
               </button>
@@ -87,7 +87,7 @@ export function Campana() {
                     <span className="min-w-0 flex-1">
                       <span className={`block text-sm ${n.leida ? 'text-slate-700' : 'font-semibold text-slate-900'}`}>{n.titulo}</span>
                       <span className="line-clamp-2 block text-sm text-slate-600">{n.mensaje}</span>
-                      <span className="mt-0.5 block text-xs text-slate-400">{haceTiempo(n.createdAt)}</span>
+                      <span className="mt-0.5 block text-xs text-slate-500">{haceTiempo(n.createdAt)}</span>
                     </span>
                     {!n.leida && <span className="mt-1.5 size-2.5 shrink-0 rounded-full bg-brand-600" aria-label="Sin leer" />}
                   </button>

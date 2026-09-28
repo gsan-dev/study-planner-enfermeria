@@ -23,21 +23,21 @@ export function AsignaturaCard({ asignatura, onEdit, onToggleArchivada, onDelete
 
   return (
     <article
-      className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
+      className="overflow-hidden rounded-2xl border border-slate-200 bg-superficie shadow-sm"
       style={{ borderTopColor: asignatura.color, borderTopWidth: 4 }}
     >
       <div className="p-4 md:p-5">
         <div className="flex items-start gap-2">
           <div className="min-w-0 flex-1">
-            <h3 className="text-lg leading-snug font-semibold text-slate-900">
-              <Link to={`/asignaturas/${asignatura._id}`} className="hover:underline">
+            <h2 className="text-lg leading-snug font-semibold text-slate-900">
+              <Link to={`/asignaturas/${asignatura._id}`} className="inline-flex min-h-11 items-center hover:underline">
                 {asignatura.nombre}
               </Link>
-            </h3>
+            </h2>
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
               {asignatura.profesor && (
                 <span className="inline-flex items-center gap-1.5">
-                  <UserIcon className="size-4 text-slate-400" />
+                  <UserIcon className="size-4 text-slate-500" />
                   {asignatura.profesor}
                 </span>
               )}
@@ -70,9 +70,9 @@ export function AsignaturaCard({ asignatura, onEdit, onToggleArchivada, onDelete
                 key={i}
                 className="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700"
               >
-                <ClockIcon className="size-3.5 text-slate-400" />
+                <ClockIcon className="size-3.5 text-slate-500" />
                 {formatHorario(h)}
-                {h.aula && <span className="text-slate-500">· {h.aula}</span>}
+                {h.aula && <span className="text-slate-600">· {h.aula}</span>}
               </li>
             ))}
           </ul>

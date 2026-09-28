@@ -31,10 +31,10 @@ export function DelPlanSection({ examenes, sesiones, onSesion }: DelPlanSectionP
   }
 
   return (
-    <section aria-labelledby="del-plan" className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4">
-      <h3 id="del-plan" className="font-semibold text-slate-900">
+    <section aria-labelledby="del-plan" className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-superficie p-4">
+      <h2 id="del-plan" className="font-semibold text-slate-900">
         Exámenes y estudio
-      </h3>
+      </h2>
 
       {examenes.map((examen) => (
         <Link
@@ -68,14 +68,14 @@ export function DelPlanSection({ examenes, sesiones, onSesion }: DelPlanSectionP
                   <span
                     className={[
                       'grid size-6 shrink-0 place-items-center rounded-lg border-2 text-white transition-colors',
-                      s.completado ? 'border-transparent' : 'border-slate-300 bg-white',
+                      s.completado ? 'border-transparent' : 'border-slate-300 bg-superficie',
                     ].join(' ')}
                     style={s.completado ? { backgroundColor: color } : undefined}
                   >
                     {s.completado && <CheckIcon className="size-4" strokeWidth={3} />}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className={`block ${s.completado ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{s.tema}</span>
+                    <span className={`block ${s.completado ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{s.tema}</span>
                     <span className="flex items-center gap-1.5 text-xs text-slate-500">
                       <span className="size-2 rounded-full" style={{ backgroundColor: color }} aria-hidden="true" />
                       {s.asignatura?.nombre}

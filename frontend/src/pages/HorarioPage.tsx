@@ -1,6 +1,6 @@
 import { HorarioEditor } from '../components/horario/HorarioEditor'
 import { Button } from '../components/ui/Button'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useAsignaturas } from '../hooks/useAsignaturas'
 
 export function HorarioPage() {
@@ -8,9 +8,7 @@ export function HorarioPage() {
 
   if (status === 'loading') {
     return (
-      <div className="grid min-h-[40vh] place-items-center text-slate-400">
-        <Spinner className="size-7" />
-      </div>
+      <Cargando variante="bloque" className="[&>div]:h-[60vh]" />
     )
   }
 

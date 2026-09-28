@@ -13,7 +13,7 @@ import { PrediccionCard } from '../components/stats/PrediccionCard'
 import { RegistrarHorasModal } from '../components/stats/RegistrarHorasModal'
 import { Button, IconButton } from '../components/ui/Button'
 import { SelectField } from '../components/ui/Field'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando as CargandoSkeleton } from '../components/ui/Skeleton'
 import { useAsignaturas } from '../hooks/useAsignaturas'
 import { useCarga } from '../hooks/useCarga'
 import { diaLocal, hoyKey, toDiaKey } from '../lib/fechas'
@@ -32,9 +32,9 @@ import type { PeriodoProgreso } from '../types/api'
 
 function Tarjeta({ titulo, accion, children, className = '' }: { titulo: string; accion?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <section className={`flex min-w-0 flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 md:p-5 ${className}`}>
+    <section className={`flex min-w-0 flex-col gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 md:p-5 ${className}`}>
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h3 className="font-semibold text-slate-900">{titulo}</h3>
+        <h2 className="font-semibold text-slate-900">{titulo}</h2>
         {accion}
       </div>
       {children}
@@ -44,9 +44,7 @@ function Tarjeta({ titulo, accion, children, className = '' }: { titulo: string;
 
 function Cargando() {
   return (
-    <div className="grid h-40 place-items-center text-slate-400">
-      <Spinner />
-    </div>
+    <CargandoSkeleton variante="bloque" />
   )
 }
 
@@ -61,8 +59,8 @@ function Segmentado<T extends string>({ valor, opciones, onChange, label }: { va
           aria-selected={valor === o.value}
           onClick={() => onChange(o.value)}
           className={[
-            'min-h-8 cursor-pointer rounded-md px-3 text-xs font-semibold',
-            valor === o.value ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+            'min-h-11 cursor-pointer rounded-md px-3 text-xs font-semibold',
+            valor === o.value ? 'bg-superficie text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
           ].join(' ')}
         >
           {o.label}
@@ -119,7 +117,7 @@ export function ProgresoPage() {
           <p className="mt-1.5 text-slate-600">Añade tus asignaturas y empieza a estudiar: aquí verás tus horas, tu racha y cómo vas.</p>
           <Link
             to="/asignaturas"
-            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-primario px-4 text-sm font-semibold text-white hover:bg-primario-hover"
           >
             Ir a Asignaturas
           </Link>
@@ -168,7 +166,7 @@ export function ProgresoPage() {
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {r
           ? cifras.map((c) => (
-              <div key={c.label} className="rounded-2xl border border-slate-200 bg-white p-4">
+              <div key={c.label} className="rounded-2xl border border-slate-200 bg-superficie p-4">
                 <p className="text-sm text-slate-600">{c.label}</p>
                 <p className="mt-0.5 text-2xl font-semibold text-slate-900 tabular-nums md:text-3xl">{c.valor}</p>
                 <p className="text-xs text-slate-500">{c.detalle}</p>
@@ -186,7 +184,7 @@ export function ProgresoPage() {
                 type="button"
                 onClick={() => setSemana(toDiaKey(addDays(lunes, -7)))}
                 aria-label="Semana anterior"
-                className="grid size-9 cursor-pointer place-items-center rounded-lg text-slate-600 hover:bg-slate-100"
+                className="grid size-11 cursor-pointer place-items-center rounded-lg text-slate-600 hover:bg-slate-100"
               >
                 <ChevronDownIcon className="size-5 rotate-90" />
               </button>
@@ -197,7 +195,7 @@ export function ProgresoPage() {
                 type="button"
                 onClick={() => setSemana(toDiaKey(addDays(lunes, 7)))}
                 aria-label="Semana siguiente"
-                className="grid size-9 cursor-pointer place-items-center rounded-lg text-slate-600 hover:bg-slate-100"
+                className="grid size-11 cursor-pointer place-items-center rounded-lg text-slate-600 hover:bg-slate-100"
               >
                 <ChevronDownIcon className="size-5 -rotate-90" />
               </button>
@@ -276,9 +274,9 @@ export function ProgresoPage() {
       {/* Predicción */}
       <section aria-labelledby="prediccion" className="flex flex-col gap-3">
         <div>
-          <h3 id="prediccion" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
+          <h2 id="prediccion" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
             Preparación para los exámenes
-          </h3>
+          </h2>
           <p className="mt-1 text-sm text-slate-500">
             Estimación orientativa (sobre 10): la mitad por las horas estudiadas de sus temas frente a las recomendadas y la
             mitad por los temas ya estudiados. No es una nota real.
@@ -306,7 +304,7 @@ export function ProgresoPage() {
               {todas.data.asignaturas.map((a) => (
                 <li key={a.asignatura._id}>
                   <div className="flex items-baseline justify-between gap-2">
-                    <Link to={`/asignaturas/${a.asignatura._id}`} className="flex min-w-0 items-center gap-2 font-medium text-slate-900 hover:underline">
+                    <Link to={`/asignaturas/${a.asignatura._id}`} className="flex min-h-11 min-w-0 items-center gap-2 font-medium text-slate-900 hover:underline">
                       <span className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: a.asignatura.color }} aria-hidden="true" />
                       <span className="truncate">{a.asignatura.nombre}</span>
                     </Link>

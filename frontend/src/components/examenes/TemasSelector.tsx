@@ -32,7 +32,7 @@ export function TemasSelector({ asignaturaId, temario, selected, onChange, onTem
 
   if (!temario) {
     return (
-      <div className="flex justify-center py-6 text-slate-400">
+      <div className="flex justify-center py-6 text-slate-500">
         <Spinner />
       </div>
     )
@@ -86,7 +86,7 @@ export function TemasSelector({ asignaturaId, temario, selected, onChange, onTem
             <button
               type="button"
               onClick={() => onChange(todos ? [] : temario.map((t) => t._id))}
-              className="min-h-9 cursor-pointer rounded-lg px-2 font-semibold text-brand-700 hover:bg-brand-50"
+              className="min-h-11 cursor-pointer rounded-lg px-2 font-semibold text-brand-700 hover:bg-brand-50"
             >
               {todos ? 'Quitar todos' : 'Marcar todos'}
             </button>
@@ -102,7 +102,7 @@ export function TemasSelector({ asignaturaId, temario, selected, onChange, onTem
                       aria-hidden="true"
                       className={[
                         'grid size-5 shrink-0 place-items-center rounded-md border-2 text-white transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-brand-600/40',
-                        checked ? 'border-transparent' : 'border-slate-300 bg-white',
+                        checked ? 'border-transparent' : 'border-slate-300 bg-superficie',
                       ].join(' ')}
                       style={checked ? { backgroundColor: color } : undefined}
                     >

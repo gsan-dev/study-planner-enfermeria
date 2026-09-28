@@ -88,11 +88,11 @@ export function DiarioSection({ dia, entrada, onSaved }: DiarioSectionProps) {
     estado === 'pendiente' || estado === 'guardando' ? 'Guardando…' : estado === 'guardado' ? 'Guardado' : ''
 
   return (
-    <section aria-labelledby="diario" className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+    <section aria-labelledby="diario" className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-superficie p-4">
       <div className="flex items-center justify-between gap-2">
-        <h3 id="diario" className="font-semibold text-slate-900">
+        <h2 id="diario" className="font-semibold text-slate-900">
           Diario
-        </h3>
+        </h2>
         <span className="text-xs text-slate-500" aria-live="polite">
           {textoEstado}
         </span>
@@ -147,7 +147,7 @@ export function DiarioSection({ dia, entrada, onSaved }: DiarioSectionProps) {
       {estado === 'error' && (
         <p role="alert" className="flex items-center justify-between gap-2 rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-700">
           <span>No se pudo guardar: {error}</span>
-          <button type="button" onClick={guardar} className="min-h-9 cursor-pointer rounded-lg px-2 font-semibold hover:bg-rose-100">
+          <button type="button" onClick={guardar} className="min-h-11 cursor-pointer rounded-lg px-2 font-semibold hover:bg-rose-100">
             Reintentar
           </button>
         </p>

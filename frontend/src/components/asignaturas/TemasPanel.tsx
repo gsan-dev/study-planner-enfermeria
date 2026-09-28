@@ -117,7 +117,7 @@ export function TemasPanel({ asignaturaId, color, readOnly = false, onResumenCha
   if (loadError) return <p className="py-4 text-sm text-rose-600">{loadError}</p>
   if (!temas) {
     return (
-      <div className="flex justify-center py-6 text-slate-400">
+      <div className="flex justify-center py-6 text-slate-500">
         <Spinner />
       </div>
     )
@@ -145,7 +145,7 @@ export function TemasPanel({ asignaturaId, color, readOnly = false, onResumenCha
                 <span
                   className={[
                     'grid size-6 place-items-center rounded-lg border-2 text-white transition-colors',
-                    tema.estudiado ? 'border-transparent' : 'border-slate-300 bg-white',
+                    tema.estudiado ? 'border-transparent' : 'border-slate-300 bg-superficie',
                   ].join(' ')}
                   style={tema.estudiado ? { backgroundColor: color } : undefined}
                 >
@@ -153,7 +153,7 @@ export function TemasPanel({ asignaturaId, color, readOnly = false, onResumenCha
                 </span>
               </button>
               <div className="min-w-0 flex-1 py-2">
-                <p className={`truncate ${tema.estudiado ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{tema.nombre}</p>
+                <p className={`truncate ${tema.estudiado ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{tema.nombre}</p>
                 <p className="mt-0.5 flex items-center gap-2 text-xs text-slate-500">
                   <DificultadDots nivel={tema.dificultad} />
                   <span>{formatHoras(tema.horasEstimadas)}</span>
@@ -176,7 +176,7 @@ export function TemasPanel({ asignaturaId, color, readOnly = false, onResumenCha
 
       {!readOnly && (
         <form onSubmit={onAdd} noValidate className="rounded-xl border border-dashed border-slate-300 p-3">
-          <div ref={nombreRef}>
+          <div ref={nombreRef} className="@container">
             <TemaFields values={nuevo} errors={errors} onChange={setNuevo} layout="inline" />
           </div>
           <Button type="submit" variant="secondary" loading={adding} className="mt-3 w-full sm:w-auto">

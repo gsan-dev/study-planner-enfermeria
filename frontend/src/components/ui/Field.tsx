@@ -3,7 +3,7 @@ import { EyeIcon, EyeOffIcon } from '../icons'
 
 // text-base (16px) en los inputs evita que Safari iOS haga zoom al enfocarlos.
 export const inputClass =
-  'block min-h-11 w-full rounded-xl border bg-white px-3 text-base text-slate-900 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-600/30 disabled:bg-slate-50 md:text-sm'
+  'block min-h-11 w-full rounded-xl border bg-superficie px-3 text-base text-slate-900 placeholder:text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-600/30 disabled:bg-slate-50 md:text-sm'
 
 const borderClass = (error?: string) =>
   error ? 'border-rose-400 focus:border-rose-500' : 'border-slate-300 focus:border-brand-600'

@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export function Header({ title, onOpenMenu }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 pt-safe backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-slate-200 bg-superficie/90 pt-safe backdrop-blur">
       <div className="flex h-14 items-center gap-2 px-2 md:h-16 md:px-6 xl:px-8">
         <button
           type="button"

@@ -22,7 +22,7 @@ export function PrediccionCard({ prediccion }: { prediccion: PrediccionExamen })
   const dias = diasHasta(examen.fecha)
 
   return (
-    <article className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4" style={{ borderTopColor: color, borderTopWidth: 4 }}>
+    <article className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-superficie p-4" style={{ borderTopColor: color, borderTopWidth: 4 }}>
       <div className="min-w-0">
         <p className="truncate text-sm font-medium text-slate-600">{examen.asignatura?.nombre}</p>
         <p className="font-semibold text-slate-900">{nombreExamen(examen, examen.asignatura?.nombre)}</p>
@@ -66,7 +66,7 @@ export function PrediccionCard({ prediccion }: { prediccion: PrediccionExamen })
             </p>
           ) : (
             !prediccion.tienePlan && (
-              <Link to={`/plan/${examen._id}`} className="rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
+              <Link to={`/plan/${examen._id}`} className="flex min-h-11 flex-wrap items-center gap-x-1 rounded-xl bg-slate-50 px-3 py-2 text-sm text-slate-600 hover:bg-slate-100">
                 Sin plan de estudio · <span className="font-semibold text-brand-700">Crear plan →</span>
               </Link>
             )

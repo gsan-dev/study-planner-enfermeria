@@ -112,7 +112,7 @@ function ScanReview({ resultado, asignaturas, hayHorarioActual, onConfirm, onClo
                 type="checkbox"
                 checked={fila.incluir}
                 onChange={(e) => update(i, { incluir: e.target.checked })}
-                className="mt-1 size-5 shrink-0 accent-brand-700"
+                className="mt-1 size-5 shrink-0 accent-primario"
               />
               <span className="min-w-0">
                 <span className="block font-semibold text-slate-900">{fila.detectado}</span>
@@ -156,11 +156,11 @@ function ScanReview({ resultado, asignaturas, hayHorarioActual, onConfirm, onClo
           <legend className="sr-only">Qué hacer con el horario actual</legend>
           <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
             <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-700">
-              <input type="radio" name="modo" checked={modo === 'reemplazar'} onChange={() => setModo('reemplazar')} className="size-4 accent-brand-700" />
+              <input type="radio" name="modo" checked={modo === 'reemplazar'} onChange={() => setModo('reemplazar')} className="size-4 accent-primario" />
               Sustituir el horario actual
             </label>
             <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-700">
-              <input type="radio" name="modo" checked={modo === 'anadir'} onChange={() => setModo('anadir')} className="size-4 accent-brand-700" />
+              <input type="radio" name="modo" checked={modo === 'anadir'} onChange={() => setModo('anadir')} className="size-4 accent-primario" />
               Añadirlo al horario actual
             </label>
           </div>

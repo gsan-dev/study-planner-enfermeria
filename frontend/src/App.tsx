@@ -5,6 +5,7 @@ import { RedirectIfAuthenticated, RequireAuth } from './auth/RequireAuth'
 import { AppLayout } from './components/layout/AppLayout'
 import { ServiceWorkerContext } from './hooks/serviceWorkerContext'
 import { useServiceWorker } from './hooks/useServiceWorker'
+import { useTema } from './lib/tema'
 import { AgendaPage } from './pages/AgendaPage'
 import { AjustesPage } from './pages/AjustesPage'
 import { AsignaturaPage } from './pages/AsignaturaPage'
@@ -66,13 +67,14 @@ const router = createBrowserRouter([
 export default function App() {
   // Registro del service worker (PWA / offline).
   const serviceWorker = useServiceWorker()
+  const { tema } = useTema()
 
   return (
     <ServiceWorkerContext value={serviceWorker}>
       <AuthProvider>
         <RouterProvider router={router} />
         {/* Móvil: arriba (la barra de navegación está abajo) pero bajo la cabecera, para no tapar la campana. */}
-        <Toaster position="top-center" richColors closeButton offset={16} mobileOffset={{ top: 'calc(env(safe-area-inset-top) + 4rem)' }} />
+        <Toaster theme={tema === 'oscuro' ? 'dark' : 'light'} position="top-center" richColors closeButton offset={16} mobileOffset={{ top: 'calc(env(safe-area-inset-top) + 4rem)' }} />
       </AuthProvider>
     </ServiceWorkerContext>
   )

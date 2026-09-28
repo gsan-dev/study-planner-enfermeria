@@ -8,7 +8,7 @@ import { TareasSection } from '../components/agenda/TareasSection'
 import { MonthCalendar, type CalendarEvent } from '../components/calendario/MonthCalendar'
 import { CalendarIcon, ChevronDownIcon } from '../components/icons'
 import { Button } from '../components/ui/Button'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useAgenda } from '../hooks/useAgenda'
 import { diaKey, diaLocal, hoyKey, toDiaKey } from '../lib/fechas'
 
@@ -79,7 +79,7 @@ export function AgendaPage() {
 
       <div className="flex min-w-0 flex-col gap-4">
         {/* Navegación por días */}
-        <div className="flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1.5">
+        <div className="flex items-center gap-1 rounded-2xl border border-slate-200 bg-superficie p-1.5">
           <button
             type="button"
             onClick={() => irA(toDiaKey(addDays(diaLocal(dia), -1)))}
@@ -92,7 +92,7 @@ export function AgendaPage() {
             type="button"
             onClick={() => setVerCalendario((v) => !v)}
             aria-expanded={verCalendario}
-            className="flex min-h-11 min-w-0 flex-1 cursor-pointer flex-col items-center justify-center rounded-xl hover:bg-slate-50 lg:cursor-default lg:hover:bg-transparent"
+            className="flex min-h-11 min-w-0 flex-1 cursor-pointer flex-col items-center justify-center rounded-xl hover:bg-slate-50"
           >
             <span className="text-xs font-semibold tracking-wide text-brand-700 uppercase">{esHoy ? 'Hoy' : format(diaLocal(dia), 'yyyy')}</span>
             <span className="truncate font-semibold text-slate-900 first-letter:uppercase">
@@ -137,9 +137,7 @@ export function AgendaPage() {
         )}
 
         {status !== 'error' && !listo && (
-          <div className="grid min-h-40 place-items-center text-slate-400">
-            <Spinner />
-          </div>
+          <Cargando variante="lista" cantidad={4} />
         )}
 
         {listo && data && (

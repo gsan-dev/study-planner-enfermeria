@@ -46,7 +46,7 @@ export function LineaAcumulada({ dias, titulo }: { dias: EvolucionDia[]; titulo:
         {/* Eje Y */}
         <div className="relative h-44 w-10 shrink-0" aria-hidden="true">
           {marcas.map((m) => (
-            <span key={m} className="absolute right-2 -translate-y-1/2 text-xs text-slate-400 tabular-nums" style={{ top: `${y(m)}%` }}>
+            <span key={m} className="absolute right-2 -translate-y-1/2 text-xs text-slate-500 tabular-nums" style={{ top: `${y(m)}%` }}>
               {String(m).replace('.', ',')}h
             </span>
           ))}
@@ -68,11 +68,11 @@ export function LineaAcumulada({ dias, titulo }: { dias: EvolucionDia[]; titulo:
             />
           ))}
           <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full overflow-visible">
-            <path d={area} fill={COLOR_FUERTE} fillOpacity={0.1} />
+            <path d={area} style={{ fill: COLOR_FUERTE }} fillOpacity={0.1} />
             <path
               d={linea}
               fill="none"
-              stroke={COLOR_FUERTE}
+              style={{ stroke: COLOR_FUERTE }}
               strokeWidth={2}
               strokeLinejoin="round"
               strokeLinecap="round"
@@ -81,18 +81,18 @@ export function LineaAcumulada({ dias, titulo }: { dias: EvolucionDia[]; titulo:
           </svg>
           {/* Último valor: punto con anillo del color del fondo */}
           <span
-            className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-white"
+            className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-superficie"
             style={{ left: `${x(dias.length - 1)}%`, top: `${y(dias.at(-1)!.acumulado)}%`, backgroundColor: COLOR_FUERTE }}
           />
           {activo && indice !== null && (
             <>
               <div className="absolute inset-y-0 border-l border-slate-400" style={{ left: `${x(indice)}%` }} />
               <span
-                className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-white"
+                className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-superficie"
                 style={{ left: `${x(indice)}%`, top: `${y(activo.acumulado)}%`, backgroundColor: COLOR_FUERTE }}
               />
               <div
-                className="pointer-events-none absolute top-0 z-10 rounded-lg bg-slate-900 px-2 py-1 text-xs whitespace-nowrap text-white shadow"
+                className="pointer-events-none absolute top-0 z-10 rounded-lg bg-slate-900 px-2 py-1 text-xs whitespace-nowrap text-slate-50 shadow"
                 style={
                   x(indice) > 60
                     ? { right: `${100 - x(indice)}%`, marginRight: 8 }

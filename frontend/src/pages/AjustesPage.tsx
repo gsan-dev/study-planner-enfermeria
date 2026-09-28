@@ -8,6 +8,7 @@ import { Avatar } from '../components/ui/Avatar'
 import { Button } from '../components/ui/Button'
 import { TextField } from '../components/ui/Field'
 import { prepararFotoPerfil } from '../lib/imagen'
+import { useTema, type PreferenciaTema } from '../lib/tema'
 import { perfilSchema } from '../schemas/auth'
 import { validateForm, type FieldErrors } from '../schemas/validation'
 import { getErrorMessage, getFieldErrors } from '../services/api'
@@ -22,6 +23,7 @@ export function AjustesPage() {
   const [cambiando, setCambiando] = useState<DatoPerfil | null>(null)
   const [subiendoFoto, setSubiendoFoto] = useState(false)
   const inputFoto = useRef<HTMLInputElement>(null)
+  const { preferencia, setPreferencia } = useTema()
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault()
@@ -75,7 +77,7 @@ export function AjustesPage() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
-      <section aria-labelledby="tu-perfil" className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
+      <section aria-labelledby="tu-perfil" className="rounded-2xl border border-slate-200 bg-superficie p-5 md:p-6">
         <h2 id="tu-perfil" className="text-lg font-semibold text-slate-900">
           Tu perfil
         </h2>
@@ -101,23 +103,23 @@ export function AjustesPage() {
         </div>
 
         {/* Nombre y email: con la contraseña */}
-        <dl className="mt-5 flex flex-col divide-y divide-slate-100 border-t border-slate-100">
+        <ul className="mt-5 flex flex-col divide-y divide-slate-100 border-t border-slate-100">
           {filas.map(({ dato, etiqueta, valor }) => (
-            <div key={dato} className="flex items-center gap-3 py-3">
+            <li key={dato} className="flex items-center gap-3 py-3">
               <div className="min-w-0 flex-1">
-                <dt className="text-sm text-slate-500">{etiqueta}</dt>
-                <dd className="truncate font-medium text-slate-900">{valor}</dd>
+                <p className="text-sm text-slate-500">{etiqueta}</p>
+                <p className="truncate font-medium text-slate-900">{valor}</p>
               </div>
               <Button variant="secondary" onClick={() => setCambiando(dato)} aria-label={`Cambiar ${etiqueta.toLowerCase()}`}>
                 Cambiar
               </Button>
-            </div>
+            </li>
           ))}
-        </dl>
+        </ul>
         <p className="text-xs text-slate-500">Para cambiar el nombre o el email te pediremos la contraseña.</p>
       </section>
 
-      <section aria-labelledby="estudio" className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
+      <section aria-labelledby="estudio" className="rounded-2xl border border-slate-200 bg-superficie p-5 md:p-6">
         <h2 id="estudio" className="text-lg font-semibold text-slate-900">
           Estudio
         </h2>
@@ -139,9 +141,39 @@ export function AjustesPage() {
         </form>
       </section>
 
+      <section aria-labelledby="apariencia" className="rounded-2xl border border-slate-200 bg-superficie p-5 md:p-6">
+        <h2 id="apariencia" className="text-lg font-semibold text-slate-900">
+          Apariencia
+        </h2>
+        <div role="radiogroup" aria-labelledby="apariencia" className="mt-4 grid grid-cols-3 gap-1 rounded-xl bg-slate-200/70 p-1 sm:max-w-md">
+          {(
+            [
+              ['claro', 'Claro'],
+              ['oscuro', 'Oscuro'],
+              ['sistema', 'Automático'],
+            ] as [PreferenciaTema, string][]
+          ).map(([valor, etiqueta]) => (
+            <button
+              key={valor}
+              type="button"
+              role="radio"
+              aria-checked={preferencia === valor}
+              onClick={() => setPreferencia(valor)}
+              className={[
+                'min-h-11 rounded-lg px-3 text-sm font-semibold transition-colors',
+                preferencia === valor ? 'bg-superficie text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+              ].join(' ')}
+            >
+              {etiqueta}
+            </button>
+          ))}
+        </div>
+        <p className="mt-2 text-sm text-slate-500">«Automático» sigue el modo claro u oscuro de tu dispositivo.</p>
+      </section>
+
       <Link
         to="/notificaciones"
-        className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 hover:border-slate-300 md:p-6"
+        className="flex items-center gap-4 rounded-2xl border border-slate-200 bg-superficie p-5 hover:border-slate-300 md:p-6"
       >
         <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700">
           <BellIcon className="size-6" />
@@ -150,10 +182,10 @@ export function AjustesPage() {
           <span className="block font-semibold text-slate-900">Notificaciones</span>
           <span className="block text-sm text-slate-600">Actívalas en este dispositivo y elige qué avisos recibir.</span>
         </span>
-        <ChevronDownIcon className="size-5 -rotate-90 text-slate-400" />
+        <ChevronDownIcon className="size-5 -rotate-90 text-slate-500" />
       </Link>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 md:p-6">
+      <section className="rounded-2xl border border-slate-200 bg-superficie p-5 md:p-6">
         <h2 className="text-lg font-semibold text-slate-900">Sesión</h2>
         <p className="mt-1 text-sm text-slate-600">Cierra la sesión en este dispositivo. En los demás seguirá abierta.</p>
         <Button variant="secondary" onClick={logout} className="mt-4">

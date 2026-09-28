@@ -12,7 +12,7 @@ import { BookIcon, CalendarIcon, PlusIcon } from '../components/icons'
 import { Button } from '../components/ui/Button'
 import { ConfirmDialog } from '../components/ui/ConfirmDialog'
 import { SelectField } from '../components/ui/Field'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useAsignaturas } from '../hooks/useAsignaturas'
 import { useExamenes } from '../hooks/useExamenes'
 import { diaKey, diaLocal, hoyKey } from '../lib/fechas'
@@ -54,8 +54,8 @@ function Segmented<T extends string>({
           aria-selected={value === o.value}
           onClick={() => onChange(o.value)}
           className={[
-            'min-h-9 cursor-pointer rounded-lg px-4 text-sm font-semibold transition-colors',
-            value === o.value ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+            'min-h-11 cursor-pointer rounded-lg px-4 text-sm font-semibold transition-colors',
+            value === o.value ? 'bg-superficie text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
           ].join(' ')}
         >
           {o.label}
@@ -186,9 +186,7 @@ export function ExamenesPage() {
       </div>
 
       {loading && (
-        <div className="grid min-h-[30vh] place-items-center text-slate-400">
-          <Spinner />
-        </div>
+        <Cargando variante="tarjetas" cantidad={4} />
       )}
 
       {status === 'error' && (
@@ -214,7 +212,7 @@ export function ExamenesPage() {
                 </p>
                 <Link
                   to="/asignaturas"
-                  className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+                  className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-primario px-4 text-sm font-semibold text-white hover:bg-primario-hover"
                 >
                   <BookIcon className="size-5" />
                   Ir a Asignaturas
@@ -272,8 +270,8 @@ export function ExamenesPage() {
               ) : (
                 porMes(visibles).map((grupo) => (
                   <section key={grupo.mes} aria-label={grupo.mes} className="flex flex-col gap-2">
-                    <h3 className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{grupo.mes}</h3>
-                    <div className="grid gap-3 lg:grid-cols-2 2xl:grid-cols-3">
+                    <h2 className="text-sm font-semibold tracking-wide text-slate-500 uppercase">{grupo.mes}</h2>
+                    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                       {grupo.examenes.map((examen) => (
                         <ExamenCard key={examen._id} examen={examen} onOpen={() => setViendoId(examen._id)} />
                       ))}
@@ -297,9 +295,9 @@ export function ExamenesPage() {
                 nombreEvento={['examen', 'exámenes']}
               />
               <section aria-labelledby="dia-seleccionado" className="flex flex-col gap-3">
-                <h3 id="dia-seleccionado" className="font-semibold text-slate-900 first-letter:uppercase">
+                <h2 id="dia-seleccionado" className="font-semibold text-slate-900 first-letter:uppercase">
                   {format(diaLocal(diaSeleccionado), "EEEE d 'de' MMMM", { locale: es })}
-                </h3>
+                </h2>
                 {delDia.length === 0 ? (
                   <p className="text-sm text-slate-500">No hay exámenes este día.</p>
                 ) : (

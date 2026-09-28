@@ -23,11 +23,11 @@ export function ExamenCard({ examen, onOpen }: ExamenCardProps) {
     <button
       type="button"
       onClick={onOpen}
-      className="flex w-full cursor-pointer items-stretch gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 text-left shadow-sm transition hover:border-slate-300 hover:shadow md:gap-4 md:p-4"
+      className="flex w-full cursor-pointer items-stretch gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-superficie p-3 text-left shadow-sm transition hover:border-slate-300 hover:shadow md:gap-4 md:p-4"
     >
       <div
-        className="flex w-14 shrink-0 flex-col items-center justify-center rounded-xl py-2 text-center md:w-16"
-        style={{ backgroundColor: `${color}1a`, color }}
+        className="flex w-14 shrink-0 flex-col items-center justify-center rounded-xl border-l-4 py-2 text-center text-slate-900 md:w-16"
+        style={{ backgroundColor: `${color}1a`, borderLeftColor: color }}
       >
         <span className="text-xs font-semibold uppercase">{format(fecha, 'EEE', { locale: es })}</span>
         <span className="text-2xl leading-none font-bold">{format(fecha, 'd')}</span>
@@ -48,7 +48,7 @@ export function ExamenCard({ examen, onOpen }: ExamenCardProps) {
         </p>
         {detalles.length > 0 && (
           <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-600">
-            {examen.hora && <ClockIcon className="size-4 shrink-0 text-slate-400" />}
+            {examen.hora && <ClockIcon className="size-4 shrink-0 text-slate-500" />}
             <span className="truncate">{detalles.join(' · ')}</span>
           </p>
         )}

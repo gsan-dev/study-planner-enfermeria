@@ -6,7 +6,7 @@ import { formatHoras } from '../components/asignaturas/constants'
 import { nombreExamen, urgencia } from '../components/examenes/constants'
 import { CalendarIcon, ChecklistIcon } from '../components/icons'
 import { Button } from '../components/ui/Button'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useExamenes } from '../hooks/useExamenes'
 import { cuentaAtras, diaKey, diaLocal, diasHasta, hoyKey } from '../lib/fechas'
 import { getErrorMessage } from '../services/api'
@@ -26,7 +26,7 @@ function ExamenPlanCard({ examen, plan }: { examen: ExamenConResumen; plan?: Pla
   return (
     <Link
       to={`/plan/${examen._id}`}
-      className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-slate-300 hover:shadow"
+      className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-superficie p-4 shadow-sm transition hover:border-slate-300 hover:shadow"
       style={{ borderTopColor: color, borderTopWidth: 4 }}
     >
       <div className="flex items-start justify-between gap-2">
@@ -99,9 +99,7 @@ export function PlanPage() {
   }
   if (status === 'loading' || !planes) {
     return (
-      <div className="grid min-h-[40vh] place-items-center text-slate-400">
-        <Spinner />
-      </div>
+      <Cargando variante="tarjetas" cantidad={3} />
     )
   }
 
@@ -121,7 +119,7 @@ export function PlanPage() {
           <p className="mt-1.5 text-slate-600">Apunta tus exámenes y los temas que entran; después podrás crear un plan para cada uno.</p>
           <Link
             to="/examenes"
-            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+            className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-primario px-4 text-sm font-semibold text-white hover:bg-primario-hover"
           >
             <CalendarIcon className="size-5" />
             Ir a Exámenes
@@ -145,7 +143,7 @@ export function PlanPage() {
           </>
         )}
       </p>
-      <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {proximos.map((examen) => (
           <ExamenPlanCard key={examen._id} examen={examen} plan={planPorExamen.get(examen._id)} />
         ))}

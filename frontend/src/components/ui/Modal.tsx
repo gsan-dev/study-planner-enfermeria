@@ -61,7 +61,7 @@ export function Modal({ open, onClose, title, children, footer, size = 'md' }: M
       }}
       aria-labelledby={titleId}
       className={[
-        'm-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-hidden rounded-t-2xl bg-white p-0 text-slate-900 shadow-xl backdrop:bg-slate-900/40',
+        'm-0 mt-auto max-h-[92dvh] w-full max-w-none overflow-hidden rounded-t-2xl bg-superficie p-0 text-slate-900 shadow-xl backdrop:bg-black/50',
         'md:m-auto md:rounded-2xl',
         size === 'lg' ? 'md:max-w-2xl' : 'md:max-w-lg',
       ].join(' ')}

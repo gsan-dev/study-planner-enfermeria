@@ -51,7 +51,7 @@ function Celda({ dia, mes, seleccionado, onSelect }: { dia: DiaCalendario; mes: 
       aria-label={partes.join(', ')}
       className={[
         'flex min-h-14 min-w-0 cursor-pointer flex-col gap-1 p-1 text-left focus-visible:z-10 md:min-h-28 md:p-1.5',
-        fuera ? 'bg-slate-50' : 'bg-white',
+        fuera ? 'bg-slate-50' : 'bg-superficie',
         seleccionado ? 'outline-2 -outline-offset-2 outline-brand-600' : 'hover:bg-brand-50/40',
       ].join(' ')}
     >
@@ -59,7 +59,7 @@ function Celda({ dia, mes, seleccionado, onSelect }: { dia: DiaCalendario; mes: 
         <span
           className={[
             'grid size-7 place-items-center rounded-full text-sm',
-            esHoy ? 'bg-brand-700 font-semibold text-white' : fuera ? 'text-slate-400' : 'text-slate-800',
+            esHoy ? 'bg-primario font-semibold text-white' : fuera ? 'text-slate-500' : 'text-slate-800',
           ].join(' ')}
         >
           {format(fecha, 'd')}
@@ -106,7 +106,7 @@ function Celda({ dia, mes, seleccionado, onSelect }: { dia: DiaCalendario; mes: 
               className="flex min-w-0 items-center gap-1 rounded border-l-[3px] bg-slate-50 px-1 py-0.5 text-xs leading-tight text-slate-700"
               style={{ borderLeftColor: color }}
             >
-              <span className={`truncate ${hecho ? 'text-slate-400 line-through' : ''}`}>{b.asignatura?.nombre ?? 'Estudio'}</span>
+              <span className={`truncate ${hecho ? 'text-slate-500 line-through' : ''}`}>{b.asignatura?.nombre ?? 'Estudio'}</span>
               <span className="ml-auto shrink-0 text-slate-500 tabular-nums">{formatHoras(b.horas).replace(' h', 'h')}</span>
             </span>
           )
@@ -122,7 +122,7 @@ function DetalleDia({ dia, onSesion }: { dia: DiaCalendario; onSesion: (bloque: 
   const vacio = dia.examenes.length === 0 && dia.estudio.length === 0 && dia.tareas.total === 0 && !dia.diario
 
   return (
-    <section aria-labelledby="detalle-dia" className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4">
+    <section aria-labelledby="detalle-dia" className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-superficie p-4">
       <h3 id="detalle-dia" className="font-semibold text-slate-900 first-letter:uppercase">
         {dia.fecha === hoyKey() && 'Hoy · '}
         {format(fecha, "EEEE d 'de' MMMM", { locale: es })}
@@ -170,13 +170,13 @@ function DetalleDia({ dia, onSesion }: { dia: DiaCalendario; onSesion: (bloque: 
                     <span
                       className={[
                         'grid size-6 shrink-0 place-items-center rounded-lg border-2 text-white',
-                        s.completado ? 'border-transparent' : 'border-slate-300 bg-white',
+                        s.completado ? 'border-transparent' : 'border-slate-300 bg-superficie',
                       ].join(' ')}
                       style={s.completado ? { backgroundColor: color } : undefined}
                     >
                       {s.completado && <CheckIcon className="size-4" strokeWidth={3} />}
                     </span>
-                    <span className={`min-w-0 flex-1 ${s.completado ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{s.tema}</span>
+                    <span className={`min-w-0 flex-1 ${s.completado ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{s.tema}</span>
                     {s.tipo === 'repaso' && (
                       <span className="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">
                         {TIPO_SESION.repaso}
@@ -306,7 +306,7 @@ export function CalendarioPage() {
           type="button"
           onClick={() => cambiarMes(-1)}
           aria-label="Mes anterior"
-          className="grid size-11 cursor-pointer place-items-center rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+          className="grid size-11 cursor-pointer place-items-center rounded-xl border border-slate-200 bg-superficie text-slate-600 hover:bg-slate-50"
         >
           <ChevronDownIcon className="size-5 rotate-90" />
         </button>
@@ -314,7 +314,7 @@ export function CalendarioPage() {
           type="button"
           onClick={() => cambiarMes(1)}
           aria-label="Mes siguiente"
-          className="grid size-11 cursor-pointer place-items-center rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+          className="grid size-11 cursor-pointer place-items-center rounded-xl border border-slate-200 bg-superficie text-slate-600 hover:bg-slate-50"
         >
           <ChevronDownIcon className="size-5 -rotate-90" />
         </button>
@@ -332,8 +332,8 @@ export function CalendarioPage() {
                 aria-pressed={visible}
                 onClick={() => toggleAsignatura(a._id)}
                 className={[
-                  'inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full border px-3 text-sm transition-colors',
-                  visible ? 'border-slate-300 bg-white text-slate-800' : 'border-dashed border-slate-300 bg-transparent text-slate-400',
+                  'inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-3 text-sm transition-colors',
+                  visible ? 'border-slate-300 bg-superficie text-slate-800' : 'border-dashed border-slate-300 bg-transparent text-slate-500',
                 ].join(' ')}
               >
                 <span
@@ -368,7 +368,7 @@ export function CalendarioPage() {
           </div>
           <div className="grid grid-cols-7 gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200">
             {cargando && dias.length === 0
-              ? Array.from({ length: 35 }, (_, i) => <div key={i} className="min-h-14 bg-white md:min-h-28" />)
+              ? Array.from({ length: 35 }, (_, i) => <div key={i} className="min-h-14 bg-superficie md:min-h-28" />)
               : dias.map((dia) => (
                   <Celda
                     key={dia.fecha}
@@ -380,7 +380,7 @@ export function CalendarioPage() {
                 ))}
           </div>
           {cargando && (
-            <div className="absolute inset-0 grid place-items-center text-slate-400">
+            <div className="absolute inset-0 grid place-items-center text-slate-500">
               <Spinner />
             </div>
           )}

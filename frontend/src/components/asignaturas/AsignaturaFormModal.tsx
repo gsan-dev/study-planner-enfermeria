@@ -121,7 +121,7 @@ function AsignaturaForm({ asignatura, onClose, onSaved, otras }: Omit<Asignatura
                 <span
                   className={[
                     'grid size-8 place-items-center rounded-full text-white transition-transform',
-                    selected ? 'scale-110 ring-2 ring-slate-900 ring-offset-2' : 'hover:scale-105',
+                    selected ? 'scale-110 ring-2 ring-slate-900 ring-offset-2 ring-offset-superficie' : 'hover:scale-105',
                   ].join(' ')}
                   style={{ backgroundColor: color.value }}
                 >

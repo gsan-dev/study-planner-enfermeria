@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Modo oscuro: lo activa data-tema="oscuro" en <html> (ver public/tema.js y lib/tema.ts). */
+@custom-variant dark (&:where([data-tema='oscuro'], [data-tema='oscuro'] *));
+
 /*
  * Breakpoints del proyecto (mobile-first, la base es iPhone XR 375px):
  *   md  768px  → tablet pequeña (iPad)
@@ -25,6 +28,75 @@
   --color-brand-700: #0f766e;
   --color-brand-800: #115e59;
   --color-brand-900: #134e4a;
+
+  /* Tokens semánticos: el mismo nombre en los dos temas, distinto valor en oscuro. */
+  --color-superficie: #ffffff; /* tarjetas, modales, campos */
+  --color-primario: #0f766e; /* botón principal (texto blanco encima) */
+  --color-primario-hover: #115e59;
+  --color-primario-oscuro: #134e4a;
+  --color-peligro: #e11d48; /* botón de borrar, contador (texto blanco encima) */
+  --color-peligro-hover: #be123c;
+  /* Gráficos de una serie (validados con el validador de paletas en cada tema). */
+  --color-grafico-suave: #14b8a6;
+  --color-grafico-fuerte: #115e59;
+}
+
+/*
+ * Modo oscuro. En vez de añadir variantes dark: a cada clase, se redefinen los
+ * colores de la paleta: los grises se invierten (el 50 pasa a ser el fondo más
+ * oscuro y el 900 el texto más claro) y en rojo, ámbar, verde y marca los
+ * tintes de fondo (50-200) se oscurecen y los de texto (700-900) se aclaran.
+ * Los pasos 500-600 (rellenos) se mantienen.
+ */
+[data-tema='oscuro'] {
+  color-scheme: dark;
+
+  --color-superficie: #121b2c;
+  --color-primario-hover: #138a80;
+  --color-peligro-hover: #f43f5e;
+  --color-grafico-suave: #1f766e;
+  --color-grafico-fuerte: #5eead4;
+
+  --color-slate-50: #0b1120;
+  --color-slate-100: #1a2436;
+  --color-slate-200: #2a3649;
+  --color-slate-300: #3b4a61;
+  --color-slate-400: #5b6b82;
+  --color-slate-500: #8a9ab0;
+  --color-slate-600: #a9b6c7;
+  --color-slate-700: #c7d1dd;
+  --color-slate-800: #dde4ec;
+  --color-slate-900: #f1f5f9;
+  --color-slate-950: #f8fafc;
+
+  --color-brand-50: #0c2a28;
+  --color-brand-100: #123a37;
+  --color-brand-200: #1a4f4a;
+  --color-brand-700: #5eead4;
+  --color-brand-800: #99f6e4;
+  --color-brand-900: #ccfbf1;
+
+  --color-rose-50: #2c0f16;
+  --color-rose-100: #3f1520;
+  --color-rose-200: #5c1d2c;
+  --color-rose-300: #7f2a3d;
+  --color-rose-600: #fb7185;
+  --color-rose-700: #fda4af;
+  --color-rose-800: #fecdd3;
+  --color-rose-900: #ffe4e6;
+
+  --color-amber-50: #2b1f08;
+  --color-amber-100: #3d2c0b;
+  --color-amber-200: #5a410f;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+  --color-amber-900: #fef3c7;
+
+  --color-emerald-50: #0a2a20;
+  --color-emerald-100: #0f3d2e;
+  --color-emerald-200: #14553f;
+  --color-emerald-700: #6ee7b7;
+  --color-emerald-800: #a7f3d0;
 }
 
 /* Zonas seguras de iPhone (notch y barra de inicio) en modo standalone. */
@@ -41,6 +113,65 @@
   padding-right: env(safe-area-inset-right);
 }
 
+/* --- Animaciones: cortas y suaves; desactivadas si el sistema pide menos movimiento. */
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes subir {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes escalar {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+/* Cambio de página */
+@utility animate-entrada {
+  animation: entrada 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+/* Menús desplegables (campana, usuario) */
+@utility animate-menu {
+  animation: escalar 140ms ease-out both;
+  transform-origin: top right;
+}
+
+/* Modales: hoja que sube en el móvil, aparece con escala en pantallas grandes. */
+dialog[open] {
+  animation: subir 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+dialog[open]::backdrop {
+  animation: aparecer 200ms ease-out;
+}
+@media (min-width: 48rem) {
+  dialog[open] {
+    animation: escalar 180ms ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
@@ -54,5 +185,23 @@
 
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+
+  /* Ratón: mano en todo lo que se puede pulsar; prohibido si está desactivado. */
+  button:not(:disabled),
+  [role='button'],
+  [role='tab'],
+  [role='switch'],
+  [role='checkbox'],
+  [role='radio'],
+  summary,
+  select:not(:disabled),
+  input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled),
+  label:has(> input[type='checkbox'], > input[type='radio']) {
+    cursor: pointer;
+  }
+  :disabled {
+    cursor: not-allowed;
   }
 }

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { useAuth, useCurrentUser } from '../../auth/authContext'
-import { LogoutIcon, SettingsIcon } from '../icons'
+import { useTema } from '../../lib/tema'
+import { LogoutIcon, MoonIcon, SettingsIcon, SunIcon } from '../icons'
 import { Avatar } from '../ui/Avatar'
 
 /** Avatar (foto o inicial) y menú desplegable (ajustes y cerrar sesión). */
@@ -9,6 +10,7 @@ export function UserMenu() {
   const user = useCurrentUser()
   const { logout } = useAuth()
   const [open, setOpen] = useState(false)
+  const { tema, setPreferencia } = useTema()
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export function UserMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-40 mt-1 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-white py-1 shadow-lg"
+          className="animate-menu absolute right-0 z-40 mt-1 w-64 overflow-hidden rounded-2xl border border-slate-200 bg-superficie py-1 shadow-lg"
         >
           <div className="border-b border-slate-100 px-4 py-3">
             <p className="truncate font-semibold text-slate-900">{user.nombre}</p>
@@ -54,16 +56,26 @@ export function UserMenu() {
             onClick={() => setOpen(false)}
             className="flex min-h-11 items-center gap-3 px-4 text-sm text-slate-700 hover:bg-slate-50"
           >
-            <SettingsIcon className="size-5 text-slate-400" />
+            <SettingsIcon className="size-5 text-slate-500" />
             Ajustes
           </Link>
+          <button
+            type="button"
+            role="menuitemcheckbox"
+            aria-checked={tema === 'oscuro'}
+            onClick={() => setPreferencia(tema === 'oscuro' ? 'claro' : 'oscuro')}
+            className="flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 text-sm text-slate-700 hover:bg-slate-50"
+          >
+            {tema === 'oscuro' ? <SunIcon className="size-5 text-slate-500" /> : <MoonIcon className="size-5 text-slate-500" />}
+            {tema === 'oscuro' ? 'Modo claro' : 'Modo oscuro'}
+          </button>
           <button
             type="button"
             role="menuitem"
             onClick={logout}
             className="flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 text-sm text-slate-700 hover:bg-slate-50"
           >
-            <LogoutIcon className="size-5 text-slate-400" />
+            <LogoutIcon className="size-5 text-slate-500" />
             Cerrar sesión
           </button>
         </div>

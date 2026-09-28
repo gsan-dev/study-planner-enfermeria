@@ -101,7 +101,7 @@ export function TimetableGrid({
           {horas.map((h, i) => (
             <span
               key={h}
-              className="absolute right-1.5 -translate-y-1/2 text-[11px] text-slate-400 tabular-nums"
+              className="absolute right-1.5 -translate-y-1/2 text-[11px] text-slate-500 tabular-nums"
               style={{ top: i * hourHeight }}
             >
               {i === 0 ? '' : `${h}:00`}
@@ -118,7 +118,7 @@ export function TimetableGrid({
               className={['relative border-l border-slate-100', esHoy ? 'bg-brand-50/40' : ''].join(' ')}
               style={{
                 height: horas.length * hourHeight,
-                backgroundImage: `repeating-linear-gradient(to bottom, transparent 0, transparent ${hourHeight - 1}px, rgb(241 245 249) ${hourHeight - 1}px, rgb(241 245 249) ${hourHeight}px)`,
+                backgroundImage: `repeating-linear-gradient(to bottom, transparent 0, transparent ${hourHeight - 1}px, var(--color-slate-100) ${hourHeight - 1}px, var(--color-slate-100) ${hourHeight}px)`,
               }}
             >
               {onCellClick &&
@@ -159,8 +159,8 @@ export function TimetableGrid({
                       height: height - 2,
                       left: `calc(${entry.lane * width}% + 2px)`,
                       width: `calc(${width}% - 4px)`,
-                      backgroundColor: entry.muted ? '#e2e8f0' : `${entry.color}24`,
-                      borderLeftColor: entry.muted ? '#94a3b8' : entry.color,
+                      backgroundColor: entry.muted ? 'var(--color-slate-200)' : `${entry.color}24`,
+                      borderLeftColor: entry.muted ? 'var(--color-slate-400)' : entry.color,
                     }}
                   >
                     {/* Bloques muy estrechos (clases a la misma hora en móvil): solo la abreviatura. */}

@@ -19,12 +19,12 @@ export function ExamenGrande({ examen }: { examen: ExamenConPlan }) {
   return (
     <Link
       to={`/plan/${examen._id}`}
-      className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-slate-300 hover:shadow md:p-5"
+      className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 shadow-sm transition hover:border-slate-300 hover:shadow md:p-5"
     >
       <div className="flex items-start gap-3">
         <div
-          className="flex w-14 shrink-0 flex-col items-center rounded-xl py-2 text-center"
-          style={{ backgroundColor: `${color}1a`, color }}
+          className="flex w-14 shrink-0 flex-col items-center rounded-xl border-l-4 py-2 text-center text-slate-900"
+          style={{ backgroundColor: `${color}1a`, borderLeftColor: color }}
         >
           <span className="text-xs font-semibold uppercase">{format(fecha, 'EEE', { locale: es })}</span>
           <span className="text-2xl leading-none font-bold">{format(fecha, 'd')}</span>
@@ -82,7 +82,7 @@ export function ProximosExamenes({ examenes, total }: { examenes: ExamenConPlan[
           Próximos exámenes
         </h3>
         {total > 0 && (
-          <Link to="/examenes" className="text-sm font-semibold text-brand-700 hover:underline">
+          <Link to="/examenes" className="inline-flex min-h-11 items-center text-sm font-semibold text-brand-700 hover:underline">
             {total > examenes.length ? `Ver los ${total}` : 'Ver todos'}
           </Link>
         )}

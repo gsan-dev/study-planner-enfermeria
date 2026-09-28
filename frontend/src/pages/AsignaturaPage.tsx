@@ -7,7 +7,7 @@ import { ExamenGrande, type ExamenConPlan } from '../components/dashboard/Proxim
 import { ExamenCard } from '../components/examenes/ExamenCard'
 import { ClockIcon, PencilIcon, UserIcon } from '../components/icons'
 import { Button } from '../components/ui/Button'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useAsignaturas } from '../hooks/useAsignaturas'
 import { diaKey, hoyKey } from '../lib/fechas'
 import { getErrorMessage } from '../services/api'
@@ -74,8 +74,9 @@ export function AsignaturaPage() {
   }
   if (!datos) {
     return (
-      <div className="grid min-h-[40vh] place-items-center text-slate-400">
-        <Spinner />
+      <div className="flex flex-col gap-5">
+        <Cargando variante="bloque" />
+        <Cargando variante="tarjetas" cantidad={2} />
       </div>
     )
   }
@@ -91,13 +92,13 @@ export function AsignaturaPage() {
 
   return (
     <div className="flex flex-col gap-5">
-      <Link to="/asignaturas" className="-mb-2 self-start text-sm font-semibold text-brand-700 hover:underline">
+      <Link to="/asignaturas" className="-mb-2 self-start inline-flex min-h-11 items-center text-sm font-semibold text-brand-700 hover:underline">
         ← Asignaturas
       </Link>
 
       {/* Cabecera */}
       <section
-        className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-6"
+        className="rounded-2xl border border-slate-200 bg-superficie p-4 shadow-sm md:p-6"
         style={{ borderTopColor: asignatura.color, borderTopWidth: 6 }}
       >
         <div className="flex items-start gap-3">
@@ -113,7 +114,7 @@ export function AsignaturaPage() {
             <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
               {asignatura.profesor && (
                 <span className="inline-flex items-center gap-1.5">
-                  <UserIcon className="size-4 text-slate-400" />
+                  <UserIcon className="size-4 text-slate-500" />
                   {asignatura.profesor}
                 </span>
               )}
@@ -125,7 +126,7 @@ export function AsignaturaPage() {
             </div>
           </div>
           {!asignatura.archivada && (
-            <Button variant="secondary" onClick={() => setEditando(true)}>
+            <Button variant="secondary" onClick={() => setEditando(true)} aria-label="Editar asignatura">
               <PencilIcon className="size-5" />
               <span className="hidden sm:inline">Editar</span>
             </Button>
@@ -136,9 +137,9 @@ export function AsignaturaPage() {
           <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Horario">
             {horarios.map((h, i) => (
               <li key={i} className="inline-flex items-center gap-1 rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
-                <ClockIcon className="size-3.5 text-slate-400" />
+                <ClockIcon className="size-3.5 text-slate-500" />
                 {formatHorario(h)}
-                {h.aula && <span className="text-slate-500">· {h.aula}</span>}
+                {h.aula && <span className="text-slate-600">· {h.aula}</span>}
               </li>
             ))}
           </ul>
@@ -170,7 +171,7 @@ export function AsignaturaPage() {
 
       <div className="grid items-start gap-5 lg:grid-cols-2">
         {/* Temario */}
-        <section aria-labelledby="temario" className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 md:p-5">
+        <section aria-labelledby="temario" className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-superficie p-4 md:p-5">
           <h3 id="temario" className="font-semibold text-slate-900">
             Temario
           </h3>
@@ -188,7 +189,7 @@ export function AsignaturaPage() {
             <h3 id="examenes-asignatura" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
               Próximo examen
             </h3>
-            <Link to="/examenes" className="text-sm font-semibold text-brand-700 hover:underline">
+            <Link to="/examenes" className="inline-flex min-h-11 items-center text-sm font-semibold text-brand-700 hover:underline">
               Exámenes
             </Link>
           </div>

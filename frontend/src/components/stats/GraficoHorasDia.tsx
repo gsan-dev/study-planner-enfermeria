@@ -48,7 +48,7 @@ export function GraficoHorasDia({ dias, titulo, vacio }: { dias: HorasDia[]; tit
         <div className="relative" aria-hidden="true">
           {/* Línea de referencia superior (escala) y línea base */}
           <div className="pointer-events-none absolute inset-x-0 top-0 border-t border-slate-200" />
-          <span className="pointer-events-none absolute -top-2.5 right-0 bg-white pl-1 text-xs text-slate-400 tabular-nums">
+          <span className="pointer-events-none absolute -top-2.5 right-0 bg-superficie pl-1 text-xs text-slate-500 tabular-nums">
             {formatHoras(escala)}
           </span>
           <div className="flex items-end border-b border-slate-300" style={{ height: ALTO_PX }}>
@@ -79,7 +79,7 @@ export function GraficoHorasDia({ dias, titulo, vacio }: { dias: HorasDia[]; tit
                   </div>
                   {/* Tooltip al pasar o al tocar (el teclado y los lectores usan la tabla) */}
                   {activa === key && (
-                    <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 rounded-lg bg-slate-900 px-2 py-1 text-xs whitespace-nowrap text-white shadow first-letter:uppercase">
+                    <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 -translate-x-1/2 rounded-lg bg-slate-900 px-2 py-1 text-xs whitespace-nowrap text-slate-50 shadow first-letter:uppercase">
                       {etiqueta}
                     </div>
                   )}

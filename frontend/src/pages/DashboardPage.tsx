@@ -8,7 +8,7 @@ import { SemanaWidget } from '../components/dashboard/SemanaWidget'
 import { HorarioWidget } from '../components/horario/HorarioWidget'
 import { BookIcon, CalendarIcon, CheckIcon, ChecklistIcon } from '../components/icons'
 import { Button } from '../components/ui/Button'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useApiHealth } from '../hooks/useApiHealth'
 import { useDashboard } from '../hooks/useDashboard'
 import type { DashboardResponse } from '../types/api'
@@ -71,7 +71,7 @@ function ParaEmpezar({ resumen }: { resumen: DashboardResponse['resumen'] }) {
               to={to}
               className={[
                 'group flex h-full gap-4 rounded-2xl border p-4 transition md:p-5',
-                hecho ? 'border-emerald-200 bg-emerald-50/50' : 'border-slate-200 bg-white hover:border-brand-200 hover:shadow-sm',
+                hecho ? 'border-emerald-200 bg-emerald-50/50' : 'border-slate-200 bg-superficie hover:border-brand-200 hover:shadow-sm',
               ].join(' ')}
             >
               <div
@@ -104,10 +104,10 @@ export function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 p-5 text-white shadow-sm md:p-8">
-        <p className="text-sm font-medium capitalize text-brand-100">{today}</p>
+      <section className="rounded-2xl bg-gradient-to-br from-primario to-primario-oscuro p-5 text-white shadow-sm md:p-8">
+        <p className="text-sm font-medium capitalize text-white/80">{today}</p>
         <h2 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">¡Hola, {nombre}! ¿Qué toca estudiar hoy?</h2>
-        <p className="mt-2 max-w-xl text-brand-100">
+        <p className="mt-2 max-w-xl text-white/80">
           Organiza tus asignaturas y exámenes y deja que la app reparta las horas de estudio por ti.
         </p>
       </section>
@@ -121,9 +121,7 @@ export function DashboardPage() {
         </div>
       )}
       {!error && !data && (
-        <div className="grid min-h-40 place-items-center text-slate-400">
-          <Spinner />
-        </div>
+        <Cargando variante="tarjetas" cantidad={3} />
       )}
 
       {data && (

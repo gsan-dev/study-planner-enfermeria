@@ -57,6 +57,13 @@ export function AppLayout() {
 
   return (
     <NotificacionesProvider>
+      {/* Teclado: primer elemento al pulsar Tab, salta el menú y va al contenido. */}
+      <a
+        href="#contenido"
+        className="sr-only rounded-xl bg-superficie px-4 py-3 font-semibold text-slate-900 shadow-lg focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50"
+      >
+        Saltar al contenido
+      </a>
       <div className="flex min-h-dvh">
         <Sidebar collapsed={collapsed} onToggleCollapsed={toggleCollapsed} />
         <MobileDrawer open={drawerOpen} onClose={closeDrawer} />
@@ -66,8 +73,9 @@ export function AppLayout() {
           <StatusBanners />
 
           {/* pb-24 deja hueco para la barra inferior del móvil. */}
-          <main className="flex-1 pt-4 pr-[max(1rem,env(safe-area-inset-right))] pb-24 pl-[max(1rem,env(safe-area-inset-left))] md:px-6 md:pt-6 md:pb-8 xl:px-8 2xl:px-12">
-            <div className="mx-auto w-full max-w-7xl 2xl:max-w-[1600px]">
+          <main id="contenido" tabIndex={-1} className="flex-1 outline-none pt-4 pr-[max(1rem,env(safe-area-inset-right))] pb-24 pl-[max(1rem,env(safe-area-inset-left))] md:px-6 md:pt-6 md:pb-8 xl:px-8 2xl:px-12">
+            {/* key: cada página entra con una animación suave */}
+            <div key={pathname} className="animate-entrada mx-auto w-full max-w-7xl 2xl:max-w-[1600px]">
               <Outlet />
             </div>
           </main>

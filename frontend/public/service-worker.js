@@ -20,6 +20,7 @@ const PRECACHE_URLS = [
   '/index.html',
   '/manifest.json',
   '/favicon.svg',
+  '/tema.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/apple-touch-icon.png',

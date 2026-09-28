@@ -31,7 +31,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
       <div
         onClick={onClose}
         className={[
-          'absolute inset-0 bg-slate-900/40 transition-opacity duration-200',
+          'absolute inset-0 bg-black/50 transition-opacity duration-200',
           open ? 'opacity-100' : 'opacity-0',
         ].join(' ')}
       />
@@ -41,7 +41,7 @@ export function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         aria-label="Menú"
         inert={!open}
         className={[
-          'absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-white pt-safe pb-safe pl-safe shadow-xl transition-transform duration-200 ease-out',
+          'absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-superficie pt-safe pb-safe pl-safe shadow-xl transition-transform duration-200 ease-out',
           open ? 'translate-x-0' : '-translate-x-full',
         ].join(' ')}
       >

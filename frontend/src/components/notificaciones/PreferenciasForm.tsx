@@ -45,15 +45,15 @@ export function PreferenciasForm() {
   }
 
   return (
-    <section aria-labelledby="que-avisos" className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 md:p-5">
-      <h3 id="que-avisos" className="font-semibold text-slate-900">
+    <section aria-labelledby="que-avisos" className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 md:p-5">
+      <h2 id="que-avisos" className="font-semibold text-slate-900">
         Qué avisos quieres recibir
-      </h3>
+      </h2>
       {!valores ? (
         error ? (
           <FormError message={error} />
         ) : (
-          <div className="flex justify-center py-4 text-slate-400">
+          <div className="flex justify-center py-4 text-slate-500">
             <Spinner />
           </div>
         )
@@ -76,11 +76,11 @@ export function PreferenciasForm() {
                       <span className="block text-sm text-slate-600">{texto}</span>
                     </span>
                     <span
-                      className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${activo ? 'bg-brand-700' : 'bg-slate-300'}`}
+                      className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${activo ? 'bg-primario' : 'bg-slate-300'}`}
                       aria-hidden="true"
                     >
                       <span
-                        className={`absolute top-0.5 size-6 rounded-full bg-white shadow transition-[left] ${activo ? 'left-[1.375rem]' : 'left-0.5'}`}
+                        className={`absolute top-0.5 size-6 rounded-full bg-superficie shadow transition-[left] ${activo ? 'left-[1.375rem]' : 'left-0.5'}`}
                       />
                     </span>
                   </button>

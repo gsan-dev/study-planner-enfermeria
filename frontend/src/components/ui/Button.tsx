@@ -4,9 +4,9 @@ import { Spinner } from './Spinner'
 type Variant = 'primary' | 'secondary' | 'danger' | 'ghost'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-brand-700 text-white hover:bg-brand-800 disabled:bg-brand-700/60',
-  secondary: 'border border-slate-300 bg-white text-slate-800 hover:bg-slate-50',
-  danger: 'bg-rose-600 text-white hover:bg-rose-700 disabled:bg-rose-600/60',
+  primary: 'bg-primario text-white hover:bg-primario-hover disabled:bg-primario/60',
+  secondary: 'border border-slate-300 bg-superficie text-slate-800 hover:bg-slate-50',
+  danger: 'bg-peligro text-white hover:bg-peligro-hover disabled:bg-peligro/60',
   ghost: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900',
 }
 

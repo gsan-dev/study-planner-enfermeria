@@ -125,7 +125,7 @@ export function HorarioEditor({ asignaturas, onSaved }: HorarioEditorProps) {
             type="checkbox"
             checked={showWeekend}
             onChange={(e) => setShowWeekend(e.target.checked)}
-            className="size-4 accent-brand-700"
+            className="size-4 accent-primario"
           />
           Fin de semana
         </label>
@@ -137,7 +137,7 @@ export function HorarioEditor({ asignaturas, onSaved }: HorarioEditorProps) {
         </p>
       )}
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-2 sm:p-3">
+      <div className="rounded-2xl border border-slate-200 bg-superficie p-2 sm:p-3">
         {!hayClases && (
           <p className="px-2 pt-1 pb-3 text-sm text-slate-600">
             Toca un hueco de la tabla para añadir una clase, o escanea una foto o PDF de tu horario.
@@ -159,7 +159,7 @@ export function HorarioEditor({ asignaturas, onSaved }: HorarioEditorProps) {
       {horario.dirty && (
         // Sticky: queda pegada abajo (encima de la barra de navegación en móvil) mientras se ve el editor.
         <div className="sticky bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-20 md:bottom-4">
-          <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-slate-200 bg-white/95 p-2 pl-4 shadow-lg backdrop-blur">
+          <div className="mx-auto flex max-w-3xl items-center gap-2 rounded-2xl border border-slate-200 bg-superficie/95 p-2 pl-4 shadow-lg backdrop-blur">
             <p className="mr-auto text-sm font-medium text-slate-700">Cambios sin guardar</p>
             <Button variant="ghost" onClick={horario.descartar} disabled={saving}>
               Descartar
@@ -172,8 +172,8 @@ export function HorarioEditor({ asignaturas, onSaved }: HorarioEditorProps) {
       )}
 
       {scanning && (
-        <div role="status" className="fixed inset-0 z-50 grid place-items-center bg-slate-900/40 p-6">
-          <div className="flex max-w-xs flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-xl">
+        <div role="status" className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-6">
+          <div className="flex max-w-xs flex-col items-center gap-3 rounded-2xl bg-superficie p-6 text-center shadow-xl">
             <Spinner className="size-8 text-brand-700" />
             <p className="font-semibold text-slate-900">Leyendo tu horario…</p>
             <p className="text-sm text-slate-600">Puede tardar hasta un minuto.</p>

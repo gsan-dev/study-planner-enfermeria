@@ -26,15 +26,15 @@ export function HorarioWidget() {
           Tu horario
         </h3>
         {entries.length > 0 && (
-          <Link to="/horario" className="text-sm font-semibold text-brand-700 hover:underline">
+          <Link to="/horario" className="inline-flex min-h-11 min-w-11 items-center justify-center text-sm font-semibold text-brand-700 hover:underline">
             Editar
           </Link>
         )}
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-2 sm:p-3">
+      <div className="rounded-2xl border border-slate-200 bg-superficie p-2 sm:p-3">
         {status === 'loading' && (
-          <div className="grid h-48 place-items-center text-slate-400">
+          <div className="grid h-48 place-items-center text-slate-500">
             <Spinner />
           </div>
         )}
@@ -50,7 +50,7 @@ export function HorarioWidget() {
             </div>
             <Link
               to="/horario"
-              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-primario px-4 text-sm font-semibold text-white hover:bg-primario-hover"
             >
               <CameraIcon className="size-5" />
               Crear mi horario

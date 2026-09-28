@@ -24,7 +24,7 @@ function Casilla({ hecho, color }: { hecho: boolean; color: string }) {
     <span
       className={[
         'grid size-6 shrink-0 place-items-center rounded-lg border-2 text-white transition-colors',
-        hecho ? 'border-transparent' : 'border-slate-300 bg-white',
+        hecho ? 'border-transparent' : 'border-slate-300 bg-superficie',
       ].join(' ')}
       style={hecho ? { backgroundColor: color } : undefined}
     >
@@ -91,12 +91,12 @@ export function HoyWidget({ hoy, onLocalChange, onSaved }: HoyWidgetProps) {
         <h3 id="que-estudiar" className="text-sm font-semibold tracking-wide text-slate-500 uppercase">
           ¿Qué estudiar hoy?
         </h3>
-        <Link to="/agenda" className="text-sm font-semibold text-brand-700 hover:underline">
+        <Link to="/agenda" className="inline-flex min-h-11 items-center text-sm font-semibold text-brand-700 hover:underline">
           Agenda
         </Link>
       </div>
 
-      <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4">
+      <div className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-superficie p-4">
         {hoy.sesiones.length > 0 && (
           <div>
             <div className="flex items-baseline justify-between gap-2">
@@ -121,7 +121,7 @@ export function HoyWidget({ hoy, onLocalChange, onSaved }: HoyWidgetProps) {
                     >
                       <Casilla hecho={s.completado} color={color} />
                       <span className="min-w-0 flex-1">
-                        <span className={`block ${s.completado ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{s.tema}</span>
+                        <span className={`block ${s.completado ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{s.tema}</span>
                         <span className="flex items-center gap-1.5 text-xs text-slate-500">
                           <span className="size-2 rounded-full" style={{ backgroundColor: color }} aria-hidden="true" />
                           {s.asignatura?.nombre}
@@ -153,7 +153,7 @@ export function HoyWidget({ hoy, onLocalChange, onSaved }: HoyWidgetProps) {
                     className="flex min-h-11 w-full cursor-pointer items-center gap-3 rounded-xl px-2 text-left hover:bg-slate-50 disabled:cursor-wait"
                   >
                     <Casilla hecho={t.hecho} color="#0f766e" />
-                    <span className={`min-w-0 flex-1 ${t.hecho ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{t.texto}</span>
+                    <span className={`min-w-0 flex-1 ${t.hecho ? 'text-slate-500 line-through' : 'text-slate-800'}`}>{t.texto}</span>
                     {t.hora && (
                       <span className="inline-flex shrink-0 items-center gap-1 text-sm text-slate-500 tabular-nums">
                         <ClockIcon className="size-4" />
@@ -186,7 +186,7 @@ export function HoyWidget({ hoy, onLocalChange, onSaved }: HoyWidgetProps) {
             </div>
             <Link
               to="/plan"
-              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-semibold text-white hover:bg-brand-800"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-primario px-4 text-sm font-semibold text-white hover:bg-primario-hover"
             >
               Ir al plan de estudio
             </Link>

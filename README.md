@@ -123,6 +123,20 @@ frontend/
     types/       tipos de los modelos y del API
 ```
 
+### Modo oscuro
+
+No se usan variantes `dark:` clase a clase: en `src/index.css`, con
+`data-tema="oscuro"` en `<html>`, se **redefinen los colores de la paleta**
+(los grises se invierten y los tintes de rojo, ámbar, verde y marca se
+oscurecen o aclaran según sean de fondo o de texto). Para lo que no encaja en
+ese esquema hay tokens semánticos: `bg-superficie` (tarjetas y modales),
+`bg-primario` y `bg-peligro` (botones con texto blanco) y los colores de los
+gráficos (`--color-grafico-*`). **En código nuevo, usa `bg-superficie` en vez de
+`bg-white`** y no escribas colores fijos en `style` salvo el de cada asignatura.
+
+`public/tema.js` aplica el tema antes de pintar (no hay destello), y
+`src/lib/tema.ts` lo cambia desde la app (Claro / Oscuro / Automático).
+
 ### Breakpoints
 
 | Prefijo  | Desde  | Dispositivo            | Navegación                   |

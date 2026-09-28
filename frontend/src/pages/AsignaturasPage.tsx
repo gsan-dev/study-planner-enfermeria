@@ -18,7 +18,7 @@ const TABS: { value: FiltroArchivadas; label: string }[] = [
 
 function SkeletonCard() {
   return (
-    <div className="animate-pulse rounded-2xl border border-slate-200 bg-white p-5">
+    <div className="animate-pulse rounded-2xl border border-slate-200 bg-superficie p-5">
       <div className="h-5 w-2/3 rounded bg-slate-200" />
       <div className="mt-3 h-4 w-1/3 rounded bg-slate-100" />
       <div className="mt-6 h-2 rounded bg-slate-100" />
@@ -93,8 +93,8 @@ export function AsignaturasPage() {
               aria-selected={filtro === tab.value}
               onClick={() => setFiltro(tab.value)}
               className={[
-                'min-h-9 cursor-pointer rounded-lg px-4 text-sm font-semibold transition-colors',
-                filtro === tab.value ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+                'min-h-11 cursor-pointer rounded-lg px-4 text-sm font-semibold transition-colors',
+                filtro === tab.value ? 'bg-superficie text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
               ].join(' ')}
             >
               {tab.label}
@@ -105,7 +105,7 @@ export function AsignaturasPage() {
           <div className="flex flex-wrap gap-2">
             <Link
               to="/horario"
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-superficie px-4 text-sm font-semibold text-slate-800 hover:bg-slate-50"
             >
               <TableIcon className="size-5" />
               Horario semanal
@@ -119,7 +119,7 @@ export function AsignaturasPage() {
       </div>
 
       {status === 'loading' && (
-        <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <SkeletonCard />
           <SkeletonCard />
         </div>
@@ -165,7 +165,7 @@ export function AsignaturasPage() {
 
       {status === 'ready' && asignaturas.length > 0 && (
         // 1 columna en móvil/tablet, 2 en escritorio, 3 en pantallas grandes.
-        <div className="grid items-start gap-4 lg:grid-cols-2 2xl:grid-cols-3">
+        <div className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
           {asignaturas.map((asignatura) => (
             <AsignaturaCard
               key={asignatura._id}

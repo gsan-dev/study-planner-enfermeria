@@ -7,7 +7,7 @@ import { DispositivoPush } from '../components/notificaciones/DispositivoPush'
 import { IconoTipo } from '../components/notificaciones/IconoTipo'
 import { PreferenciasForm } from '../components/notificaciones/PreferenciasForm'
 import { Button, IconButton } from '../components/ui/Button'
-import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { useCarga } from '../hooks/useCarga'
 import { useNotificaciones } from '../hooks/notificacionesContext'
 import { haceTiempo } from '../lib/tiempo'
@@ -62,8 +62,8 @@ export function NotificacionesPage() {
                 aria-selected={soloNoLeidas === t.valor}
                 onClick={() => setSoloNoLeidas(t.valor)}
                 className={[
-                  'min-h-9 cursor-pointer rounded-lg px-4 text-sm font-semibold transition-colors',
-                  soloNoLeidas === t.valor ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+                  'min-h-11 cursor-pointer rounded-lg px-4 text-sm font-semibold transition-colors',
+                  soloNoLeidas === t.valor ? 'bg-superficie text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
                 ].join(' ')}
               >
                 {t.label}
@@ -76,14 +76,12 @@ export function NotificacionesPage() {
             </Button>
           )}
         </div>
-        <h3 id="historial" className="sr-only">
+        <h2 id="historial" className="sr-only">
           Historial de notificaciones
-        </h3>
+        </h2>
 
         {!data ? (
-          <div className="grid h-40 place-items-center text-slate-400">
-            <Spinner />
-          </div>
+          <Cargando variante="lista" cantidad={5} />
         ) : data.notificaciones.length === 0 ? (
           <div className="grid min-h-60 place-items-center rounded-2xl border border-dashed border-slate-300 p-6 text-center">
             <div>
@@ -95,14 +93,14 @@ export function NotificacionesPage() {
             </div>
           </div>
         ) : (
-          <ul className={`flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white ${cargando ? 'opacity-60' : ''}`}>
+          <ul className={`flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-superficie ${cargando ? 'opacity-60' : ''}`}>
             {data.notificaciones.map((n) => (
               <li key={n._id} className={`flex gap-3 border-b border-slate-100 p-3 last:border-b-0 md:p-4 ${n.leida ? '' : 'bg-brand-50/40'}`}>
                 <IconoTipo tipo={n.tipo} />
                 <button type="button" onClick={() => abrir(n)} className="min-w-0 flex-1 cursor-pointer text-left">
                   <span className={`block ${n.leida ? 'text-slate-800' : 'font-semibold text-slate-900'}`}>{n.titulo}</span>
                   <span className="block text-sm text-slate-600">{n.mensaje}</span>
-                  <span className="mt-0.5 block text-xs text-slate-400" title={format(new Date(n.createdAt), "d 'de' MMMM, HH:mm", { locale: es })}>
+                  <span className="mt-0.5 block text-xs text-slate-500" title={format(new Date(n.createdAt), "d 'de' MMMM, HH:mm", { locale: es })}>
                     {haceTiempo(n.createdAt)}
                   </span>
                 </button>

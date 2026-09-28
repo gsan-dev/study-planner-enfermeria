@@ -75,21 +75,21 @@ export function DispositivoPush() {
   }
 
   return (
-    <section aria-labelledby="este-dispositivo" className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-4 md:p-5">
+    <section aria-labelledby="este-dispositivo" className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 md:p-5">
       <div className="flex items-start gap-3">
         <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-700" aria-hidden="true">
           <BellIcon className="size-6" />
         </span>
         <div className="min-w-0">
-          <h3 id="este-dispositivo" className="font-semibold text-slate-900">
+          <h2 id="este-dispositivo" className="font-semibold text-slate-900">
             Notificaciones en este dispositivo
-          </h3>
+          </h2>
           <p className="text-sm text-slate-600">Te llegan aunque la app esté cerrada, como las de cualquier otra app.</p>
         </div>
       </div>
 
       {estado === null && (
-        <div className="flex justify-center py-2 text-slate-400">
+        <div className="flex justify-center py-2 text-slate-500">
           <Spinner />
         </div>
       )}

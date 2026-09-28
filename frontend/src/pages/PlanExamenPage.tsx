@@ -13,6 +13,7 @@ import { PlanEditor, type PlanEditorGuardar } from '../components/plan/PlanEdito
 import { Button } from '../components/ui/Button'
 import { ConfirmDialog } from '../components/ui/ConfirmDialog'
 import { Spinner } from '../components/ui/Spinner'
+import { Cargando } from '../components/ui/Skeleton'
 import { cuentaAtras, diaKey, diaLocal, diasHasta, hoyKey, toDiaKey } from '../lib/fechas'
 import { sumaHoras } from '../lib/plan'
 import { getErrorMessage } from '../services/api'
@@ -80,8 +81,9 @@ export function PlanExamenPage() {
   }
   if (!datos) {
     return (
-      <div className="grid min-h-[40vh] place-items-center text-slate-400">
-        <Spinner />
+      <div className="flex flex-col gap-5">
+        <Cargando variante="bloque" />
+        <Cargando variante="tarjetas" cantidad={4} />
       </div>
     )
   }
@@ -225,12 +227,12 @@ export function PlanExamenPage() {
 
   return (
     <div className="flex flex-col gap-5">
-      <Link to="/plan" className="-mb-2 self-start text-sm font-semibold text-brand-700 hover:underline">
+      <Link to="/plan" className="-mb-2 self-start inline-flex min-h-11 items-center text-sm font-semibold text-brand-700 hover:underline">
         ← Todos los planes
       </Link>
 
       {/* Examen */}
-      <section className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-4 md:p-5">
+      <section className="flex gap-4 rounded-2xl border border-slate-200 bg-superficie p-4 md:p-5">
         <div className="w-1.5 shrink-0 rounded-full" style={{ backgroundColor: color }} aria-hidden="true" />
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium text-slate-600">{examen.asignatura?.nombre}</p>
@@ -284,7 +286,7 @@ export function PlanExamenPage() {
               <button
                 type="button"
                 onClick={() => empezarEditar([])}
-                className="flex cursor-pointer flex-col gap-1 rounded-2xl border border-slate-200 bg-white p-5 text-left transition hover:border-slate-300 hover:shadow-sm"
+                className="flex cursor-pointer flex-col gap-1 rounded-2xl border border-slate-200 bg-superficie p-5 text-left transition hover:border-slate-300 hover:shadow-sm"
               >
                 <span className="text-xs font-semibold tracking-wide text-slate-500 uppercase">A tu manera</span>
                 <span className="text-lg font-semibold text-slate-900">Crear manual</span>
@@ -307,8 +309,8 @@ export function PlanExamenPage() {
             </Button>
           </div>
 
-          <details className="group rounded-2xl border border-slate-200 bg-white p-4" open={Boolean(generarError)}>
-            <summary className="flex min-h-9 cursor-pointer list-none items-center justify-between font-semibold text-slate-800">
+          <details className="group rounded-2xl border border-slate-200 bg-superficie p-4" open={Boolean(generarError)}>
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-semibold text-slate-800">
               Ajustar parámetros
               <span className="text-sm font-normal text-slate-500 group-open:hidden">Horas al día, descansos, repaso…</span>
             </summary>
@@ -330,7 +332,7 @@ export function PlanExamenPage() {
             </p>
           )}
           {generando && !preview && (
-            <div className="grid min-h-40 place-items-center text-slate-400">
+            <div className="grid min-h-40 place-items-center text-slate-500">
               <Spinner />
             </div>
           )}
@@ -344,7 +346,7 @@ export function PlanExamenPage() {
                   ['Horas libres', formatHoras(preview.resumen.horasDisponibles)],
                   ['Temas', `${preview.resumen.temasEstudio} + ${preview.resumen.temasRepaso} repasos`],
                 ].map(([label, valor]) => (
-                  <div key={label} className="rounded-2xl border border-slate-200 bg-white p-3">
+                  <div key={label} className="rounded-2xl border border-slate-200 bg-superficie p-3">
                     <p className="text-xs text-slate-500">{label}</p>
                     <p className="text-lg font-semibold text-slate-900">{valor}</p>
                   </div>
@@ -359,7 +361,7 @@ export function PlanExamenPage() {
                 Vista previa: aún no se ha guardado. Los temas difíciles tienen más tiempo y los repasos van al final.
               </p>
               <PlanAgenda sesiones={preview.plan.diasPlan} temas={temasPorId} color={color} />
-              <div className="sticky bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-10 flex gap-2 rounded-2xl border border-slate-200 bg-white/95 p-3 shadow-lg backdrop-blur sm:justify-end md:bottom-4">
+              <div className="sticky bottom-[calc(5.5rem+env(safe-area-inset-bottom))] z-10 flex gap-2 rounded-2xl border border-slate-200 bg-superficie/95 p-3 shadow-lg backdrop-blur sm:justify-end md:bottom-4">
                 <Button variant="secondary" onClick={() => empezarEditar(preview.plan.diasPlan)} disabled={guardando} className="flex-1 sm:flex-none">
                   <PencilIcon className="size-5" />
                   Retocar a mano
@@ -424,7 +426,7 @@ export function PlanExamenPage() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-4">
+          <div className="rounded-2xl border border-slate-200 bg-superficie p-4">
             <div className="flex items-baseline justify-between text-sm">
               <span className="text-slate-600">
                 {formatHoras(horasHechas)} de {formatHoras(totalHoras)} estudiadas
