@@ -62,4 +62,6 @@ export const env = Object.freeze({
   // Solo para pruebas: orígenes extra aceptados como endpoint de push (separados por comas).
   pushEndpointsExtra: (process.env.PUSH_ENDPOINTS_EXTRA || '').split(',').map((o) => o.trim()).filter(Boolean),
   notificacionesIntervaloMin: Math.max(1, toInt(process.env.NOTIFICACIONES_INTERVALO_MIN, 5)),
+  // Cuentas de demostración (emails separados por comas): no pueden cambiar su nombre ni su email.
+  demoEmails: (process.env.DEMO_EMAILS || '').split(',').map((e) => e.trim().toLowerCase()).filter(Boolean),
 });

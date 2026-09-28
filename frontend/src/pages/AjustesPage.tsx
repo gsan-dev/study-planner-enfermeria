@@ -110,13 +110,19 @@ export function AjustesPage() {
                 <p className="text-sm text-slate-500">{etiqueta}</p>
                 <p className="truncate font-medium text-slate-900">{valor}</p>
               </div>
-              <Button variant="secondary" onClick={() => setCambiando(dato)} aria-label={`Cambiar ${etiqueta.toLowerCase()}`}>
-                Cambiar
-              </Button>
+              {!user.demo && (
+                <Button variant="secondary" onClick={() => setCambiando(dato)} aria-label={`Cambiar ${etiqueta.toLowerCase()}`}>
+                  Cambiar
+                </Button>
+              )}
             </li>
           ))}
         </ul>
-        <p className="text-xs text-slate-500">Para cambiar el nombre o el email te pediremos la contraseña.</p>
+        <p className="text-xs text-slate-500">
+          {user.demo
+            ? 'Es la cuenta demo: el nombre y el email no se pueden cambiar.'
+            : 'Para cambiar el nombre o el email te pediremos la contraseña.'}
+        </p>
       </section>
 
       <section aria-labelledby="estudio" className="rounded-2xl border border-slate-200 bg-superficie p-5 md:p-6">

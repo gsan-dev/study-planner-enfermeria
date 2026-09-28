@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
+import { env } from '../config/env.js';
 
 const SALT_ROUNDS = 12;
 
@@ -46,6 +47,7 @@ const userSchema = new mongoose.Schema(
       transform: (_doc, ret) => {
         delete ret.password;
         delete ret.__v;
+        if (env.demoEmails.includes(ret.email)) ret.demo = true;
         return ret;
       },
     },

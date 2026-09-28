@@ -16,6 +16,8 @@ export interface User extends Timestamps {
   /** Foto de perfil como data URL (JPEG de 256 px). */
   foto?: string
   horasEstudioDiarias: number
+  /** Cuenta de demostración: no puede cambiar su nombre ni su email. */
+  demo?: boolean
 }
 
 /** 0 = domingo ... 6 = sábado */

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { env } from '../config/env.js';
 import { AppError } from '../utils/AppError.js';
 import { verifyToken } from '../utils/jwt.js';
 
@@ -27,4 +28,12 @@ export function requireAuth(req, _res, next) {
     }
     return next(AppError.unauthorized('Token inválido'));
   }
+}
+
+/** Rechaza la petición si es de una cuenta demo (DEMO_EMAILS). Va después de `requireAuth`. */
+export function bloquearDemo(req, _res, next) {
+  if (env.demoEmails.includes(req.user.email?.toLowerCase())) {
+    return next(new AppError('En la cuenta demo no se puede cambiar el nombre ni el email', 403, { code: 'DEMO_BLOQUEADO' }));
+  }
+  return next();
 }
