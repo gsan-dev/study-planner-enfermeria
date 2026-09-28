@@ -1,4 +1,4 @@
-# Study Planner · Enfermería
+# Study Planner
 
 **Planificador de estudio para estudiantes de Enfermería:** organiza asignaturas,
 horario, exámenes y temario, **genera un plan día a día hasta cada examen** según
